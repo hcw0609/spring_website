@@ -59,8 +59,6 @@
             fn_fileDelete($(this));
             
            var tagid = $(this).attr('id');
-           alert(tagid);
-           
            $.ajax({
    			url : "/board/modifyDelete",
    			type : "post",
