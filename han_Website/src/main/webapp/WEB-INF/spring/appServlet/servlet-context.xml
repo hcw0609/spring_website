@@ -37,6 +37,7 @@
 		  <beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
 	
+	<!-- 비로그인 유저가 글쓰기를 누르면 로그인화면으로 나간다. -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/board/create"/>
