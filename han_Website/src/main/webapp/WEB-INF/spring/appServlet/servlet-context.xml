@@ -37,5 +37,12 @@
 		  <beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/create"/>
+			<beans:bean class="com.test.util.UserInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
+	
 	
 </beans:beans>

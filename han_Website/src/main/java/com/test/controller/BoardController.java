@@ -280,11 +280,11 @@ public class BoardController {
 		UserDTO login = service1.login(userdto);
 				
 		if( login == null) {
-				return  "redirect:/board/login";
+			return "redirect:/board/list";
 		} else {
 			//"User" 이라는 이름으로 login을 세션에 바인딩 시킨다. 
 			hs.setAttribute("User", login);
-				return "redirect:/board/list";
+			return "redirect:/board/list";
 		}		
 	}
 	
@@ -576,6 +576,15 @@ public class BoardController {
     @RequestMapping(value = "/Wrong_approach" , method=RequestMethod.GET )
     public void Wrong_approach() throws Exception {
     	
+    }
+    
+    
+    // 글 쓰기, 수정, 삭제시 로그인 필요
+    @RequestMapping(value = "/needlogin" , method=RequestMethod.GET )
+    public ModelAndView Need_Login() throws Exception {
+    	ModelAndView mv = new ModelAndView("/board/login");
+    	
+    	return mv;	
     }
     
 }

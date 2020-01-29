@@ -18,14 +18,13 @@
 
 <div class="container">
     <div class="main">
-        <div class="panel panel-success">
         
-            <div class="panel-heading">
-                <div class="panel-title">로그인</div>
+            <div>
+                <label class="text_title" style="margin-bottom: .0rem;">로그인</label>
             </div>
             
             <div class="panel-body">
-                <form id="LoginForm" method="POST">
+                <form id="LoginForm" method="POST" action="/board/login">
 
                     <div>
                         <input type="text" class="form-control" name="ID" placeholder="ID" autofocus>
@@ -37,13 +36,13 @@
 
                     <div>
                         <button type="submit" class="form-control btn btn-primary btn-dark btnmargin2">로그인</button> <br>
+                        <button type="submit" class="form-control btn btn-primary btn-dark btnmargin2">비로그인</button> <br>
                         <button type="button" class="form-control btn btn-primary btn-dark btnmargin2" onclick="location.href='/board/register'">회원가입</button>
                     </div>
                     
                 </form>
             </div>
             
-        </div>
     </div>
 </div>
 
