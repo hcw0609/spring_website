@@ -1,0 +1,44 @@
+
+	html{
+		 height: 100%;
+	}
+
+
+    body {
+        background: #fcfafa;
+        display: table;
+    	margin: 0 auto;
+        height: 100%;
+    }
+    
+    
+    .container
+	{
+    	height: 100%;
+    	display: table-cell;
+    	vertical-align: middle;
+	}
+ 
+ 
+	.main
+	{
+    	height: auto;
+    	width: 400px;   
+	}
+
+
+    #register > div {
+        margin: 5px 0;
+    }
+    
+    
+    #LoginForm > div {
+        margin: 10px 0;
+    }
+    
+    
+    .btnmargin2 {
+   		margin-bottom: 2px;
+    }
+
+	

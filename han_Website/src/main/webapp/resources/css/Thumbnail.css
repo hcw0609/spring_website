@@ -1,0 +1,10 @@
+.thumbnail{
+      background-color:gray;
+      margin-right:5px;
+      margin-left:5px;
+      width:70px;
+      height:60px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }

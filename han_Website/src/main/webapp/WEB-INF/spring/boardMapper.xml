@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mapper">
+
+	<!-- 
+		#{변수명}  변수명은  jsp의 태그안에 있는 name에 맞추는게 아니다.
+	 -->
+
+	
+	<!-- 게시물 목록
+	<select id="List" resultType="com.test.dto.DbDTO">		
+		SELECT * 		
+		FROM (	
+       		SELECT A.*, ROWNUM AS RNUM, COUNT(*) OVER() AS TOTCNT
+  			FROM( SELECT * FROM han ORDER BY dno desc) A
+  			<include refid="search"/> 
+  			) B 
+  		<![CDATA[
+		WHERE RNUM > #{startIndex} AND RNUM <= #{wow}
+		]]>
+	</select>	
+	-->
+	
+	
+	<!-- 마리아 db 게시물 목록  -->
+	<select id="List" resultType="com.test.dto.DbDTO">		
+		SELECT * 		
+		FROM (	SELECT *  FROM han 
+				<include refid="search"/> ) B 
+  		<![CDATA[
+  		ORDER BY dno desc
+  		LIMIT #{startIndex}, #{pageSize}
+		]]>
+	</select>
+	
+	
+	
+	<!-- 마리아 db 게시물 목록2  -->
+	<select id="Board_List" resultType="com.test.dto.DbDTO">		
+		SELECT * 		
+		FROM (	SELECT *  FROM han 
+				<include refid="search"/> ) B 
+  		<![CDATA[
+  		WHERE category =#{category}
+  		ORDER BY dno desc
+  		LIMIT #{startIndex}, #{pageSize}
+		]]>
+	</select>	
+	
+			
+	<!-- 글 생성
+	<insert id="insert" useGeneratedKeys="true" keyProperty="dno">
+		<selectKey keyProperty="dno" resultType="int" order="BEFORE">
+			select han_sequence.nextval from dual
+		</selectKey>
+		insert into han (dno, title, content, writer, regdate, imageyn ) 
+		values ( han_sequence.currval, #{title}, #{content, jdbcType=VARCHAR}, #{writer}, TO_CHAR(now(),'YYYY/MM/DD'), #{imageyn} )
+	</insert>
+	-->
+	
+	
+	<!-- 마리아 db 글 생성 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="dno">
+		insert into han ( title, content, writer, regdate, imageyn, thumbnail, category ) 
+		values (  #{title}, #{content, jdbcType=VARCHAR}, #{writer}, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y.%m.%d') ,#{imageyn}, #{thumbnail}, #{category} )
+	</insert>
+	
+		
+	<!-- 글 읽기 -->
+	<select id="read" resultType="com.test.dto.DbDTO">
+		select * from han where dno = #{no}
+	</select>
+	
+	
+	<!-- 글 수정 -->
+	<update id="modify">
+		update han set title=#{title}, writer=#{writer}, content=#{content}, imageyn=#{imageyn}, thumbnail=#{thumbnail}, category=#{category}  where dno=#{dno}
+	</update>
+	
+	
+	<!-- 글 삭제 -->
+	<delete id="delete">
+		delete from han where dno = #{no}
+	</delete>
+	
+	
+	<!-- 조회수 -->
+	<select id="viewcnt" resultType="com.test.dto.DbDTO">
+		update han set viewcnt = viewcnt + 1  where dno = #{no}
+	</select>
+	
+	
+	<!-- 총  갯수 -->
+	<select id="getBoardListCnt" resultType="int">
+		select count(*) from han <include refid="search"/>
+	</select>
+	
+	
+	<!-- 총 갯수 2 -->
+	<select id="getBoardListCnt2" resultType="int">
+		select count(*)
+		from ( select * from han where category =#{category} ) b
+		<include refid="search"/>
+	</select>
+	
+	
+	<!-- Oracle db 검색 
+	<sql id="search">
+  		<if test="searchType=='title' and keyword != null and keyword != '' ">where title like '%' || #{keyword} || '%'</if>
+  		<if test="searchType=='content' and keyword != null and keyword != '' ">where content like '%' || #{keyword} || '%'</if>
+  		<if test="searchType=='writer' and keyword != null and keyword != '' ">where writer like '%' || #{keyword} || '%'</if>
+	</sql>
+	-->
+	
+	
+	<!-- 마리아 db 검색 -->
+	<sql id="search">
+  		<if test="searchType=='title' and keyword != null and keyword != '' ">where title like CONCAT('%',#{keyword},'%')</if>
+  		<if test="searchType=='content' and keyword != null and keyword != '' ">where content like CONCAT('%',#{keyword},'%')</if>
+  		<if test="searchType=='writer' and keyword != null and keyword != '' ">where writer like CONCAT('%',#{keyword},'%')</if>
+	</sql>
+	
+	
+	
+	<!-- 회원가입	-->
+	<insert id="register">
+     	insert into han_user values(#{ID}, #{NAME}, #{PASSWORD})   
+    </insert>
+	  
+	  
+	<!-- 로그인 -->
+	<select id="login" resultType="com.test.dto.UserDTO">
+ 		select *
+ 		from han_user
+ 		where ID = #{ID} and PASSWORD = #{PASSWORD}
+	</select>
+	
+	
+	<!-- ID 중복체크 -->
+	<select id="overLap" resultType="int">
+ 		select count(ID)
+ 		from han_user
+ 		where ID = #{ID}
+	</select>
+
+
+
+	<!-- 파일 업로드  
+	<insert id="insertFile" parameterType="hashMap">
+		insert into mp_file (
+			file_no,
+			dno,
+			org_file_name,
+			stored_file_name,
+			file_size
+		) values (
+			seq_tb_file_idx.NEXTVAL,
+			#{dno},
+			#{org_file_name},
+			#{stored_file_name},
+			#{file_size}
+		)
+	</insert>
+	-->
+	
+	
+	<!-- 마리아 db 파일 업로드 -->
+	<insert id="insertFile" parameterType="hashMap">
+		insert into mp_file (
+			dno,
+			org_file_name,
+			stored_file_name,
+			file_size
+		) values (			
+			#{dno},
+			#{org_file_name},
+			#{stored_file_name},
+			#{file_size}
+		)
+	</insert>
+	
+		
+	<!-- 파일 조회 -->
+	<select id="selectFileList" resultType="com.test.dto.FileDTO">
+	SELECT file_no,
+		   org_file_name,
+		   ROUND(FILE_SIZE/1024,1) AS file_size
+	  FROM mp_file
+	 WHERE dno = #{dno}
+	</select>
+	
+	
+	<!-- 파일 다운로드 -->
+	<select id="selectFileInfo" parameterType="com.test.dto.FileDTO" resultType="com.test.dto.FileDTO">
+	SELECT stored_file_name,
+			org_file_name
+	FROM mp_file
+	WHERE file_no = #{file_no}
+	</select>
+	
+	
+	<!-- 파일을 db에서 삭제 -->
+	<delete id="deleteFile">
+		delete from mp_file where dno=#{dno}
+	</delete>	
+	
+	
+	<!-- 수정폼에서 파일을 db에서 삭제 -->
+	<delete id="modifyDelete">
+		delete from mp_file where file_no=#{tagid}
+	</delete>
+	
+	
+	<!-- 수정폼에서의  파일을 서버에서 삭제 -->
+	<select id="modifyDeleteServer" resultType="String">
+		select stored_file_name
+		from mp_file
+		where  file_no=#{tagid}
+	</select>
+	
+	
+	<!-- 파일을 서버에서 삭제 -->
+	<select id="deleteServer" resultType="String">
+		select stored_file_name
+		from mp_file
+		where dno=#{dno}
+	</select>
+	
+	<!-- 리플 작성
+	<insert id="writeReply">
+	insert into mp_reply( dno, rno, content, writer )
+	values( #{dno}, MP_REPLY_SEQ.NEXTVAL, #{content} , #{writer} )
+	</insert>
+	 -->
+	 
+	
+	<!-- 마리아 db 리플 작성 -->
+	<insert id="writeReply">
+	insert into mp_reply( dno, content, writer)
+	values( #{dno}, #{content} , #{writer})
+	</insert>
+	
+		
+	<!-- 리플 수정 -->
+	<update id="updateReply" parameterType="com.test.dto.ReplyDTO">
+		update mp_reply set content = #{content}
+		where rno = #{rno}
+	</update>
+
+
+	<!-- 리플 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		delete from mp_reply
+		where rno = #{rno}
+	</delete>
+	
+	
+	<!-- 게시글 삭제시 리플도 삭제 -->
+	<delete id="deleteReplyBoard" parameterType="int">
+		delete from mp_reply
+		where dno = #{dno}
+	</delete>
+	
+	
+	<!-- 리플 리스트  -->
+	<select id="commentList" resultType="com.test.dto.ReplyDTO">
+        select *
+        from mp_reply
+        where dno = #{dno}
+    </select>
+    
+    
+    <!--  첨부파일이 존재하는 게시글  -->
+    <update id="file_yes" parameterType="int">
+    	update han set fileyn = 'y' 
+    	where dno = #{dno}
+    </update>
+    
+    
+    <!--  첨부파일이 존재하지 않는 게시글  -->
+	<update id="file_no" parameterType="int">
+    	update han set fileyn = 'n' 
+    	where dno = #{dno}
+    </update>
+    
+    
+    <!-- 파일이 db에 존재하는지 안하는지 -->
+    <select id="file_exist" resultType="int">
+    	select count(*)
+    	from mp_file
+    	where dno = #{dno}
+    </select>
+    
+    
+ 
+	
+</mapper>

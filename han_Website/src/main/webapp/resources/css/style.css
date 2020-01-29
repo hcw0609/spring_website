@@ -1,0 +1,35 @@
+	
+	.container {
+  		width: 1200px;
+  		max-width: none !important;
+  		padding-left:0;
+  		padding-right:0;
+	}
+	
+	
+	body {
+		width : 1200px;
+	 	margin-top: 50px;
+ 		margin-bottom: 50px;
+ 		margin-left: auto;
+ 		margin-right: auto;
+	}
+	
+	.readonly{
+		background-color:#ffffff !important;;
+	}
+
+		
+	.text_title { font-size: 16px; font-weight: bold;}
+	.text_subtitle { font-size: 14px; }
+	.text_etc { font-size: 12px;}
+
+
+	.btn-Logout {padding:.0rem .0rem;font-size:.6rem; border-radius:.1rem}
+	
+	.btn-reply-MD { padding: .1rem .1rem; font-size: 0.6rem; border-radius: .2rem; }
+	
+	.marker {background-color:yellow; font-size: 1.2em;}
+	
+
+	

@@ -1,0 +1,72 @@
+	#topMenu {              /* 메인 메뉴의 스타일 */
+            height: 30px;   /* 메인 메뉴의 높이 30px */
+            width: 1200px;  /* 메인 메뉴의 넓이 1200px */
+    }
+    
+    #topMenu ul {           	/* 메인 메뉴의 스타일 */
+        list-style-type: none;  /* 목록표시 제거  */
+        margin: 0px;            /* margin  0 */
+        padding: 0px;           /* padding 0 */
+    }
+    
+    #topMenu ul li {         	    /* 메인 메뉴의 스타일 */
+        color: white;               /* 글씨 색을 흰색으로 설정 */
+        background-color: #2d2d2d;  /* 배경 색을 RGB(2D2D2D)로 설정 */
+        float: left;                /* 왼쪽으로 나열되도록 설정 */
+        line-height: 30px;          /* 텍스트를 싸고 있는 라인의 기본 높이 30px */
+        text-align: center;         /* text 가운데 정렬 */
+        position: relative;         /* 세로로 하위 메뉴를 나열 */
+    }
+    
+    .menuLink, .submenuLink {         	    /* 상위 메뉴와 하위 메뉴의 a 태그에 공통으로 설정할 스타일 */
+        display: block;                     /* a 태그의 클릭 범위를 넓힘 */
+        width: 236.9px;                     /* 기본 넓이를 236.9px로 설정 */
+        font-size: 12px;                    /* 폰트 사이즈를 12px로 설정 */
+        font-weight: bold;                  /* 폰트를 굵게 설정 */
+        font-family: "Trebuchet MS", Dotum; /* 기본 폰트를 영어/한글 순서대로 설정 */
+    }
+    
+    .menuLink {     	/* 상위 메뉴의 글씨색을 흰색으로 설정 */
+        color: white;
+    }
+    
+    .topMenuLi:hover .menuLink {    /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
+        color: red;                 /* 글씨 색 빨간색 */
+        background-color: #4d4d4d;  /* 배경색을 밝은 회색으로 설정 */
+    }
+    
+    .submenuLink {         			 /* 하위 메뉴의 a 태그 스타일 설정 */
+        color: #2d2d2d;              /* 글씨 색을 RGB(2D2D2D)로 설정 */
+        background-color: white;     /* 배경색을 흰색으로 설정 */
+        border: solid 1px black;     /* 테두리를 설정 */
+        margin-top: -1px;            /* 위 칸의 하단 테두리와 아래칸의 상단 테두리가 겹쳐지도록 설덩 */
+    }
+ 
+    
+    .submenu3 {                         /* 하위 메뉴[3칸] 스타일  */
+        position: absolute;             /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        height: 0px;                    /* 초기 높이는 0px로 설정 */
+        overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
+        transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
+    }
+    
+    .submenu4 {                         /* 하위 메뉴[4칸] 스타일  */
+        position: absolute;             /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        height: 0px;                    /* 초기 높이는 0px로 설정 */
+        overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
+        transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
+    }
+    
+    .topMenuLi:hover .submenu3 {  /* 하위 메뉴[3칸]의 높이  */
+        height: 96px;             /* 높이를 96px로 설정, 하위 메뉴가 많아 질수록 크기를 크게 준다. */
+    }
+    
+    .topMenuLi:hover .submenu4 {  /* 하위 메뉴[4칸]의 높이  */
+        height: 130px;            /* 높이를 130px로 설정, 하위 메뉴가 많아 질수록 크기를 크게 준다. */
+    }
+
+    
+    .submenuLink:hover {            /* 하위 메뉴의 a 태그의 마우스 오버 스타일  */
+        color: red;                 /* 글씨색을 빨간색으로 설정 */
+        background-color: #dddddd;  /* 배경을 RGB(DDDDDD)로 설정 */
+    }
