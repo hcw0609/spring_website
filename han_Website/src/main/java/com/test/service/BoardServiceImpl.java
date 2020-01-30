@@ -14,8 +14,8 @@ import com.test.dao.BoardDAO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
-import com.test.paging.Search;
 import com.test.util.FileUtils;
+import com.test.util.Search;
 import com.test.util.Thumbnail;
 
 @Service

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
-import com.test.paging.Search;
+import com.test.util.Search;
 
 public interface BoardDAO {
 

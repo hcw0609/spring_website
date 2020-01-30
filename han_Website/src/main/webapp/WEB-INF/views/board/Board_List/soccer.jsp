@@ -184,12 +184,8 @@
 </c:forEach>
 
 	<!-- 글쓰기 버튼 -->
-	<c:if test="${loginInfo.ID != null}">
-		<button type="button" class="btn btn-sm btn-dark offset-11" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>
-	</c:if>
-	<c:if test="${loginInfo.ID == null}">
-		<button type="button" class="btn btn-sm btn-dark offset-11" id="btnWriteForm" onclick="location.href='/board/create'" disabled>글쓰기</button>
-	</c:if>
+	<button type="button" class="btn btn-sm btn-dark offset-11" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>
+
 	
 	
 	<!-- 페이징 -->

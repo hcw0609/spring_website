@@ -7,7 +7,7 @@
 <script type="text/javascript">
 
 window.alert("${msg}");
-window.history.back();
+window.location.href="/board/login";
 
 </script>
 </head>

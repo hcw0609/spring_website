@@ -58,17 +58,27 @@
 		
 		// 리플 작성
 		$("#replyWriteBtn").on("click", function(){
-			var dno = ${read.dno};
-			var login_writer = $('input[name=login_writer]').val();
-			var reply_content = $('input[name=reply_content]').val();
-			$.ajax({
-				 url : '/board/replyWrite',
-			     type : 'post',
-			     dataType : "json",
-			     data : {'dno':dno, 'writer':login_writer, 'content':reply_content}			 
-			 })		 
-			 commentList();
-			$('input[name=reply_content]').val("");
+			if( $("#reply_content").val() == '' ){
+				alert("내용을 입력해 주세요.");
+			} else {
+				var dno = ${read.dno};
+				var login_writer = $('input[name=login_writer]').val();
+				var reply_content = $('input[name=reply_content]').val();
+				$.ajax({
+					 url : '/board/replyWrite',
+				     type : 'post',
+				     dataType : "json",
+				     data : {'dno':dno, 'writer':login_writer, 'content':reply_content},
+				     success : function(data){ 
+				    	 if(data == "2") {
+				    		 window.location.href="/board/needlogin";
+				    	 } else {
+				    		 commentList();
+				 			$('input[name=reply_content]').val("");
+				    	 }
+				     }
+				 })		 	
+			}			 
 		});			
 	});
 	
@@ -85,8 +95,9 @@
 	            var a =''; 
 	            $.each(data, function(key, value){
 	            	var login_writer = $('input[name=login_writer]').val();
-	            	var writer = value.writer
-	                      	
+	            	var writer = value.writer	               	         
+					
+	            	
 	            	a += '<div class="ReplyArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 					a += '<div class="ReplyInfo'+value.rno+' text_subtitle">'+'작성자 : '+value.writer;     
 	            	if(writer == login_writer) {
@@ -94,7 +105,7 @@
 						a += '&nbsp;&nbsp;<button type="button" class="btn btn-dark btn-reply-MD" name="delete_'+value.rno+'">삭제</button>';
 	            	}
 	            	a += '</div>';
-					a += '<div class="ReplyContent'+value.rno+' text_subtitle"> <p> 내용 : '+value.content +'</p>';
+					a += '<div class="ReplyContent'+value.rno+' text_subtitle" name="'+value.content+'"> <p> 내용 : '+value.content +'</p>';
 					a += '</div></div>';
 	                
 	            });
@@ -122,12 +133,14 @@
 	    			e.preventDefault();
     			
 	    			var rno = $(this).attr('name');
-	    			rno = rno.substring(7);
+	    			rno = rno.substring(7);	    			
+
+	    			var content = $(".ReplyContent"+rno).attr('name');
 	    			
 	    			var a ='';
 	    		    
 	    		    a += '<div class="input-group">';
-	    		    a += '<input type="text" class="form-control" name="reply_content_'+rno+'" value=" "/>';
+	    		    a += '<input type="text" class="form-control" name="reply_content_'+rno+'" value="'+content+'"/>';
 	    		    a += '<span class="input-group-btn">';
 	    		    a += '<button type="button" class="btn btn-dark btn-custom" name="saveModify_'+rno+'">수정</button> </span>';
 	    		    a += '</div>';
@@ -143,7 +156,10 @@
 
 		    			var content = $('[name=reply_content_'+rno+']').val();
 		    			
-		    			 $.ajax({
+		    			if (content == '') {
+		    				alert("내용을 입력해 주세요.");
+		    			} else {
+		    				$.ajax({
 		    			        url : '/board/replyUpdate',
 		    			        type : 'post',
 		    			        dataType : "json",
@@ -152,7 +168,9 @@
 		    			        	//댓글 수정후 목록 출력 
 		    			            if(data == 1) commentList(); 
 		    			        }
-		    			});
+		    				});
+		    			}
+		    			 			 
 		    		});
 	    		});	            
 	        }
@@ -212,7 +230,6 @@
 			</div>
 		</div>
 		<!-- File List -->			
-		
 		
 		<!-- Reply List -->					
 		<div class="container" class="mb-3">

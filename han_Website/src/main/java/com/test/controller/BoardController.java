@@ -37,9 +37,9 @@ import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
 import com.test.dto.UserDTO;
-import com.test.paging.Search;
 import com.test.service.BoardService;
 import com.test.service.UserService;
+import com.test.util.Search;
 import com.test.util.UserCheck;
 
 @Controller
@@ -132,7 +132,7 @@ public class BoardController {
 		if(result == "OK") {
 			return "/board/create";
 		} else if (result == "NullSession") {
-			return "redirect:/board/login";			
+			return "redirect:/board/needlogin";			
 		} else {
 			return "redirect:/board/Wrong_approach";
 		}
@@ -197,7 +197,7 @@ public class BoardController {
 		if(result == "OK") {
 			return "/board/modify";
 		} else if (result == "NullSession") {
-			return "redirect:/board/login";
+			return "redirect:/board/needlogin";
 		} else {
 			return "redirect:/board/Wrong_approach";
 		}
@@ -260,7 +260,7 @@ public class BoardController {
 			service.delete(dto.getDno());		
 			return "redirect:/board/list";
 		} else if (result == "NullSession") {
-			return "redirect:/board/login";
+			return "redirect:/board/needlogin";
 		} else {
 			return "redirect:/board/Wrong_approach";
 		}	
@@ -275,10 +275,10 @@ public class BoardController {
 	
 	// 로그인 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String postLogin(UserDTO userdto, HttpServletRequest hsr) throws Exception{
+	public String postLogin(UserDTO userdto, HttpServletRequest req) throws Exception{
 		
 		// 세션을 가져온다.
-		HttpSession hs = hsr.getSession();
+		HttpSession hs = req.getSession();
 		
 		UserDTO login = service1.login(userdto);
 				
@@ -338,10 +338,10 @@ public class BoardController {
 	
 	// 로그아웃
 	@RequestMapping(value="/logout")
-	public ModelAndView Logout(HttpServletRequest hsr) throws Exception {
+	public ModelAndView Logout(HttpServletRequest req) throws Exception {
 		
 		// User이라는 세션을 제거
-		hsr.getSession().removeAttribute("User");
+		req.getSession().removeAttribute("User");
 		
 		// 모델
 		ModelAndView mav = new ModelAndView("/board/logout"); 
@@ -423,7 +423,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/fileDown", method = RequestMethod.POST)
 	public void fileDown(FileDTO dto,
-					     HttpServletResponse response) throws Exception{
+					     HttpServletResponse res) throws Exception{
 		
 		
 		String originalFileName = service.selectFileInfo(dto).getOrg_file_name();
@@ -440,12 +440,12 @@ public class BoardController {
 		*/
 		
 		
-		response.setContentType("application/octet-stream");
-		response.setContentLength(fileByte.length);
-		response.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
-		response.getOutputStream().write(fileByte);
-		response.getOutputStream().flush();
-		response.getOutputStream().close();	
+		res.setContentType("application/octet-stream");
+		res.setContentLength(fileByte.length);
+		res.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
+		res.getOutputStream().write(fileByte);
+		res.getOutputStream().flush();
+		res.getOutputStream().close();	
 		
 	}
 	
@@ -486,10 +486,24 @@ public class BoardController {
 	// 리플 작성
 	@ResponseBody
 	@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
-	public void replyWrite( ReplyDTO dto) throws Exception {
+	public String replyWrite( ReplyDTO dto, HttpSession hs) throws Exception {
 	
-		// 리플 작성
-		service.writeReply(dto);	
+		// 로그인된 사용자가 누구 인지 확인
+		// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+		UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+				
+		// 로그인유저의 접근 권한 체크
+		// 허락, 로그인 하지 않음, 로그인 유저와 작성자유저의 id가 다름
+		UserCheck usercheck = new UserCheck();
+		String result = usercheck.User_Check(loginInfo);	
+		if(result == "OK") {
+			
+			// 리플 작성
+			service.writeReply(dto);			
+			return "1";	
+		} else {
+			return "2";	
+		}	
 	}
 	
 	
@@ -557,8 +571,7 @@ public class BoardController {
 
         try {
             MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = new MimeMessageHelper(message,
-                    true, "UTF-8");
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
             messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
             messageHelper.setTo(tomail); 		// 받는사람 이메일
@@ -577,17 +590,15 @@ public class BoardController {
     
     // 비정상적인 접근 막기
     @RequestMapping(value = "/Wrong_approach" , method=RequestMethod.GET )
-    public void Wrong_approach() throws Exception {
-    	
+    public void Wrong_approach(Model model) throws Exception {
+    	model.addAttribute("msg", "잘못된 접근입니다.");
     }
     
     
     // 글 쓰기, 수정, 삭제시 로그인 필요
     @RequestMapping(value = "/needlogin" , method=RequestMethod.GET )
-    public ModelAndView Need_Login() throws Exception {
-    	ModelAndView mv = new ModelAndView("/board/login");
-    	
-    	return mv;	
+    public void Need_Login(Model model) throws Exception {
+    	model.addAttribute("msg", "로그인을 해주세요."); 
     }
     
 }
