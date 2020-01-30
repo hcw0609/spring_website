@@ -40,6 +40,7 @@ import com.test.dto.UserDTO;
 import com.test.paging.Search;
 import com.test.service.BoardService;
 import com.test.service.UserService;
+import com.test.util.UserCheck;
 
 @Controller
 @RequestMapping("/board/*")
@@ -124,14 +125,17 @@ public class BoardController {
 		// 모델
 		model.addAttribute("loginInfo", loginInfo);	
 		
-		// 비정상적인 접근 막기
-		try {
-			loginInfo.getID();			
-		} catch (Exception e) {
+		// 로그인유저의 접근 권한 체크
+		// 허락, 로그인 하지 않음, 로그인 유저와 작성자유저의 id가 다름
+		UserCheck usercheck = new UserCheck();
+		String result = usercheck.User_Check(loginInfo);	
+		if(result == "OK") {
+			return "/board/create";
+		} else if (result == "NullSession") {
+			return "redirect:/board/login";			
+		} else {
 			return "redirect:/board/Wrong_approach";
 		}
-
-		return "/board/create";
 	}
 	
 	
@@ -185,17 +189,18 @@ public class BoardController {
 		// 모델
 		model.addAttribute("modify", dto);		
 		model.addAttribute("file",fileList);
-
-		// 비정상적인 접근 막기
-		try {
-			if ( !loginInfo.getID().equals(dto.getWriter()) ) {
-				System.out.println(loginInfo.getID()+""+dto.getWriter());
-				return "redirect:/board/Wrong_approach";
-			}
-		} catch (Exception e) {
+		
+		// 로그인유저의 접근 권한 체크
+		// 허락, 로그인 하지 않음, 로그인 유저와 작성자유저의 id가 다름
+		UserCheck usercheck = new UserCheck();
+		String result = usercheck.User_Check(dto.getWriter(), loginInfo);	
+		if(result == "OK") {
+			return "/board/modify";
+		} else if (result == "NullSession") {
+			return "redirect:/board/login";
+		} else {
 			return "redirect:/board/Wrong_approach";
 		}
-		return "/board/modify";
 	}
 	
 	
@@ -217,51 +222,49 @@ public class BoardController {
 		// 로그인된 사용자가 누구 인지 확인
 		// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
 		UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
-						
-		// 비정상적인 접근 막기
-		try {
-			if( loginInfo.getID().equals(dto.getWriter()) ) {
-				
-				// 게시글 삭제시 리플도 삭제
-				service.deleteReplyBoard(dto.getDno());
-				
-				
-				//나의 컴퓨터를 서버로 이용할 때
-				List<String> deleteServerFile = service.deleteServer(dto.getDno());
-				for(int i = 0; i<deleteServerFile.size(); i++) {
-					String storedFileName = (String) deleteServerFile.get(i);			
-					File file = new File("C:\\mp\\file\\"+storedFileName);
-					if(file.exists() == true){
-						file.delete();
+		
+		// 로그인유저의 접근 권한 체크
+		// 허락, 로그인 하지 않음, 로그인 유저와 작성자유저의 id가 다름
+		UserCheck usercheck = new UserCheck();
+		String result = usercheck.User_Check(dto.getWriter(), loginInfo);	
+		if(result == "OK") {
+			
+			// 게시글 삭제시 리플도 삭제
+			service.deleteReplyBoard(dto.getDno());
+			
+			//나의 컴퓨터를 서버로 이용할 때 파일 삭제
+			List<String> deleteServerFile = service.deleteServer(dto.getDno());
+			for(int i = 0; i<deleteServerFile.size(); i++) {
+				String storedFileName = (String) deleteServerFile.get(i);			
+				File file = new File("C:\\mp\\file\\"+storedFileName);
+				if(file.exists() == true){
+					file.delete();
 
-					}
 				}
-				
-				
-				/*
-				// for ftp
-				List<String> deleteServerFile = service.deleteServer(dto.getDno());
-				for(int i = 0; i<deleteServerFile.size(); i++) {
-					String storedFileName = (String) deleteServerFile.get(i);			
-					File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
-					if(file.exists() == true){
-						file.delete();
-
-					}
-				}
-				*/
-				
-				// 게시글 삭제
-				service.delete(dto.getDno());
-				return "redirect:/board/list";
-			} else {
-				return "redirect:/board/Wrong_approach";
 			}
-		} catch (Exception e) {
+						
+			/*
+			// 호스팅받은 서버를 이용할 때 파일 삭제
+			List<String> deleteServerFile = service.deleteServer(dto.getDno());
+			for(int i = 0; i<deleteServerFile.size(); i++) {
+				String storedFileName = (String) deleteServerFile.get(i);			
+				File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
+				if(file.exists() == true){
+					file.delete();
+
+				}
+			}
+			*/
+			
+			// 게시글 삭제
+			service.delete(dto.getDno());		
+			return "redirect:/board/list";
+		} else if (result == "NullSession") {
+			return "redirect:/board/login";
+		} else {
 			return "redirect:/board/Wrong_approach";
-		}				
+		}	
 	}
-	
 	
 	// 로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET)
@@ -373,13 +376,13 @@ public class BoardController {
 	  byte[] bytes = upload.getBytes();
 	  
 	  	  
-	  //나의 컴퓨터를 서버로 이용할 때
+	  // 나의 컴퓨터를 서버로 이용할 때
 	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_spring\\resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
 	  
 		
 	  /*
-	  // for ftp
+	  // 호스팅받은 서버를 이용할 때
 	  String path = "/hcw0609/tomcat/webapps/ROOT/resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
 	  */
@@ -432,7 +435,7 @@ public class BoardController {
 		
 		
 		/*
-		// for ftp
+		// 호스팅받은 서버를 이용할 때
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName));
 		*/
 		
@@ -457,12 +460,12 @@ public class BoardController {
 		String storedFileName = deleteServerFile;	
 		
 		
-		//나의 컴퓨터를 서버로 이용할 때
+		//나의 컴퓨터를 서버로 이용할 때 파일 삭제
 		File file = new File("C:\\mp\\file\\"+storedFileName);
 		
 		
 		/*
-		// for ftp
+		// 호스팅받은 서버를 이용할 때 파일 삭제
 		File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
 		*/
 		
