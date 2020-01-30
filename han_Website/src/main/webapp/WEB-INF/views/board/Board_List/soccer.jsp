@@ -89,6 +89,7 @@
 	<div>
 		<c:if test="${loginInfo.ID == null}">
 		<span class="text_etc">"비로그인"님 어서오세요.</span>
+		<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
 		</c:if>
 		<c:if test="${loginInfo.ID != null}">
 		<span class="text_etc">"${loginInfo.ID}"님 어서오세요.</span>
@@ -154,10 +155,8 @@
 	
 	<br><br>
 
-
-
+<input type="hidden" id="category" name="${category}" value="${category}">
 <c:forEach items="${list}" var="list">	
-<input type="hidden" id="category" name="${list.category}" value="${list.category}">
 <div style="float:left; width:100%">
 	<div style="float:left;">	
 		<a href="/board/read?dno=${list.dno}">	<img class="thumbnail" src="${list.thumbnail}"></a>

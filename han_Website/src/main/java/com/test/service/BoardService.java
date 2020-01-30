@@ -23,33 +23,33 @@ public interface BoardService  {
 	public void create(DbDTO dto, MultipartHttpServletRequest mpRequest) throws Exception;
 		
 	// 글 읽기
-	public DbDTO read(Integer no) throws Exception;
+	public DbDTO read(int dno) throws Exception;
 		
 	// 글 삭제
-	public void delete(Integer no) throws Exception;
+	public void delete(int dno) throws Exception;
 		
 	// 글 수정
 	public void modify(DbDTO dto, MultipartHttpServletRequest mpRequest) throws Exception;
 	
-	// 총 갯수
+	// 게시글의 총 갯수1
 	public int getBoardListCnt(Search search) throws Exception;
 	
-	// 총 갯수2
+	// 게시글의 총 갯수2
 	public int getBoardListCnt2(Search search) throws Exception;
 	
-	// 파일 조회
+	// 파일 리스트 조회
 	public List<FileDTO> selectFileList(int dno) throws Exception;
 	
 	// 파일 다운로드
 	public FileDTO selectFileInfo(FileDTO dto) throws Exception;
 	
-	// 수정폼에서 파일 삭제
-	public void modifyDelete(int tagid) throws Exception;
+	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
+	public void modifyDelete(int dno) throws Exception;
 	
-	// 수정폼에서의  파일을 서버에서 삭제
-	public String modifyDeleteServer(int tagid) throws Exception;
+	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
+	public String modifyDeleteServer(int dno) throws Exception;
 	
-	// 서버에서 파일 삭제
+	// 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	public List<String> deleteServer (int dno) throws Exception;
 	
 	// 리플 작성
@@ -61,10 +61,10 @@ public interface BoardService  {
 	// 리플 삭제
 	public void deleteReply(int rno) throws Exception;
 	
-	// 게시글 삭제시 리플도 삭제
+	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;
 	
-	// 리플 목록
+	// 리플 리스트
     public List<ReplyDTO> commentList(int dno) throws Exception;
 
 }

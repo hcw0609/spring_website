@@ -98,18 +98,22 @@ public class BoardController {
 		// 페이징
 		int listCnt = service.getBoardListCnt2(search);
 		search.Paging(listCnt, search.getCurPage());
-				
+		
 		// 로그인된 사용자가 누구 인지 확인
 		// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
 		UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
 				
 		// 글 목록 꺼내오기
 		List<DbDTO> list = service.Board_List(search);
+		
+		// 카테고리 읽어오기
+		String category = search.getCategory();
 						
 		// 모델
 		model.addAttribute("paging", search);
 		model.addAttribute("list", list);
 		model.addAttribute("loginInfo", loginInfo);
+		model.addAttribute("category", category);
 			
 	}
 
@@ -229,14 +233,14 @@ public class BoardController {
 		String result = usercheck.User_Check(dto.getWriter(), loginInfo);	
 		if(result == "OK") {
 			
-			// 게시글 삭제시 리플도 삭제
+			// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
 			service.deleteReplyBoard(dto.getDno());
 			
-			//나의 컴퓨터를 서버로 이용할 때 파일 삭제
+			//나의 컴퓨터를 서버로 이용할 때 저장공간에 있는 파일 삭제
 			List<String> deleteServerFile = service.deleteServer(dto.getDno());
 			for(int i = 0; i<deleteServerFile.size(); i++) {
 				String storedFileName = (String) deleteServerFile.get(i);			
-				File file = new File("C:\\mp\\file\\"+storedFileName);
+				File file = new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName);
 				if(file.exists() == true){
 					file.delete();
 
@@ -374,10 +378,9 @@ public class BoardController {
 	  // 파일 이름, 파일크기
 	  String fileName = upload.getOriginalFilename();
 	  byte[] bytes = upload.getBytes();
-	  
-	  	  
+
 	  // 나의 컴퓨터를 서버로 이용할 때
-	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_spring\\resources";
+	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
 	  
 		
@@ -431,7 +434,7 @@ public class BoardController {
 		
 		
 		//파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다. [나의 컴퓨터를 서버로 이용할 때]
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\mp\\file\\"+storedFileName));
+		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName));
 		
 		
 		/*
@@ -453,32 +456,29 @@ public class BoardController {
 	// 수정폼에서 서버에 있는 파일 삭제
 	@ResponseBody
 	@RequestMapping(value="/modifyDelete", method = RequestMethod.POST)
-	public void postModifyDelte(@RequestParam("tagid") int tagid ) throws Exception {
+	public void postModifyDelte(@RequestParam("tagid") int dno ) throws Exception {
 			
-		// 서버에서 파일 삭제
-		String deleteServerFile = service.modifyDeleteServer(tagid);
+		// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
+		String deleteServerFile = service.modifyDeleteServer(dno);
 		String storedFileName = deleteServerFile;	
 		
 		
-		//나의 컴퓨터를 서버로 이용할 때 파일 삭제
-		File file = new File("C:\\mp\\file\\"+storedFileName);
-		
+		//나의 컴퓨터를 서버로 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
+		File file = new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName);   
 		
 		/*
-		// 호스팅받은 서버를 이용할 때 파일 삭제
+		// 호스팅받은 서버를 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
 		File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
 		*/
 		
 		
 		// 파일이 존재한다면 삭제해라.
-		if(file.exists() == true){
-		
+		if(file.exists() == true){		
 			file.delete();
-
 		}
 		
-		// tagid에 해당하는 파일을 db에서 삭제
-		service.modifyDelete(tagid);
+		// 수정폼에서 db에 있는 파일에 대한 정보를 삭제 
+		service.modifyDelete(dno);
 		
 	}
 	
@@ -595,7 +595,7 @@ public class BoardController {
     }
     
     
-    // 글 쓰기, 수정, 삭제시 로그인 필요
+    // 글 쓰기, 수정, 삭제, 리플 작성  -> 로그인 필요
     @RequestMapping(value = "/needlogin" , method=RequestMethod.GET )
     public void Need_Login(Model model) throws Exception {
     	model.addAttribute("msg", "로그인을 해주세요."); 

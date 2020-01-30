@@ -55,18 +55,18 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 글 읽기
 	@Override
-	public DbDTO read(Integer no) throws Exception {
+	public DbDTO read(int dno) throws Exception {
 		// TODO Auto-generated method stub
 		
-		return sql.selectOne(namespace+".read", no);
+		return sql.selectOne(namespace+".read", dno);
 	}
 
 	
 	// 글 삭제
 	@Override
-	public void delete(Integer no) throws Exception {
+	public void delete(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		sql.delete(namespace+".delete", no);
+		sql.delete(namespace+".delete", dno);
 		
 	}
 
@@ -80,7 +80,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 총 갯수
+	// 게시글의 총 갯수 1
 	@Override
 	public int getBoardListCnt(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -88,7 +88,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 총 갯수2
+	// 게시글의 총 갯수 2
 	@Override
 	public int getBoardListCnt2(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -96,15 +96,15 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 조회수
+	// 조회수 증가
 	@Override
-	public void ViewCount(Integer no) throws Exception {
+	public void ViewCount(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		sql.update(namespace + ".viewcnt", no);
+		sql.update(namespace + ".viewcnt", dno);
 	}
 
 
-	// 파일 업로드
+	// db에 파일에 대한 정보 업로드
 	@Override
 	public void insertFile(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -113,7 +113,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 파일 조회
+	// 파일 리스트 조회
 	@Override
 	public List<FileDTO> selectFileList(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -130,7 +130,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 파일 삭제
+	// db에 있는 파일에 대한 정보를 삭제 
 	@Override
 	public void deleteFile(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -138,23 +138,23 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 수정폼에서 파일 삭제
+	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
 	@Override
-	public void modifyDelete(int tagid) throws Exception {
+	public void modifyDelete(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		sql.update(namespace + ".modifyDelete", tagid);
+		sql.update(namespace + ".modifyDelete", dno);
 	}
 	
 	
-	// 수정폼에서의  파일을 서버에서 삭제
+	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
 	@Override
-	public String modifyDeleteServer(int tagid) throws Exception {
+	public String modifyDeleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectOne(namespace + ".modifyDeleteServer", tagid);
+		return sql.selectOne(namespace + ".modifyDeleteServer", dno);
 	}
 	
 
-	// 파일을 서버에서 삭제
+	// 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	@Override
 	public List<String> deleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -186,7 +186,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 게시글 삭제시 리플도 삭제
+	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	@Override
 	public void deleteReplyBoard(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -194,7 +194,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 리플 목록
+	// 리플 리스트
 	@Override
 	public List<ReplyDTO> commentList(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -202,7 +202,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 첨부파일이 존재하는 게시글
+	// 작성중인 게시물의 첨부파일 존재 유무 [YES]
 	@Override
 	public void file_yes(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -210,7 +210,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 첨부파일이 존재하지 않는 게시글
+	// 작성중인 게시물의 첨부파일 존재 유무 [NO]
 	@Override
 	public void file_no(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -218,7 +218,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 파일이 db에 존재하는지 안하는지
+	// 이미 작성된 게시물의 첨부파일 존재 유무
 	@Override
 	public int file_exist(int dno) throws Exception {
 		// TODO Auto-generated method stub

@@ -8,8 +8,8 @@
 	 -->
 
 	
-	<!-- 게시물 목록
-	<select id="List" resultType="com.test.dto.DbDTO">		
+	<!-- oracle db 게시물 목록
+	<select id="List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
 		FROM (	
        		SELECT A.*, ROWNUM AS RNUM, COUNT(*) OVER() AS TOTCNT
@@ -23,8 +23,8 @@
 	-->
 	
 	
-	<!-- 마리아 db 게시물 목록  -->
-	<select id="List" resultType="com.test.dto.DbDTO">		
+	<!-- 마리아 db 게시물 목록 [전체]  -->
+	<select id="List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
 		FROM (	SELECT *  FROM han 
 				<include refid="search"/> ) B 
@@ -36,8 +36,8 @@
 	
 	
 	
-	<!-- 마리아 db 게시물 목록2  -->
-	<select id="Board_List" resultType="com.test.dto.DbDTO">		
+	<!-- 마리아 db 게시물 목록 [카테고리]  -->
+	<select id="Board_List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
 		FROM (	SELECT *  FROM han 
 				<include refid="search"/> ) B 
@@ -49,7 +49,7 @@
 	</select>	
 	
 			
-	<!-- 글 생성
+	<!-- oracle db 글 생성
 	<insert id="insert" useGeneratedKeys="true" keyProperty="dno">
 		<selectKey keyProperty="dno" resultType="int" order="BEFORE">
 			select han_sequence.nextval from dual
@@ -68,40 +68,40 @@
 	
 		
 	<!-- 글 읽기 -->
-	<select id="read" resultType="com.test.dto.DbDTO">
-		select * from han where dno = #{no}
+	<select id="read" resultType="com.test.dto.DbDTO" parameterType="int">
+		select * from han where dno = #{dno}
 	</select>
-	
-	
-	<!-- 글 수정 -->
-	<update id="modify">
-		update han set title=#{title}, writer=#{writer}, content=#{content}, imageyn=#{imageyn}, thumbnail=#{thumbnail}, category=#{category}  where dno=#{dno}
-	</update>
 	
 	
 	<!-- 글 삭제 -->
-	<delete id="delete">
-		delete from han where dno = #{no}
+	<delete id="delete" parameterType="int">
+		delete from han where dno = #{dno}
 	</delete>
 	
 	
-	<!-- 조회수 -->
-	<select id="viewcnt" resultType="com.test.dto.DbDTO">
-		update han set viewcnt = viewcnt + 1  where dno = #{no}
-	</select>
+	<!-- 글 수정 -->
+	<update id="modify" parameterType="com.test.dto.DbDTO">
+		update han set title=#{title}, writer=#{writer}, content=#{content}, imageyn=#{imageyn}, thumbnail=#{thumbnail}, category=#{category}  where dno=#{dno}
+	</update>
 	
-	
-	<!-- 총  갯수 -->
-	<select id="getBoardListCnt" resultType="int">
+		
+	<!-- 게시글의 총 갯수 [전체] -->
+	<select id="getBoardListCnt" resultType="int" parameterType="com.test.util.Search">
 		select count(*) from han <include refid="search"/>
 	</select>
 	
 	
-	<!-- 총 갯수 2 -->
-	<select id="getBoardListCnt2" resultType="int">
+	<!-- 게시글의 총 갯수 [카테고리] -->
+	<select id="getBoardListCnt2" resultType="int" parameterType="com.test.util.Search">
 		select count(*)
 		from ( select * from han where category =#{category} ) b
 		<include refid="search"/>
+	</select>
+	
+	
+	<!-- 조회수 증가 -->
+	<select id="viewcnt" resultType="com.test.dto.DbDTO" parameterType="int">
+		update han set viewcnt = viewcnt + 1  where dno = #{dno}
 	</select>
 	
 	
@@ -124,13 +124,13 @@
 	
 	
 	<!-- 회원가입	-->
-	<insert id="register">
+	<insert id="register" parameterType="com.test.dto.UserDTO">
      	insert into han_user values(#{ID}, #{NAME}, #{PASSWORD})   
     </insert>
 	  
 	  
 	<!-- 로그인 -->
-	<select id="login" resultType="com.test.dto.UserDTO">
+	<select id="login" resultType="com.test.dto.UserDTO" parameterType="com.test.dto.UserDTO">
  		select *
  		from han_user
  		where ID = #{ID} and PASSWORD = #{PASSWORD}
@@ -138,7 +138,7 @@
 	
 	
 	<!-- ID 중복체크 -->
-	<select id="overLap" resultType="int">
+	<select id="overLap" resultType="int" parameterType="com.test.dto.UserDTO">
  		select count(ID)
  		from han_user
  		where ID = #{ID}
@@ -146,7 +146,7 @@
 
 
 
-	<!-- 파일 업로드  
+	<!-- oracle db에 파일에 대한 정보 업로드  
 	<insert id="insertFile" parameterType="hashMap">
 		insert into mp_file (
 			file_no,
@@ -165,7 +165,7 @@
 	-->
 	
 	
-	<!-- 마리아 db 파일 업로드 -->
+	<!-- 마리아 db 에 파일에 대한 정보 업로드 -->
 	<insert id="insertFile" parameterType="hashMap">
 		insert into mp_file (
 			dno,
@@ -181,8 +181,8 @@
 	</insert>
 	
 		
-	<!-- 파일 조회 -->
-	<select id="selectFileList" resultType="com.test.dto.FileDTO">
+	<!-- 파일 리스트 조회 -->
+	<select id="selectFileList" resultType="com.test.dto.FileDTO" parameterType="int">
 	SELECT file_no,
 		   org_file_name,
 		   ROUND(FILE_SIZE/1024,1) AS file_size
@@ -192,7 +192,7 @@
 	
 	
 	<!-- 파일 다운로드 -->
-	<select id="selectFileInfo" parameterType="com.test.dto.FileDTO" resultType="com.test.dto.FileDTO">
+	<select id="selectFileInfo" resultType="com.test.dto.FileDTO" parameterType="com.test.dto.FileDTO" >
 	SELECT stored_file_name,
 			org_file_name
 	FROM mp_file
@@ -200,32 +200,33 @@
 	</select>
 	
 	
-	<!-- 파일을 db에서 삭제 -->
-	<delete id="deleteFile">
+	<!-- db에 있는 파일에 대한 정보를 삭제 -->
+	<delete id="deleteFile" parameterType="int">
 		delete from mp_file where dno=#{dno}
 	</delete>	
 	
 	
-	<!-- 수정폼에서 파일을 db에서 삭제 -->
-	<delete id="modifyDelete">
-		delete from mp_file where file_no=#{tagid}
+	<!-- 수정폼에서 db에 있는 파일에 대한 정보를 삭제 -->
+	<delete id="modifyDelete" parameterType="int">
+		delete from mp_file where file_no=#{dno}
 	</delete>
 	
 	
-	<!-- 수정폼에서의  파일을 서버에서 삭제 -->
-	<select id="modifyDeleteServer" resultType="String">
+	<!-- 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 -->
+	<select id="modifyDeleteServer" resultType="String" parameterType="int">
 		select stored_file_name
 		from mp_file
-		where  file_no=#{tagid}
+		where  file_no=#{dno}
 	</select>
 	
 	
-	<!-- 파일을 서버에서 삭제 -->
-	<select id="deleteServer" resultType="String">
+	<!-- 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 -->
+	<select id="deleteServer" resultType="String" parameterType="int">
 		select stored_file_name
 		from mp_file
 		where dno=#{dno}
 	</select>
+	
 	
 	<!-- 리플 작성
 	<insert id="writeReply">
@@ -236,9 +237,9 @@
 	 
 	
 	<!-- 마리아 db 리플 작성 -->
-	<insert id="writeReply">
+	<insert id="writeReply" parameterType="com.test.dto.ReplyDTO">
 	insert into mp_reply( dno, content, writer)
-	values( #{dno}, #{content} , #{writer})
+	values( #{dno}, #{content} ,#{writer})
 	</insert>
 	
 		
@@ -256,7 +257,7 @@
 	</delete>
 	
 	
-	<!-- 게시글 삭제시 리플도 삭제 -->
+	<!-- 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 -->
 	<delete id="deleteReplyBoard" parameterType="int">
 		delete from mp_reply
 		where dno = #{dno}
@@ -264,29 +265,29 @@
 	
 	
 	<!-- 리플 리스트  -->
-	<select id="commentList" resultType="com.test.dto.ReplyDTO">
+	<select id="commentList" resultType="com.test.dto.ReplyDTO" parameterType="int">
         select *
         from mp_reply
         where dno = #{dno}
     </select>
     
-    
-    <!--  첨부파일이 존재하는 게시글  -->
+    	
+    <!-- 작성중인 게시물의 첨부파일 존재 유무 [YES] -->
     <update id="file_yes" parameterType="int">
     	update han set fileyn = 'y' 
     	where dno = #{dno}
     </update>
     
     
-    <!--  첨부파일이 존재하지 않는 게시글  -->
+    <!-- 작성중인 게시물의 첨부파일 존재 유무 [NO] -->
 	<update id="file_no" parameterType="int">
     	update han set fileyn = 'n' 
     	where dno = #{dno}
     </update>
     
     
-    <!-- 파일이 db에 존재하는지 안하는지 -->
-    <select id="file_exist" resultType="int">
+    <!-- 이미 작성된 게시물의 첨부파일 존재 유무 -->
+    <select id="file_exist" resultType="int" parameterType="int">
     	select count(*)
     	from mp_file
     	where dno = #{dno}

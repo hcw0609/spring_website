@@ -45,10 +45,11 @@ public class BoardServiceImpl implements BoardService{
 	public void create(DbDTO dto, MultipartHttpServletRequest mpRequest) throws Exception {
 		// TODO Auto-generated method stub		
 		
-		// 이미지가 포함되어있는지 확인하자
+		// 작성중인 게시물에 이미지 포함 유무
 		String str = dto.getContent();
 		if (str.contains("<img")) {
 			dto.setImageyn("y");
+			
 			// 썸네일 만들기
 			Thumbnail tn = new Thumbnail();
 			String Thumbnail_make = tn.Thumbnail_make(dto.getContent());
@@ -68,7 +69,7 @@ public class BoardServiceImpl implements BoardService{
 		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(dto, mpRequest);
 		int size = list.size();
 				
-		// 파일이 db에 존재하는지 안하는지
+		// 작성중인 게시물에 첨부파일의 존재 유무
 		if(size == 0 ) {
 			dao.file_no(dto.getDno());
 		} else {
@@ -76,26 +77,34 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 		for (int i=0; i<size; i++) {
+			// db에 파일에 대한 정보 업로드
 			dao.insertFile(list.get(i));
 		}
 		
 	}
 
-	// 글 보기
+	// 글 읽기
 	@Override
-	public DbDTO read(Integer no) throws Exception {
+	public DbDTO read(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		dao.ViewCount(no);
-		return dao.read(no);
+		
+		// 조회수 증가
+		dao.ViewCount(dno);
+
+		// 글 읽기
+		return dao.read(dno);
 	}
 
 	
 	// 글 삭제
 	@Override
-	public void delete(Integer no) throws Exception {
+	public void delete(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		dao.delete(no);	
-		dao.deleteFile(no);
+		// 글 삭제
+		dao.delete(dno);	
+		
+		// db에 있는 파일에 대한 정보를 삭제 
+		dao.deleteFile(dno);
 	}
 
 	
@@ -104,10 +113,11 @@ public class BoardServiceImpl implements BoardService{
 	public void modify(DbDTO dto, MultipartHttpServletRequest mpRequest) throws Exception {
 		// TODO Auto-generated method stub
 										
-		// 이미지가 포함되어있는지 확인하자
+		// 작성중인 게시물에 이미지 포함 유무
 		String str = dto.getContent();
 		if (str.contains("<img")) {
 			dto.setImageyn("y");
+			
 			// 썸네일 만들기
 			Thumbnail tn = new Thumbnail();
 			String Thumbnail_make = tn.Thumbnail_make(dto.getContent());
@@ -125,9 +135,10 @@ public class BoardServiceImpl implements BoardService{
 		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(dto, mpRequest);
 		int size = list.size();
 		
-		// 파일이 db에 존재하는지 안하는지
+		// 이미 작성된 게시물에 첨부파일의 존재 유무
 		int file_exist = dao.file_exist(dto.getDno());
 		if(file_exist == 0) {
+			// 작성중인 게시물에 첨부파일의 존재 유무
 			if(size == 0 ) {
 				dao.file_no(dto.getDno());
 			} else {
@@ -138,6 +149,7 @@ public class BoardServiceImpl implements BoardService{
 		}
 
 		for (int i=0; i<size; i++) {
+			// db에 파일에 대한 정보 업로드
 			dao.insertFile(list.get(i));
 		}
 
@@ -159,7 +171,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 파일 조회
+	// 파일 리스트 조회
 	@Override
 	public List<FileDTO> selectFileList(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -167,7 +179,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 파일 업로드
+	// 파일 다운로드
 	@Override
 	public FileDTO selectFileInfo(FileDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -175,23 +187,23 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	
-	// 수정폼에서 파일 삭제
+	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
 	@Override
-	public void modifyDelete(int tagid) throws Exception {
+	public void modifyDelete(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		dao.modifyDelete(tagid);
+		dao.modifyDelete(dno);
 	}
 	
 	
-	// 수정폼에서 삭제했을때 서버에 있는 파일도 삭제
+	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
 	@Override
-	public String modifyDeleteServer(int tagid) throws Exception {
+	public String modifyDeleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.modifyDeleteServer(tagid);
+		return dao.modifyDeleteServer(dno);
 	}
 
 	
-	// 서버에서 파일 삭제
+	// 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	@Override
 	public List<String> deleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -223,14 +235,14 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 게시글 삭제시 리플도 삭제
+	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	@Override
 	public void deleteReplyBoard(int dno) throws Exception {
 		dao.deleteReplyBoard(dno);
 	}
 
 	
-	// 리플 목록
+	// 리플 리스트
 	@Override
 	public List<ReplyDTO> commentList(int dno) throws Exception {
 		// TODO Auto-generated method stub
