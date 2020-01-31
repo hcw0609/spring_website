@@ -32,13 +32,22 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
+import com.google.code.geocoder.model.GeocoderStatus;
+import com.google.code.geocoder.model.LatLng;
 import com.google.gson.JsonObject;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
+import com.test.dto.GeocoderRequestDTO;
 import com.test.dto.ReplyDTO;
 import com.test.dto.UserDTO;
 import com.test.service.BoardService;
 import com.test.service.UserService;
+import com.test.util.MapUtil;
 import com.test.util.Search;
 import com.test.util.UserCheck;
 
@@ -236,6 +245,7 @@ public class BoardController {
 			// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
 			service.deleteReplyBoard(dto.getDno());
 			
+			
 			//나의 컴퓨터를 서버로 이용할 때 저장공간에 있는 파일 삭제
 			List<String> deleteServerFile = service.deleteServer(dto.getDno());
 			for(int i = 0; i<deleteServerFile.size(); i++) {
@@ -379,6 +389,7 @@ public class BoardController {
 	  String fileName = upload.getOriginalFilename();
 	  byte[] bytes = upload.getBytes();
 
+	  
 	  // 나의 컴퓨터를 서버로 이용할 때
 	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
@@ -601,6 +612,32 @@ public class BoardController {
     	model.addAttribute("msg", "로그인을 해주세요."); 
     }
     
+    
+    
+    // Google Map
+    @RequestMapping(value = "/map" , method=RequestMethod.GET )
+    public void Map(HttpSession hs, Model model ) throws Exception {
+    	
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+    	
+    	model.addAttribute("loginInfo",loginInfo);  
+    }
+    
+    
+    // Google Map Search
+    @ResponseBody
+    @RequestMapping(value = "/mapsearch" , method=RequestMethod.POST)
+    public String Map_Search(@RequestParam("address") String address, HttpServletResponse response) throws Exception {
+    	   	
+    	// 주소를 좌표값으로 변경
+    	System.out.println("address"+address);
+    	MapUtil maputil = new MapUtil();
+    	String coordStr = maputil.geoCoding(address);
+  	
+    	return coordStr;
+    } 
 }
 
 

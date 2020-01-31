@@ -25,6 +25,15 @@
 	
 	<dependencies>
 	
+<!-- 구글 지도 -->
+	<!-- https://mvnrepository.com/artifact/com.google.code.geocoder-java/geocoder-java -->
+	<dependency>
+	    <groupId>com.google.code.geocoder-java</groupId>
+	    <artifactId>geocoder-java</artifactId>
+	    <version>0.16</version>
+	</dependency>
+	
+		
 <!-- 메일 전송 -->
 	<!-- 스프링에서 부가 기능을 제공 [캐쉬, 메일, 스케줄링, UI...] -->
 	<dependency>

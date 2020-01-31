@@ -134,12 +134,7 @@
             </li>
 			<li>|</li>
             <li class="topMenuLi">
-                <a class="menuLink" href="1">LOCATION LOG</a>
-                <ul class="submenu3">
-                    <li><a href="" class="submenuLink">미구현</a></li>
-                    <li><a href="" class="submenuLink">미구현</a></li>
-                    <li><a href="" class="submenuLink">미구현</a></li>      
-                </ul>
+                <a class="menuLink" href="/board/map">Map</a>
             </li>
 		</ul>
 	</div>

@@ -44,14 +44,14 @@
  
     
     .submenu3 {                         /* 하위 메뉴[3칸] 스타일  */
-        position: absolute;             /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        position: absolute !important;  /* html의 flow에 영향을 미치지 않게 absolute 설정 */
         height: 0px;                    /* 초기 높이는 0px로 설정 */
         overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
         transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
     }
     
     .submenu4 {                         /* 하위 메뉴[4칸] 스타일  */
-        position: absolute;             /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        position: absolute !important;  /* html의 flow에 영향을 미치지 않게 absolute 설정 */
         height: 0px;                    /* 초기 높이는 0px로 설정 */
         overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
         transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
