@@ -22,7 +22,7 @@ http://hcw0609.cafe24.com
 9. 섬네일
 10. 접근권한이 없는 유저가 주소로 직접 접속하는 것을 차단  
     ex) http://hcw0609.cafe24.com/board/modify?dno=4 의 주소로 접근
-11. ?? 
+11. Google Map Api 활용 하여 지도 검색  
 12. ?? 
 
 ## 사용 기술  
