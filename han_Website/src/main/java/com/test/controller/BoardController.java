@@ -47,7 +47,7 @@ import com.test.dto.ReplyDTO;
 import com.test.dto.UserDTO;
 import com.test.service.BoardService;
 import com.test.service.UserService;
-import com.test.util.MapUtil;
+import com.test.util.Maputil;
 import com.test.util.Search;
 import com.test.util.UserCheck;
 
@@ -63,6 +63,7 @@ public class BoardController {
 	
 	@Inject
 	JavaMailSender mailSender;
+	
 	
 	// 글 목록1
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -629,14 +630,19 @@ public class BoardController {
     // Google Map Search
     @ResponseBody
     @RequestMapping(value = "/mapsearch" , method=RequestMethod.POST)
-    public String Map_Search(@RequestParam("address") String address, HttpServletResponse response) throws Exception {
-    	   	
+    public Map<String, String> Map_Search(@RequestParam("address") String address, HttpServletResponse response) throws Exception {
+    	   
+    	Map<String, String> retVal = new HashMap<String, String>();
+    	
     	// 주소를 좌표값으로 변경
-    	System.out.println("address"+address);
-    	MapUtil maputil = new MapUtil();
-    	String coordStr = maputil.geoCoding(address);
-  	
-    	return coordStr;
+    	Maputil maputil = new Maputil();
+    	String lat_lng = maputil.Map_util(address);
+		String[] split_lat_lng = lat_lng.split("!");
+		
+		retVal.put("lat", split_lat_lng[0]);
+		retVal.put("lng", split_lat_lng[1]);
+     	
+    	return retVal;
     } 
 }
 

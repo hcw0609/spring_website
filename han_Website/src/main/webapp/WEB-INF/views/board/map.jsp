@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 
 <!-- Google Map Api -->
-<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPJ7JPbS7aFMk5hf78sP4A_ivIC_razg0&callback=initMap"></script> 
+<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPJ7JPbS7aFMk5hf78sP4A_ivIC_razg0&callback=initMap"></script>
 
 <!-- MenuBar -->
 <link rel="stylesheet" type="text/css" href="/resources/css/MenuBar.css"/>
@@ -33,25 +33,44 @@
 				type : "POST",
 				dataType : "json",
 				data : {"address" : address},
-				success: function(coordStr) {
-					alert(coordStr);
-					  
-					/* reloadMap(retVal.latitude, retVal.longitude);*/
+				success: function(retVal) {
+					var retVal_lat = retVal.lat;
+					var retVal_lng = retVal.lng;
+					reloadMap(retVal_lat, retVal_lng);
 				},
-				error: function(coordStr) {
-					alert(coordStr)			
+				error: function(retVal) {		
 				}
 			})
 		})		
 	})
 
+	function reloadMap(retVal_lat, retVal_lng) {
+		var search_lat = retVal_lat;
+		var search_lng = retVal_lng;
+		
+		var Search = {lat:+search_lat, lng:+search_lng};
+		var map = new google.maps.Map(document.getElementById('map'),{
+			zoom : 17,
+			center: Search
+		});
+		
+		// 마커 설정
+		var marker = new google.maps.Marker({
+			position : Search,
+			title : "Search"
+		});
+		
+		marker.setMap(map);	
+	}
+	
+	
 	function initMap() {
 		var a = 53.430980;
 		var b = -2.960719;
 		
 		var anfield = {lat:a, lng:b};
 		var map = new google.maps.Map(document.getElementById('map'),{
-			zoom : 16,
+			zoom : 17,
 			center: anfield
 		});
 		
@@ -59,10 +78,8 @@
 		var marker = new google.maps.Marker({
 			position : anfield,
 			title : "Stadium"
-		});
-		
-		marker.setMap(map);
-		
+		});		
+		marker.setMap(map);		
 	}
 	 
 </script>
@@ -141,7 +158,8 @@
 	</div>
 	
 	<input type="text" class="form-control" id="address">
-	<button name="subject" class="btn btn-sm btn-dark" id="btn_mapsearch" value="trans">지도변경</button>
+	<button name="subject" class="btn btn-sm btn-dark" id="btn_mapsearch" value="trans" style="width:100%;">지도변경</button>
+	
 	
 </div>
 
