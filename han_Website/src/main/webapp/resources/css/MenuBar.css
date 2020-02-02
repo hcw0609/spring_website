@@ -16,6 +16,7 @@
         line-height: 30px;          /* 텍스트를 싸고 있는 라인의 기본 높이 30px */
         text-align: center;         /* text 가운데 정렬 */
         position: relative;         /* 세로로 하위 메뉴를 나열 */
+        z-index: 10;				/* Google Map Api 때문에 어쩔수 없이 설정*/
     }
     
     .menuLink, .submenuLink {         	    /* 상위 메뉴와 하위 메뉴의 a 태그에 공통으로 설정할 스타일 */
@@ -44,14 +45,14 @@
  
     
     .submenu3 {                         /* 하위 메뉴[3칸] 스타일  */
-        position: absolute !important;  /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        position: absolute; 			/* html의 flow에 영향을 미치지 않게 absolute 설정 */
         height: 0px;                    /* 초기 높이는 0px로 설정 */
         overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
         transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
     }
     
     .submenu4 {                         /* 하위 메뉴[4칸] 스타일  */
-        position: absolute !important;  /* html의 flow에 영향을 미치지 않게 absolute 설정 */
+        position: absolute;  			/* html의 flow에 영향을 미치지 않게 absolute 설정 */
         height: 0px;                    /* 초기 높이는 0px로 설정 */
         overflow: hidden;               /* 내용이 높이보다 커지면 해당 내용 감춤 */
         transition: height .2s;         /* 하위메뉴가 펼쳐지는 속도 */
@@ -70,3 +71,7 @@
         color: red;                 /* 글씨색을 빨간색으로 설정 */
         background-color: #dddddd;  /* 배경을 RGB(DDDDDD)로 설정 */
     }
+    
+    /* position: relative : 위치 계산을 할때 static의 원래 위치부터 계산합니다. */
+    /* position: relative : 위치 계산을 할때 static를 신경쓰지 않고 계산합니다. */
+    

@@ -44,15 +44,28 @@
 		})		
 	})
 
+	// 사용자가 입력한 값으로 지도, 스트릿뷰 출력
 	function reloadMap(retVal_lat, retVal_lng) {
-		var search_lat = retVal_lat;
-		var search_lng = retVal_lng;
 		
+		// 찾을 좌표 값
+		var search_lat = retVal_lat;
+		var search_lng = retVal_lng;	
 		var Search = {lat:+search_lat, lng:+search_lng};
+		
+		// 맵 출력
 		var map = new google.maps.Map(document.getElementById('map'),{
-			zoom : 17,
-			center: Search
+			center: Search,
+			zoom : 17
 		});
+		
+		// 스트릿뷰 출력
+		var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
+			position: Search,
+			pov: { heading:34, pitch:10 }
+		});
+		
+		map.setStreetView(panorama);
+   		 
 		
 		// 마커 설정
 		var marker = new google.maps.Marker({
@@ -64,21 +77,34 @@
 	}
 	
 	
+	// 정해진 값으로 지도, 스트릿뷰 출력
 	function initMap() {
-		var a = 53.430980;
-		var b = -2.960719;
 		
-		var anfield = {lat:a, lng:b};
+		// 찾을 좌표 값
+		var a = 53.4308294;
+		var b = -2.9608300;
+		var Initial_value = {lat:a, lng:b};
+		
+		// 맵 출력
 		var map = new google.maps.Map(document.getElementById('map'),{
-			zoom : 17,
-			center: anfield
+			center: Initial_value,
+			zoom : 17
 		});
+		
+		// 스트릿뷰 출력
+		var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
+			position: Initial_value,
+			pov: { heading:34, pitch:10 }
+		});
+		
+		map.setStreetView(panorama);
 		
 		// 마커 설정
 		var marker = new google.maps.Marker({
-			position : anfield,
-			title : "Stadium"
+			position : Initial_value,
+			title : "Initial_Marker"
 		});		
+		
 		marker.setMap(map);		
 	}
 	 
@@ -154,11 +180,17 @@
 	
 	
 	<div id="mapdiv">
-		<div id="map" style="height:500px; width:100%; "></div>
+		<div id="map" style="float:left; height:600px; width:50%; "></div>
+		<div id="pano" style="float:left; height:600px; width:50%;"></div>
 	</div>
 	
-	<input type="text" class="form-control" id="address">
-	<button name="subject" class="btn btn-sm btn-dark" id="btn_mapsearch" value="trans" style="width:100%;">지도변경</button>
+	<div style="position:absolute; margin-top:630px;">
+		<input type="text" class="form-control" id="address" style="width:1200px">
+		<button name="subject" class="btn btn-sm btn-dark" id="btn_mapsearch" value="trans" style="width:1200px">지도변경</button>
+	</div>
+	
+	
+	
 	
 	
 </div>
