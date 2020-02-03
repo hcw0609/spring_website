@@ -31,5 +31,12 @@
 	
 	.marker {background-color:yellow; font-size: 1.2em;}
 	
+	.page-item.active .page-link {
+		z-index: 1;
+    	color: #fff;
+    	background-color: #343a40;
+    	border-color: #343a40;
+    }
+	
 
 	

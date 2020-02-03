@@ -251,7 +251,7 @@
 
 
 	<!-- 리플 삭제 -->
-	<delete id="deleteReply" parameterType="int">
+	<delete id="deleteReply" parameterType="com.test.dto.ReplyDTO">
 		delete from mp_reply
 		where rno = #{rno}
 	</delete>
@@ -293,6 +293,19 @@
     	where dno = #{dno}
     </select>
     
+    
+    <!-- 리플 카운트 -->
+    <select id="reply_cnt" resultType="int" parameterType="int">
+    	select count(*)
+    	from mp_reply
+    	where dno =#{dno}
+    </select>
+    
+    
+    <!-- 리플 카운트한 결과를 테이블에 저장 -->
+    <update id="reply_cnt_store" parameterType="com.test.dto.DbDTO">
+    	update han set reply_cnt=#{reply_cnt} where dno=#{dno}
+    </update>
     
  
 	

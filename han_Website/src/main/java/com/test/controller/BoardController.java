@@ -274,8 +274,17 @@ public class BoardController {
 	
 	// 로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public void getLogin() throws Exception{
-
+	public String getLogin(HttpSession hs) throws Exception{
+		
+		// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+		
+		if( loginInfo != null) {
+			return "redirect:/board/list";
+		}
+		
+		return "/board/login";
 	}
 	
 	
@@ -513,9 +522,9 @@ public class BoardController {
 	// 리플 삭제
 	@ResponseBody
 	@RequestMapping(value="replyDelete", method = RequestMethod.POST)
-	public void replyDelete(@RequestParam("rno") int rno) throws Exception {
+	public void replyDelete(ReplyDTO dto) throws Exception {
 		
-		service.deleteReply(rno);
+		service.deleteReply(dto);
 	}
 	
 	
@@ -602,11 +611,10 @@ public class BoardController {
     @RequestMapping(value = "/needlogin" , method=RequestMethod.GET )
     public void Need_Login(Model model) throws Exception {
     	model.addAttribute("msg", "로그인을 해주세요."); 
-    }
+    }    
     
     
-    
-    // Google Map
+    // Google Map Page
     @RequestMapping(value = "/map" , method=RequestMethod.GET )
     public void Map(HttpSession hs, Model model ) throws Exception {
     	
@@ -635,6 +643,14 @@ public class BoardController {
      	
     	return retVal;
     } 
+    
+    // chat
+    @RequestMapping(value = "/chat" , method=RequestMethod.GET)
+    public void Chat() {
+    	
+    }
+    
+    
 }
 
 

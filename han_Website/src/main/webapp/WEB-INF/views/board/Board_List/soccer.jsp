@@ -131,17 +131,11 @@
             </li>
 			<li>|</li>
             <li class="topMenuLi">
-                <a class="menuLink" href="1">MEDIA LOG</a>
-                 <ul class="submenu4">
-                    <li><a href="" class="submenuLink longLink">미구현</a></li>
-                    <li><a href="" class="submenuLink longLink">미구현</a></li>
-                    <li><a href="" class="submenuLink longLink">미구현</a></li>
-                    <li><a href="" class="submenuLink longLink">미구현</a></li>
-                </ul>
+                <a class="menuLink" href="/board/chat">Chat</a>
             </li>
 			<li>|</li>
             <li class="topMenuLi">
-                <a class="menuLink" href="/board/map">Map</a>
+                 <a class="menuLink" onclick="window.open('/board/map','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes');">Map</a>
             </li>
 		</ul>
 	</div>

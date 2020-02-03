@@ -215,7 +215,17 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void writeReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
-		dao.writeReply(dto);		
+		// 리플 작성
+		dao.writeReply(dto);
+		
+		// 리플 카운트
+		int reply_cnt = dao.reply_cnt(dto.getDno());
+						
+		// 리플 카운트한 결과를 테이블에 저장
+		DbDTO dto2 = new DbDTO();
+		dto2.setReply_cnt(reply_cnt);
+		dto2.setDno(dto.getDno());
+		dao.reply_cnt_store(dto2);
 	}
 
 	
@@ -229,9 +239,21 @@ public class BoardServiceImpl implements BoardService{
 
 	// 리플 삭제
 	@Override
-	public void deleteReply(int rno) throws Exception {
+	public void deleteReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
-		dao.deleteReply(rno);
+		// 리플 삭제
+		dao.deleteReply(dto);
+		
+		// 리플 카운트
+		int reply_cnt = dao.reply_cnt(dto.getDno());
+								
+		// 리플 카운트한 결과를 테이블에 저장
+		DbDTO dto2 = new DbDTO();
+		dto2.setReply_cnt(reply_cnt);
+		System.out.println("111"+dto2.getReply_cnt());
+		dto2.setDno(dto.getDno());
+		System.out.println("222"+dto2.getDno());
+		dao.reply_cnt_store(dto2);
 	}
 
 

@@ -59,7 +59,7 @@ public interface BoardService  {
 	public void updateReply(ReplyDTO dto) throws Exception;
 		
 	// 리플 삭제
-	public void deleteReply(int rno) throws Exception;
+	public void deleteReply(ReplyDTO dto) throws Exception;
 	
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;

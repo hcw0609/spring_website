@@ -13,8 +13,9 @@ create table han (
  regdate   CHAR(10)  NOT NULL,
  fileyn    CHAR(1)   DEFAULT 'n',
  imageyn   CHAR(1)   DEFAULT 'n',
- Thumbnail CHAR(100),
- category  CHAR(10)
+ Thumbnail CHAR(100) NOT NULL,
+ category  CHAR(10)  NOT NULL,
+ reply_cnt INT
 );
 */
 		
@@ -28,8 +29,11 @@ create table han (
 	private String imageyn;
 	private String thumbnail;
 	private String category;
+	private int reply_cnt;
 		
 	
+	
+
 	private String[] files;
 	private int fileCnt;
 	
@@ -132,6 +136,14 @@ create table han (
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	
+	public int getReply_cnt() {
+		return reply_cnt;
+	}
+
+	public void setReply_cnt(int reply_cnt) {
+		this.reply_cnt = reply_cnt;
 	}
 	
 	

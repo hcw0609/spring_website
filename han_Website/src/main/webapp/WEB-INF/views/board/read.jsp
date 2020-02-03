@@ -119,11 +119,14 @@
 	    			
 	    			var rno = $(this).attr('name');
 	    			rno = rno.substring(7);
+	    			
+	    			var dno = ${read.dno};
+	    			
 	    			$.ajax({
 	    	   			url : "/board/replyDelete",
 	    	   			type : "post",
 	    	   			dataType : "json",
-	    	   			data : {"rno" : rno}
+	    	   			data : {"rno" : rno, "dno" : dno}
 	    		   	})
 	    		});
 	            

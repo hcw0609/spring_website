@@ -69,7 +69,7 @@ public interface BoardDAO {
 	public void updateReply(ReplyDTO dto) throws Exception;
 	
 	// 리플 삭제
-	public void deleteReply(int rno) throws Exception;
+	public void deleteReply(ReplyDTO dto) throws Exception;
 	
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;
@@ -85,4 +85,10 @@ public interface BoardDAO {
  
     // 이미 작성된 게시물의 첨부파일 존재 유무
     public int file_exist(int dno) throws Exception;
+    
+    // 리플 카운트
+    public int reply_cnt(int dno) throws Exception;
+    
+    // 리플 카운트한 결과를 테이블에 저장
+    public void reply_cnt_store(DbDTO dto2) throws Exception;
 }

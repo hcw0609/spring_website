@@ -180,9 +180,9 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 리플 삭제
 	@Override
-	public void deleteReply(int rno) throws Exception {
+	public void deleteReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
-		sql.delete(namespace +".deleteReply", rno);
+		sql.delete(namespace +".deleteReply", dto);
 	}
 
 
@@ -223,6 +223,22 @@ public class BoardDAOImpl implements BoardDAO {
 	public int file_exist(int dno) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".file_exist", dno);
+	}
+
+
+	// 리플 카운트
+	@Override
+	public int reply_cnt(int dno) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".reply_cnt", dno);
+	}
+
+
+	// 리플 카운트한 결과를 테이블에 저장
+	@Override
+	public void reply_cnt_store(DbDTO dto2) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".reply_cnt_store", dto2);
 	}
 	
 	
