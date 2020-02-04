@@ -115,7 +115,7 @@
 	</div>
 	
 	<div style="position:absolute; margin-top:630px;">
-		<input type="text" class="form-control" id="address" style="width:1200px; border: 2px solid #212529;">
+		<input type="text" class="form-control" id="address" style="width:1200px; border:2px solid #212529;" value="${address}">
 		<button name="subject" class="btn btn-sm btn-dark" id="btn_mapsearch" value="trans" style="width:1200px">지도변경</button>
 	</div>
 	

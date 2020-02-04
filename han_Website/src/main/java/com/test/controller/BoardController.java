@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
@@ -40,6 +41,7 @@ import com.test.service.BoardService;
 import com.test.service.UserService;
 import com.test.util.Maputil;
 import com.test.util.Search;
+import com.test.util.Soccer;
 import com.test.util.UserCheck;
 
 @Controller
@@ -616,13 +618,18 @@ public class BoardController {
     
     // Google Map Page
     @RequestMapping(value = "/map" , method=RequestMethod.GET )
-    public void Map(HttpSession hs, Model model ) throws Exception {
+    public void Map(HttpSession hs, Model model, @RequestParam(required=false, value="address") String address ) throws Exception {
     	
     	// 로그인된 사용자가 누구 인지 확인
     	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
     	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
     	
-    	model.addAttribute("loginInfo",loginInfo);  
+    	if(address != null) {
+    		model.addAttribute("address", address);
+    	}
+    	
+    	model.addAttribute("loginInfo",loginInfo);
+    	
     }
     
     
@@ -644,11 +651,38 @@ public class BoardController {
     	return retVal;
     } 
     
+    
     // chat
     @RequestMapping(value = "/chat" , method=RequestMethod.GET)
-    public void Chat() {
+    public void Chat() throws Exception {
     	
     }
+    
+    
+    // 축구 데이터
+    @RequestMapping(value = "/soccer_data" , method=RequestMethod.GET)
+    public void soccer_data(Model model, HttpSession hs) throws Exception {
+    	
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+    	
+    	model.addAttribute("loginInfo",loginInfo);
+    	
+    	Soccer soccer = new Soccer();
+    	JsonArray EPL = soccer.getDataHtml();
+    	JsonArray LALIGA = soccer.getDataHtml1();
+    	JsonArray SERIEA = soccer.getDataHtml2();
+    	
+    	model.addAttribute("EPL",EPL);
+    	model.addAttribute("LALIGA",LALIGA);
+    	model.addAttribute("SERIEA",SERIEA);
+    	
+    }
+    
+    
+    
+    
     
     
 }

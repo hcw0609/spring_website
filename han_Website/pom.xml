@@ -25,11 +25,23 @@
 	
 	<dependencies>
 	
+<!-- 크롤링을 위한 -->
+	<dependency>
+		<groupId>org.jsoup</groupId>
+		<artifactId>jsoup</artifactId>
+		<version>1.11.2</version>
+	</dependency>
+<!-- 크롤링을 위한 -->
+
+	
+<!-- 채팅 -->
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-websocket</artifactId>
 		<version>${org.springframework-version}</version>
 	</dependency>
+<!-- 채팅 -->
+
 
 <!-- 구글 지도 -->
 	<dependency>
