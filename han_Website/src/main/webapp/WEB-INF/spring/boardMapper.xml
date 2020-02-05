@@ -125,7 +125,7 @@
 	
 	<!-- 회원가입	-->
 	<insert id="register" parameterType="com.test.dto.UserDTO">
-     	insert into han_user values(#{ID}, #{NAME}, #{PASSWORD})   
+     	insert into han_user values(#{ID}, #{PASSWORD}, #{EMAIL})   
     </insert>
 	  
 	  

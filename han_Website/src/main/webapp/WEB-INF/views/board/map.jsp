@@ -28,11 +28,16 @@
 				dataType : "json",
 				data : {"address" : address},
 				success: function(retVal) {
+					
 					var retVal_lat = retVal.lat;
 					var retVal_lng = retVal.lng;
-					reloadMap(retVal_lat, retVal_lng);
-				},
-				error: function(retVal) {		
+					
+					if( retVal_lat == "실패" ) {
+						alert("주소를  찾지 못했습니다. 다시 입력해 주세요.");
+						$("#address").focus();
+					} else {
+						reloadMap(retVal_lat, retVal_lng);
+					}				
 				}
 			})
 		})		

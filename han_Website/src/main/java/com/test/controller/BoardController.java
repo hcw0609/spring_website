@@ -618,18 +618,12 @@ public class BoardController {
     
     // Google Map Page
     @RequestMapping(value = "/map" , method=RequestMethod.GET )
-    public void Map(HttpSession hs, Model model, @RequestParam(required=false, value="address") String address ) throws Exception {
-    	
-    	// 로그인된 사용자가 누구 인지 확인
-    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
-    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
-    	
+    public void Map(Model model, @RequestParam(required=false, value="address") String address ) throws Exception {
+    	    	
     	if(address != null) {
     		model.addAttribute("address", address);
     	}
-    	
-    	model.addAttribute("loginInfo",loginInfo);
-    	
+       	
     }
     
     
@@ -640,15 +634,22 @@ public class BoardController {
     	   
     	Map<String, String> retVal = new HashMap<String, String>();
     	
-    	// 주소를 좌표값으로 변경
-    	Maputil maputil = new Maputil();
-    	String lat_lng = maputil.Map_util(address);
-		String[] split_lat_lng = lat_lng.split("!");
+    	try {
+    		// 주소를 좌표값으로 변경
+        	Maputil maputil = new Maputil();
+        	String lat_lng = maputil.Map_util(address);
+    		String[] split_lat_lng = lat_lng.split("!");
+    		
+    		retVal.put("lat", split_lat_lng[0]);
+    		retVal.put("lng", split_lat_lng[1]);
+         	
+        	return retVal;
+    	} catch (Exception e) {
+			// TODO: handle exception
+    		return retVal;
+		}
 		
-		retVal.put("lat", split_lat_lng[0]);
-		retVal.put("lng", split_lat_lng[1]);
-     	
-    	return retVal;
+    	
     } 
     
     

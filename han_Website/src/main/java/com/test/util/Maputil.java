@@ -65,21 +65,41 @@ public class Maputil {
             // XPathExpression expr = xpath.compile("/response/body/items/item");
             XPathExpression expr = xpath.compile("/GeocodeResponse/result/geometry/location");
             NodeList nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                NodeList child = nodeList.item(i).getChildNodes();
-                for (int j = 0; j < child.getLength(); j++) {
-                    Node node = child.item(j);
-                    if( node.getNodeName().equals("lat") ) {
-                    	lat = node.getTextContent();
-                    } else if( node.getNodeName().equals("lng") ) {
-                    	lng = node.getTextContent();
+            
+            if(nodeList.getLength() == 0) {
+            	lat_lng = "실패";
+            } else {
+            	
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    NodeList child = nodeList.item(i).getChildNodes();
+                    for (int j = 0; j < child.getLength(); j++) {
+                        Node node = child.item(j);
+                        if( node.getNodeName().equals("lat") ) {
+                        	lat = node.getTextContent();
+                        } else if( node.getNodeName().equals("lng") ) {
+                        	lng = node.getTextContent();
+                        }
                     }
                 }
+                
+                lat_lng = lat+"!"+lng;
             }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        lat_lng = lat+"!"+lng;
+    
 		return lat_lng;
 	}
+	
+	
+	/*
+	public static void main(String[] args) throws Exception {
+
+		Maputil mu = new Maputil();
+		String str = mu.Map_util("g4sdf36hf");
+		System.out.println(str);
+		
+	}
+	*/
 }

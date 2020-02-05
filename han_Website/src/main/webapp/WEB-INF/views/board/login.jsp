@@ -35,8 +35,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="form-control btn btn-primary btn-dark btnmargin2">로그인</button> <br>
-                        <button type="submit" class="form-control btn btn-primary btn-dark btnmargin2">비로그인</button> <br>
+                        <button type="submit" class="form-control btn btn-primary btn-dark btnmargin2">로그인 / 비로그인</button> <br>
                         <button type="button" class="form-control btn btn-primary btn-dark btnmargin2" onclick="location.href='/board/register'">회원가입</button>
                     </div>
                     

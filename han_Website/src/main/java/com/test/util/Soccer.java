@@ -2,11 +2,9 @@ package com.test.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
