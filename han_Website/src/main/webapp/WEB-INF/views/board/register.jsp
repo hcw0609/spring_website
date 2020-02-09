@@ -159,27 +159,32 @@
 			// 문자 : [영어소문자 or 영어대문자 or 숫자 or _ or -] "@"  [영어소문자 or 영어대문자 or 숫자] "." [영어소문자 or 영어대문자 or 숫자]
 			var EmailRule = /^[a-zA-Z0-9_\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
 			
-			if( EmailRule.test($("#EMAIL").val()) ) {
-				$("#email_check").attr("value", "Y");
-				$("#EMAIL").css("background-color", "#ffffff");
-				alert("사용가능한 EMAIL입니다.");
-								
+			if( EmailRule.test($("#EMAIL").val()) ) {											
 				$.ajax({
 					url : "/board/auth",
 					type : "post",
 					dataType : "json",
 					data : {"email" : $("#EMAIL").val()},
 					success : function(dice){
-						$("#dice").attr("value", dice);
-						alert("인증번호를 보냈습니다. 이메일을 확인해 주세요.");
+						if(dice == 0 ) {						
+							$("#EMAIL").css("background-color", "#dc3545");
+							$("#email_check").attr("value", "N");
+							$("#EMAIL").focus();
+							alert("이미 가입된 이메일 입니다.");
+						} else {
+							$("#email_check").attr("value", "Y");
+							$("#EMAIL").css("background-color", "#ffffff");
+							$("#dice").attr("value", dice);
+							alert("인증번호를 보냈습니다. 이메일을 확인해 주세요. "+ dice);
+						}						
 					}
 				})		
 								
 			} else {
 				$("#EMAIL").css("background-color", "#dc3545");
 				$("#email_check").attr("value", "N");
-				alert("이메일 형식에 적합하지 않습니다.");
 				$("#EMAIL").focus();
+				alert("이메일 형식에 적합하지 않습니다.");
 				return false;
 			}					
 		})

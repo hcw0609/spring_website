@@ -29,12 +29,22 @@ public class UserServiceImpl implements UserService {
 		return userdao.login(userdto);
 	}
 
-
+	
+	// EMAIL 중복체크
+	@Override
+	public int overLap_EMAIL(String EMAIL) throws Exception {
+		// TODO Auto-generated method stub
+		return userdao.overLap_EMAIL(EMAIL);
+	}
+		
+		
 	// ID 중복체크
 	@Override
 	public int overLap(UserDTO userdto) throws Exception {
 		// TODO Auto-generated method stub
 		return userdao.overLap(userdto);
 	}
+
+	
 
 }

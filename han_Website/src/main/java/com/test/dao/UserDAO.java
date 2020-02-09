@@ -10,6 +10,11 @@ public interface UserDAO {
 	// 로그인
 	public UserDTO login(UserDTO userdto) throws Exception;
 		
+	// EMAIL 중복체크
+	public int overLap_EMAIL(String EMAIL) throws Exception;
+		
 	// ID 중복체크
 	public int overLap(UserDTO userdto) throws Exception;
+	
+	
 }

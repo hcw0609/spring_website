@@ -122,7 +122,7 @@
 	</sql>
 	
 	
-	
+	<!-- UserDTO -->
 	<!-- 회원가입	-->
 	<insert id="register" parameterType="com.test.dto.UserDTO">
      	insert into han_user values(#{ID}, #{PASSWORD}, #{EMAIL})   
@@ -137,13 +137,21 @@
 	</select>
 	
 	
+	<!-- EMAIL 중복체크 -->
+	<select id="overLap_EMAIL" resultType="int" parameterType="String">
+ 		select count(EMAIL)
+ 		from han_user
+ 		where EMAIL = #{EMAIL}
+	</select>
+	
+	
 	<!-- ID 중복체크 -->
 	<select id="overLap" resultType="int" parameterType="com.test.dto.UserDTO">
  		select count(ID)
  		from han_user
  		where ID = #{ID}
 	</select>
-
+	<!-- UserDTO -->
 
 
 	<!-- oracle db에 파일에 대한 정보 업로드  
@@ -307,6 +315,15 @@
     	update han set reply_cnt=#{reply_cnt} where dno=#{dno}
     </update>
     
+    
+    <!-- ClubDTO -->
+    <!-- 클럽 리스트 가져오기  -->
+    <select id="Club_list" resultType="com.test.dto.ClubDTO" parameterType="com.test.dto.ClubDTO">
+    	select *
+    	from club
+    	where club_belong =#{club_belong}
+    </select>   
+    <!-- ClubDTO -->
  
 	
 </mapper>

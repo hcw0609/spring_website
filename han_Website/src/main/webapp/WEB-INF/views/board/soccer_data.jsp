@@ -24,24 +24,54 @@
 	
 
 	$(document).ready(function(){
-	
+				
 		$('#EPLbtn').on("click", function(e){
 			for(var i=1; i<21; i++) {
-				$('#LALIGA, #SERIEA').remove();				
+				$('#EPL, #LALIGA, #SERIEA').remove();				
 			}
 			
 			var EPL_jsonArray = ${EPL};		
 			var html = "";
-				
+			
 			for (var i=EPL_jsonArray.length-1; i>=0; i--) {
+				
 				var data = ""
-				html = "<tr id='EPL'>"
+				var teamCode = "";	
+				html = "<tr id='EPL'>"	
+				
 				while(true) {
-									
+					
+					teamCode = EPL_jsonArray[i]["teamCode"]	
+					
 					data = EPL_jsonArray[i]["rank"]
-					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					switch( data ) {
+						case 1:
+							html += "<td style='padding:.25rem; background-color:#85e26a;' class='text-center text_title' >" + data + "</td>";
+							break;
+						case 2:
+						case 3:
+						case 4: 
+							html += "<td style='padding:.25rem; background-color:#c3dc9a;' class='text-center text_title' >" + data + "</td>";
+							break;
+						case 5:
+						case 6:
+							html += "<td style='padding:.25rem; background-color:#bdd9ef;' class='text-center text_title' >" + data + "</td>";
+							break; 
+						default:
+							html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					}
+					
 					data = EPL_jsonArray[i]["teamName"]
-					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					
+					switch ( teamCode ) {
+						case "9":
+							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/EPL/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/Soccer_Team_Info?name=리버풀fc','window_name','width=1400px, height=700px, location=no, status=no,scrollbars=yes')\">" + data + "</a></td>";  
+							break;
+						default :
+							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/EPL/"+teamCode+".png'>"  + data + "</td>";
+					}
+					
+					
 					data = EPL_jsonArray[i]["gameCount"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = EPL_jsonArray[i]["gainPoint"]
@@ -52,6 +82,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = EPL_jsonArray[i]["lost"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					/*
 					data = EPL_jsonArray[i]["gainGoal"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = EPL_jsonArray[i]["loseGoal"]
@@ -60,6 +91,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = EPL_jsonArray[i]["lastResult"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					*/
 					break;
 				}
 				html += "</tr>"
@@ -72,7 +104,7 @@
 		
 		$('#LALIGAbtn').on("click", function(e){
 			for(var i=1; i<21; i++) {
-				$('#EPL, #SERIEA').remove();
+				$('#EPL, #LALIGA, #SERIEA').remove();
 			}
 			
 			var LALIGA_jsonArray = ${LALIGA};
@@ -83,20 +115,37 @@
 				var teamCode = "";
 				html = "<tr id='LALIGA'>"
 				while(true) {
-					teamCode = LALIGA_jsonArray[i]["teamCode"]					
-					data = LALIGA_jsonArray[i]["rank"]
-					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					
+					teamCode = LALIGA_jsonArray[i]["teamCode"]	
+					
+					data = LALIGA_jsonArray[i]["rank"]
+					switch( data ) {
+						case 1:
+							html += "<td style='padding:.25rem; background-color:#85e26a;' class='text-center text_title' >" + data + "</td>";
+							break;
+						case 2:
+						case 3:
+						case 4: 
+							html += "<td style='padding:.25rem; background-color:#c3dc9a;' class='text-center text_title' >" + data + "</td>";
+							break;
+						case 5:
+						case 6:
+							html += "<td style='padding:.25rem; background-color:#bdd9ef;' class='text-center text_title' >" + data + "</td>";
+							break; 
+						default:
+							html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					}
+										
 					data = LALIGA_jsonArray[i]["teamName"]
 					switch ( teamCode ) {
 						case "26303":
-							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/map?address=산티아고 베르나베우','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes')\">" + data + "</a></td>";
+							html += "<td style='padding:.25rem' class='text_title' id='레알마드리드' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + data + "</a></td>";
 							break;
 						case "26300":
-							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/map?address=캄 노우','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes')\">" + data + "</a></td>";
+							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/Soccer_Team_Info?name=fc바르셀로나','window_name','width=1400px, height=700px, location=no, status=no,scrollbars=yes')\">" + data + "</a></td>";
 							break;
 						case "26305":
-							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/map?address=완다 메트로폴리타노','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes')\">" + data + "</a></td>";
+							html += "<td style='padding:.25rem' class='text_title' id='아틀레티코 마드리드' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + data + "</a></td>";
 							break;
 						case "26316":
 							html += "<td style='padding:.25rem' class='text_title' >" + "<img src='/Image/LALIGA/"+teamCode+".png'>" + "<a onclick=\"window.open('/board/map?address=에스타디오 데 메스타야','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes')\">" + data + "</a></td>";
@@ -119,6 +168,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = LALIGA_jsonArray[i]["lost"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					/*
 					data = LALIGA_jsonArray[i]["gainGoal"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = LALIGA_jsonArray[i]["loseGoal"]
@@ -127,6 +177,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = LALIGA_jsonArray[i]["lastResult"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					*/
 					break;
 				}
 				html += "</tr>"
@@ -139,7 +190,7 @@
 		
 		$('#SERIEAbtn').on("click", function(e){
 			for(var i=1; i<21; i++) {
-				$('#EPL, #LALIGA').remove();
+				$('#EPL, #LALIGA, #SERIEA').remove();
 			}
 			
 			var SERIEA_jsonArray = ${SERIEA};
@@ -149,8 +200,25 @@
 				var data = ""
 				html = "<tr id='SERIEA'>"
 				while(true) {
+					
 					data = SERIEA_jsonArray[i]["rank"]
-					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					switch( data ) {
+					case 1:
+						html += "<td style='padding:.25rem; background-color:#85e26a;' class='text-center text_title' >" + data + "</td>";
+						break;
+					case 2:
+					case 3:
+					case 4: 
+						html += "<td style='padding:.25rem; background-color:#c3dc9a;' class='text-center text_title' >" + data + "</td>";
+						break;
+					case 5:
+					case 6:
+						html += "<td style='padding:.25rem; background-color:#bdd9ef;' class='text-center text_title' >" + data + "</td>";
+						break; 
+					default:
+						html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+				}
+					
 					data = SERIEA_jsonArray[i]["teamName"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = SERIEA_jsonArray[i]["gameCount"]
@@ -163,6 +231,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = SERIEA_jsonArray[i]["lost"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					/*
 					data = SERIEA_jsonArray[i]["gainGoal"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = SERIEA_jsonArray[i]["loseGoal"]
@@ -171,6 +240,7 @@
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
 					data = SERIEA_jsonArray[i]["lastResult"]
 					html += "<td style='padding:.25rem' class='text-center text_title' >" + data + "</td>";
+					*/
 					break;
 				}
 				html += "</tr>"
@@ -182,20 +252,12 @@
 		})
 	})
 		
-		
-		
-		
-		
-		
-		
-		
-			
 
 </script>
 </head>
 <body>
 
-<div class="container">
+<div>
 	<div>
 		<c:if test="${loginInfo.ID == null}">
 		<span class="text_etc">"비로그인"님 어서오세요.</span>
@@ -249,14 +311,19 @@
 	
 	<br><br>
 	
-	<h2>네이버에서 실시간으로 파싱해오는 데이터 입니다.</h2>
-	<button id="EPLbtn"><img src="/Image/EPL/epl.png" style="width:100px; height:30px;" alt="EPL"></button>
-	<button id="LALIGAbtn"><img src="/Image/LALIGA/laliga.png" style="width:100px; height:30px;" alt="LALIGA"></button>
-	<button id="SERIEAbtn"><img src="/Image/SERIEA/seriea.png" style="width:100px; height:30px;" alt="SERIEA"></button>
+	<h2 style="text-align:center;">네이버, 나무위키에서 실시간으로 파싱해오는 데이터 입니다.</h2>
+	
+	<div style="text-align:center;">
+		<button id="EPLbtn"><img src="/Image/EPL/epl.png" style="width:100px; height:30px;" alt="EPL"></button>
+		<button id="LALIGAbtn"><img src="/Image/LALIGA/laliga.png" style="width:100px; height:30px;" alt="LALIGA"></button>
+		<button id="SERIEAbtn"><img src="/Image/SERIEA/seriea.png" style="width:100px; height:30px;" alt="SERIEA"></button>
+	</div>
+
 	
 	<div style="width:100%; height:10px"></div>
+</div>
 	
-<table class="table table-hover">
+<table class="table table-hover" style="width:520px; position:absolute; border: 2px solid #787777">
 	<colgroup>
 			<col style="width:5%; "/>
 			<col style="width:30%; "/>	
@@ -265,10 +332,12 @@
 			<col style="width:5%; "/>
 			<col style="width:5%; "/>
 			<col style="width:5%; "/>	
+			<!--  
 			<col style="width:5%;"/>
 			<col style="width:5%; "/>
 			<col style="width:5%; "/>
 			<col style="width:25%; "/>
+			-->
 	</colgroup>
 	
 	<tr class="start_list" style="background-color: #2d2d2d" >
@@ -279,14 +348,20 @@
 		<td style="padding:.25rem" class="text-white text-center text_title" >승</td>
 		<td style="padding:.25rem" class="text-white text-center text_title" >무</td>
 		<td style="padding:.25rem" class="text-white text-center text_title" >패</td>
+		<!--
 		<td style="padding:.25rem" class="text-white text-center text_title" >득점</td>
 		<td style="padding:.25rem" class="text-white text-center text_title" >실점</td>
 		<td style="padding:.25rem" class="text-white text-center text_title" >득실</td>
 		<td style="padding:.25rem" class="text-white text-center text_title" >최근</td>
+		-->
 	</tr>	
 </table>
 
 
+<div style="width:700px; height:1000px; text-align:center; position:absolute; margin-left:600px; border: 2px solid #787777">
+
 </div>
+
+
 </body>
 </html>

@@ -1,14 +1,12 @@
 package com.test.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
-import com.test.dto.UserDTO;
 import com.test.util.Search;
 
 public interface BoardService  {

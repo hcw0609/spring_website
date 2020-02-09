@@ -32,11 +32,22 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 
+	// EMAIL 중복체크
+	@Override
+	public int overLap_EMAIL(String EMAIL) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".overLap_EMAIL", EMAIL);
+	}
+	
+	
 	// ID 중복체크
 	@Override
 	public int overLap(UserDTO userdto) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".overLap", userdto);
 	}
+
+
+	
 
 }

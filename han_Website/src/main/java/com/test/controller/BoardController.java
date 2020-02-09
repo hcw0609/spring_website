@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -32,16 +34,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 
 import com.test.dto.ReplyDTO;
 import com.test.dto.UserDTO;
 import com.test.service.BoardService;
+import com.test.service.ClubService;
 import com.test.service.UserService;
 import com.test.util.Maputil;
 import com.test.util.Search;
 import com.test.util.Soccer;
+import com.test.util.Soccer_Team_Info;
 import com.test.util.UserCheck;
 
 @Controller
@@ -55,10 +60,13 @@ public class BoardController {
 	private UserService service1;
 	
 	@Inject
+	private ClubService service2;
+	
+	@Inject
 	JavaMailSender mailSender;
 	
 	
-	// 글 목록1
+	// 글 목록 [통합 게시판]
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void  getList(Search search,
 						Model model,
@@ -88,7 +96,7 @@ public class BoardController {
 	}
 	
 	
-	// 글 목록2
+	// 글 목록2 [해외축구, 국내축구, 자유게시판]
 	@RequestMapping(value="/Board_List/soccer", method = RequestMethod.GET)
 	public void  getoverseas_soccer(Search search,
 									Model model, 
@@ -559,45 +567,53 @@ public class BoardController {
     // 이메일 인증
     @ResponseBody
     @RequestMapping(value = "/auth" , method=RequestMethod.POST )
-    public int mailSending(@RequestParam("email") String email) throws IOException {
-
+    public int mailSending(@RequestParam("email") String email) throws Exception {
+    	
     	// 인증코드생성
         Random r = new Random();
         int dice = r.nextInt(10000) + 10000;
         
-        // 보내는 사람의 이메일
-        String setfrom = "hcw0609@gamil.com";
-        
-        // 받는 사람의 이메일
-        String tomail = email;
-        
-        // 이메일 제목
-        String title = "회원가입 인증 이메일 입니다.";
-        
-        // 이메일 내용
-        String content =      
-        System.getProperty("line.separator")+ //한줄씩 줄간격을 두기위해 작성
-        System.getProperty("line.separator")+
-        "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
-        +System.getProperty("line.separator")+
-        System.getProperty("line.separator")+
-        " 인증번호는 " + dice + " 입니다. ";
-
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-
-            messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
-            messageHelper.setTo(tomail); 		// 받는사람 이메일
-            messageHelper.setSubject(title); 	// 메일제목은 생략이 가능하다
-            messageHelper.setText(content); 	// 메일 내용
+    	// 중복되는 이메일이 있는지 체크
+    	int i = service1.overLap_EMAIL(email);
+    	if ( i != 0) {
+    		dice = 0;
+    		return dice;
+    	} else {
+    		            
+            // 보내는 사람의 이메일
+            String setfrom = "hcw0609@gamil.com";
             
-            mailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-              
-        return dice;        
+            // 받는 사람의 이메일
+            String tomail = email;
+            
+            // 이메일 제목
+            String title = "회원가입 인증 이메일 입니다.";
+            
+            // 이메일 내용
+            String content =      
+            System.getProperty("line.separator")+ //한줄씩 줄간격을 두기위해 작성
+            System.getProperty("line.separator")+
+            "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+            +System.getProperty("line.separator")+
+            System.getProperty("line.separator")+
+            " 인증번호는 " + dice + " 입니다. ";
+
+            try {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+                messageHelper.setFrom(setfrom); 	// 보내는사람 생략하면 정상작동을 안함
+                messageHelper.setTo(tomail); 		// 받는사람 이메일
+                messageHelper.setSubject(title); 	// 메일제목은 생략이 가능하다
+                messageHelper.setText(content); 	// 메일 내용
+                
+                mailSender.send(message);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+                  
+            return dice;        
+    	}   	
     }	
     
     
@@ -660,7 +676,29 @@ public class BoardController {
     }
     
     
-    // 축구 데이터
+    // 축구 팀 데이터 
+    @RequestMapping(value = "/Club_Info" , method=RequestMethod.GET)
+    public void Club_Info( ClubDTO dto, Model model, HttpSession hs) throws Exception{
+    	
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+    	
+    	// 클럽 카테고리
+    	String club_belong = dto.getClub_belong();
+    	
+    	// 글 목록 꺼내오기
+    	List<ClubDTO> list = service2.Club_list(dto);
+    					
+    	// 모델
+    	model.addAttribute("club_belong",club_belong);
+    	model.addAttribute("list", list);
+    	model.addAttribute("loginInfo", loginInfo);
+    	
+    }
+    
+    
+    // 축구 리그 데이터
     @RequestMapping(value = "/soccer_data" , method=RequestMethod.GET)
     public void soccer_data(Model model, HttpSession hs) throws Exception {
     	
@@ -677,10 +715,47 @@ public class BoardController {
     	
     	model.addAttribute("EPL",EPL);
     	model.addAttribute("LALIGA",LALIGA);
-    	model.addAttribute("SERIEA",SERIEA);
-    	
+    	model.addAttribute("SERIEA",SERIEA); 	
     }
     
+    
+    // 축구 팀 데이터 
+    @RequestMapping(value = "/Soccer_Team_Info" , method=RequestMethod.GET)
+    public void Soccer_Team_Info(Model model, @RequestParam("name") String name) throws Exception {
+    	
+    	Soccer_Team_Info sti = new Soccer_Team_Info();
+    	   	
+    	// 팀 정보
+    	LinkedHashMap<String, String> Team_Info =  sti.Team_Info(name);
+    	
+    	// 팀의 스쿼드에 대한 정보 
+    	ArrayList<LinkedHashMap<String, String>> Player_Info = sti.Player_Info(name);
+    	
+    	
+    	model.addAttribute("Team_Info", Team_Info);
+    	model.addAttribute("Player_Info", Player_Info);
+    }
+    
+    // 축구 리그 데이터 
+    @RequestMapping(value = "/sample" , method=RequestMethod.GET)
+    public void sample( Model model, HttpSession hs) throws Exception{
+    	
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+    	
+    	model.addAttribute("loginInfo",loginInfo);
+    	
+    	Soccer soccer = new Soccer();
+    	JsonArray EPL = soccer.getDataHtml();
+    	JsonArray LALIGA = soccer.getDataHtml1();
+    	JsonArray SERIEA = soccer.getDataHtml2();
+    	
+    	model.addAttribute("EPL",EPL);
+    	model.addAttribute("LALIGA",LALIGA);
+    	model.addAttribute("SERIEA",SERIEA); 	
+    	
+    }
     
     
     

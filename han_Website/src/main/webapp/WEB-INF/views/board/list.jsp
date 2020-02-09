@@ -4,26 +4,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>List</title>
 
-<!-- Thumbnail -->
-<link rel="stylesheet" type="text/css" href="/resources/css/Thumbnail.css"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-<!-- MenuBar -->
-<link rel="stylesheet" type="text/css" href="/resources/css/MenuBar.css"/>
+	<title>Shop Homepage - Start Bootstrap Template</title>
 
-<!-- Bootstrap -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom -->
-<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-
-<!-- Jquery -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+	<!-- Custom styles for this template -->
+	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
+    
+	<!-- Thumbnail -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/Thumbnail.css"/>
+  
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+  
+	<!-- Jquery -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  
+  
 <script type="text/javascript">
-
 
 	// 글 찾기
 	function find() {
@@ -72,139 +77,297 @@
 		location.href = url;
 	}
 </script>
-
-
+  
 </head>
+
 <body>
 
-
-<div class="container">
-	<div>
-		<c:if test="${loginInfo.ID == null}">
-		<span class="text_etc">"비로그인"님 어서오세요.</span>
-		<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
-		</c:if>
-		<c:if test="${loginInfo.ID != null}">
-		<span class="text_etc">"${loginInfo.ID}"님 어서오세요.</span>
-		<input type="button" class="btn-Logout btn-danger" value="로그아웃" onclick="location.href='/board/logout'"></input>
-		</c:if>
-		<input type="hidden" id="loginInfoID" name="${loginInfo.ID}" value="${loginInfo.ID}">
-	</div>
-	
-	<!-- 상단 메뉴바 -->
-	<div id="topMenu" >
-		<ul>
-			<li class="topMenuLi">
-                <a class="menuLink" href="/board/list">FOOTBALL</a>
-                <ul class="submenu4">
-                    <li><a href="/board/Board_List/soccer?category=해외축구" class="submenuLink">해외축구</a></li>
-                    <li><a href="/board/Board_List/soccer?category=국내축구" class="submenuLink">국내축구</a></li>
-                    <li><a href="/board/Board_List/soccer?category=축구 소식통" class="submenuLink">축구 소식통</a></li>
-                    <li><a href="/board/Board_List/soccer?category=자유 게시판" class="submenuLink">자유 게시판</a></li>
-                </ul>
-            </li>
-			<li>|</li>
-            <li class="topMenuLi">
-                <a class="menuLink" href="/board/soccer_data">FOOTBALL_DATA</a>
-            </li>
-			<li>|</li>
-            <li class="topMenuLi">
-                <a class="menuLink" href="1">LANGUAGE</a>
-                <ul class="submenu4">
-                    <li><a href="" class="submenuLink">미구현</a></li>
-                    <li><a href="" class="submenuLink">미구현</a></li>
-                    <li><a href="" class="submenuLink">미구현</a></li> 
-                    <li><a href="" class="submenuLink">미구현</a></li>    
-                </ul>
-            </li>
-			<li>|</li>
-            <li class="topMenuLi">
-                <a class="menuLink" href="/board/chat">Chat</a>
-            </li>
-			<li>|</li>
-            <li class="topMenuLi">
-                <a class="menuLink" onclick="window.open('/board/map','window_name','width=1200,height=700,location=no,status=no,scrollbars=yes');">Map</a>
-            </li>
-		</ul>
-	</div>
-	<!-- 상단 메뉴바 -->
-	
-	
-	<br><br>
-
-
-
-<c:forEach items="${list}" var="list">	
-<div style="float:left; width:100%">
-	<div style="float:left;">	
-		<a href="/board/read?dno=${list.dno}">	<img class="thumbnail" src="${list.thumbnail}"></a>
-	</div>
-			
-	<div>
-		<div>
-		<a class="text_title" href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
-		<c:if test="${list.fileyn == 'y'}">
-		<span><img style="width:11px; height:11px;" src="/Image/File_Image.gif"></span>
-		</c:if>	
-		<c:if test="${list.imageyn == 'y'}">
-		<span><img style="width:11px; height:11px;" src="/Image/Image_Icon.png"></span>
-		</c:if>		
-		</div>
-		
-			
-		<div style="height:16px;"><span class="text_etc">${list.category}</span></div>	
-				
-		<div><span class="text_etc">${list.regdate}</span> / <span class="text_etc">${list.writer}</span></div>
-		
-	</div>
-</div>
-</c:forEach>
-
-
-	<!-- 글쓰기 버튼 -->
-	<button type="button" class="btn btn-sm btn-dark offset-11" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>
-
-	<!-- 페이징 -->
-	<div>
-		<ul class="pagination">
-			<c:if test="${paging.prevPage}">
-				<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.curPage}', '${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')">이전</a></li>
+ 	<!-- Navigation -->
+ 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container">
+    
+		<!-- 로그인 유저 확인 -->
+      	<div>
+			<c:if test="${loginInfo.ID == null}">
+				<span class="text_subtitle1" style="color:white; ">"비로그인"님 어서오세요.</span>
+				<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
 			</c:if>
-
-			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-				<li class="page-item <c:out value="${paging.curPage == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}','${paging.curRange}','${paging.searchType}','${paging.keyword}')"> ${idx} </a></li>
-			</c:forEach>
-		
-			<c:if test="${paging.nextPage}">
-				<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.curPage}','${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')" >다음</a></li>
+			<c:if test="${loginInfo.ID != null}">
+				<span class="text_subtitle1" style="color:white;">"${loginInfo.ID}"님 어서오세요.</span>
+				<input type="button" class="btn-Logout btn-danger" value="로그아웃" onclick="location.href='/board/logout'"></input>
 			</c:if>
-		</ul>
-	</div>
-	<!-- 페이징 -->
-
-
-	<!-- 검색 -->
-	<div class="row justify-content-center">
-		<div style="padding-right:10px">
-			<select class="form-control form-control-sm" name="searchType" id="searchType">
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="writer">글쓴이</option>
-			</select>
+				<input type="hidden" id="loginInfoID" name="${loginInfo.ID}" value="${loginInfo.ID}">
 		</div>
-
-		<div class="w300" style="padding-right:10px">
-			<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
+		<!-- 로그인 유저 확인 -->
+		
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+ 		</button>
+      
+		<!-- 상위 메뉴 -->
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+  					<a class="nav-link" href="/board/list">Community
+						<span class="sr-only">(current)</span>
+         		  	</a>
+         		</li>
+         		<li class="nav-item">
+            		<a class="nav-link" href="/board/Club_Info?club_belong=EPL">Club</a>
+         		</li>
+        		<li class="nav-item">
+            		<a class="nav-link" href="/board/sample?club_belong=EPL">LEAGUE</a>
+          		</li>
+          		<li class="nav-item">
+            		<a class="nav-link" href="#">Contact</a>
+          		</li>
+        	</ul>
 		</div>
+		<!-- 상위 메뉴 -->
+      
+    </div>
+	</nav>
 
-		<div>
-			<button class="btn btn-sm btn-dark" name="btnSearch" id="btnSearch" onclick="find()">찾기</button>		
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+		
+			<!-- 측면 메뉴 -->
+			<div class="col-lg-2">			
+	        	<h3 class="my-4">Community</h3>
+        			<div class="list-group">
+          				<a href="/board/list" class="list-group-item" style="font-weight: bold;">통합 게시판</a>
+          				<a href="/board/Board_List/soccer?category=해외축구" class="list-group-item">해외축구</a>
+          				<a href="/board/Board_List/soccer?category=국내축구" class="list-group-item">국내축구</a>
+          				<a href="/board/Board_List/soccer?category=자유 게시판" class="list-group-item">자유 게시판</a>
+        			</div>
+			</div>   
+			<!-- 측면 메뉴 -->   		     
+			<!-- /.col-lg-2 -->
+
+			<div class="col-lg-10">
+			
+				<!-- 광고판 -->
+        		<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+					<ol class="carousel-indicators">
+     					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+   						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+				<div class="carousel-inner" role="listbox">
+					<div class="carousel-item active">
+						<img class="d-block img-fluid" src="/Image/logo.jpg" style="width:900px; height:300px;" alt="First slide">
+					</div>
+ 					<div class="carousel-item">
+						<img class="d-block img-fluid" src="/Image/dd.png" style="width:900px; height:300px;" alt="Second slide">
+					</div>
+					<div class="carousel-item">
+						<img class="d-block img-fluid" src="/Image/free.png" style="width:900px; height:300px;" alt="Third slide">
+					</div>
+          		</div>
+          		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            		<span class="sr-only">Previous</span>
+          		</a>
+          		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+            		<span class="sr-only">Next</span>
+          		</a>
+				</div>
+				<!-- 광고판 -->
+	
+	       	 <div class="row">
+        
+				<c:forEach items="${list}" var="list">	
+					<div style="float:left; width:100%" >
+						<div style="float:left;">	
+							<a href="/board/read?dno=${list.dno}">	<img class="thumbnail" src="${list.thumbnail}"></a>
+						</div>
+							
+						<div>
+							<div>
+								<a class="text_title" href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
+								<c:if test="${list.fileyn == 'y'}">
+									<span><img style="width:11px; height:11px;" src="/Image/File_Image.gif"></span>
+								</c:if>	
+								<c:if test="${list.imageyn == 'y'}">
+									<span><img style="width:11px; height:11px;" src="/Image/Image_Icon.png"></span>
+								</c:if>		
+							</div>
+											
+							<div style="height:16px;"><span class="text_etc">${list.category}</span></div>	
+									
+							<div><span class="text_etc">${list.regdate}</span> / <span class="text_etc">${list.writer}</span></div>
+						
+						</div>
+					</div>
+				</c:forEach>
+		<!-- 
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item One</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Two</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Three</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Four</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Five</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="#">Item Six</a>
+                </h4>
+                <h5>$24.99</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          </div>
+           -->
+
+        	</div>
+        	<!-- /.row -->    
+
+			<!-- 페이징 -->
+			<div>
+			</br>
+				<ul class="pagination">
+					<c:if test="${paging.prevPage}">
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.curPage}', '${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')">이전</a></li>
+					</c:if>
+			
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
+						<li class="page-item <c:out value="${paging.curPage == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}','${paging.curRange}','${paging.searchType}','${paging.keyword}')"> ${idx} </a></li>
+					</c:forEach>
+					
+					<c:if test="${paging.nextPage}">
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.curPage}','${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')" >다음</a></li>
+					</c:if>
+				</ul>
+			</div>
+			<!-- 페이징 -->
+
+
+			<!-- 검색 -->
+			<div class="row justify-content-center">
+				<div style="padding-right:10px">
+					<select class="form-control form-control-sm" name="searchType" id="searchType">
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="writer">글쓴이</option>
+					</select>
+				</div>
+			
+				<div class="w300" style="padding-right:10px">
+					<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
+				</div>
+			
+				<div>				
+					<button class="btn btn-sm btn-dark" name="btnSearch" id="btnSearch" onclick="find()">찾기</button>
+					<button type="button" class="btn btn-sm btn-dark" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>									
+				</div>
+			</div>
+			</br>
+			<!-- 검색 -->
+
+			</div>
+			<!-- /.col-lg-10 -->
+      
+      
+
+    	</div>
+   		 <!-- /.row -->
+
+  	</div>
+  	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
 		</div>
-	</div>
-	<!-- 검색 -->
+    <!-- /.container -->
+	</footer>
 
-
-</div>
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
 
 </body>
+
 </html>
