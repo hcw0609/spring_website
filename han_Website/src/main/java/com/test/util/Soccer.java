@@ -19,8 +19,7 @@ public class Soccer {
 		String result1 = a.toString().substring(a.toString().lastIndexOf("regularTeamRecordList")+23);		 
 		int idx = result1.indexOf("]");
 		String result2 = result1.substring(0, idx+1);	 
-		String jsonstr = result2;
-		
+		String jsonstr = result2;				
 		
 		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
 		JsonParser jsonParser = new JsonParser();
@@ -63,11 +62,12 @@ public class Soccer {
 		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
+		System.out.println(jsonArray);
 		
 		return jsonArray;
 	}	
 	
-	/*
+	
 	public static void main(String[] args) throws Exception {
 
 		Soccer soccer = new Soccer();
@@ -75,5 +75,5 @@ public class Soccer {
 		soccer.getDataHtml2();
 		
 	}
-	*/
+	
 }

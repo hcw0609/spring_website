@@ -2,22 +2,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html>
+<html class="Custom_html">
 <head>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
 
-	<title>Shop Homepage - Start Bootstrap Template</title>
-
+	<title>Soccer Site</title>
+	
+	<!--  1 -->
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+	
 	<!-- Custom styles for this template -->
 	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
+	
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+	<!--  1 -->
     
+    
+    <!-- 2 -->
 	<!-- Thumbnail -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/Thumbnail.css"/>
   
@@ -26,57 +32,56 @@
   
 	<!-- Jquery -->
  	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  	<!-- 2 -->
   
-  
-<script type="text/javascript">
-
-	// 글 찾기
-	function find() {
-		var searchType = $('#searchType').val();
-		var keyword = $('#keyword').val();		
-		var url = "/board/list";
-		url = url + "?searchType=" + searchType
-		url = url + "&keyword="    + keyword	
-		location.href=url;
-	}
+	<script type="text/javascript">
+		// 글 찾기
+		function find() {
+			var searchType = $('#searchType').val();
+			var keyword = $('#keyword').val();		
+			var url = "/board/list";
+			url = url + "?searchType=" + searchType
+			url = url + "&keyword="    + keyword	
+			location.href=url;
+		}
+		
+		
+		// 이전 버튼 이벤트
+		function fn_prev(curPage, curRange, rangeSize, searchType, keyword) {
+			var curPage = ((curRange - 2) * rangeSize) + 1;
+			var curRange = curRange - 1;
+			var url = "/board/list";
+			url = url + "?curPage="    + curPage;
+			url = url + "&curRange="   + curRange;
+			url = url + "&searchType=" + searchType
+			url = url + "&keyword="    + keyword
+			location.href = url;
+		}
 	
 	
-	// 이전 버튼 이벤트
-	function fn_prev(curPage, curRange, rangeSize, searchType, keyword) {
-		var curPage = ((curRange - 2) * rangeSize) + 1;
-		var curRange = curRange - 1;
-		var url = "/board/list";
-		url = url + "?curPage="    + curPage;
-		url = url + "&curRange="   + curRange;
-		url = url + "&searchType=" + searchType
-		url = url + "&keyword="    + keyword
-		location.href = url;
-	}
-
-
-	// 페이지 번호 클릭 
-	function fn_pagination(idx, curRange, searchType, keyword) {
-		var url = "/board/list";
-		url = url + "?curPage="    + idx;
-		url = url + "&curRange="   + curRange;
-		url = url + "&searchType=" + searchType
-		url = url + "&keyword="    + keyword
-		location.href = url;	
-	}
-
+		// 페이지 번호 클릭 
+		function fn_pagination(idx, curRange, searchType, keyword) {
+			var url = "/board/list";
+			url = url + "?curPage="    + idx;
+			url = url + "&curRange="   + curRange;
+			url = url + "&searchType=" + searchType
+			url = url + "&keyword="    + keyword
+			location.href = url;	
+		}
 	
-	// 다음 버튼 이벤트 
-	function fn_next(curPage, curRange, rangeSize, searchType, keyword) {
-		var curPage = parseInt((curRange * rangeSize)) + 1;
-		var curRange = parseInt(curRange) + 1;
-		var url = "/board/list";
-		url = url + "?curPage="    + curPage;
-		url = url + "&curRange="   + curRange;
-		url = url + "&searchType=" + searchType
-		url = url + "&keyword="    + keyword
-		location.href = url;
-	}
-</script>
+		
+		// 다음 버튼 이벤트 
+		function fn_next(curPage, curRange, rangeSize, searchType, keyword) {
+			var curPage = parseInt((curRange * rangeSize)) + 1;
+			var curRange = parseInt(curRange) + 1;
+			var url = "/board/list";
+			url = url + "?curPage="    + curPage;
+			url = url + "&curRange="   + curRange;
+			url = url + "&searchType=" + searchType
+			url = url + "&keyword="    + keyword
+			location.href = url;
+		}
+	</script>
   
 </head>
 
@@ -116,7 +121,7 @@
             		<a class="nav-link" href="/board/Club_Info?club_belong=EPL">Club</a>
          		</li>
         		<li class="nav-item">
-            		<a class="nav-link" href="/board/sample?club_belong=EPL">LEAGUE</a>
+            		<a class="nav-link" href="/board/League_Table">LEAGUE</a>
           		</li>
           		<li class="nav-item">
             		<a class="nav-link" href="#">Contact</a>
@@ -136,10 +141,10 @@
 			<div class="col-lg-2">			
 	        	<h3 class="my-4">Community</h3>
         			<div class="list-group">
-          				<a href="/board/list" class="list-group-item" style="font-weight: bold;">통합 게시판</a>
-          				<a href="/board/Board_List/soccer?category=해외축구" class="list-group-item">해외축구</a>
-          				<a href="/board/Board_List/soccer?category=국내축구" class="list-group-item">국내축구</a>
-          				<a href="/board/Board_List/soccer?category=자유 게시판" class="list-group-item">자유 게시판</a>
+          				<a class="list-group-item" href="/board/list"  style="font-weight: bold;">통합 게시판</a>
+          				<a class="list-group-item" href="/board/Board_List/soccer?category=해외축구" >해외축구</a>
+          				<a class="list-group-item" href="/board/Board_List/soccer?category=국내축구" >국내축구</a>
+          				<a class="list-group-item" href="/board/Board_List/soccer?category=자유 게시판" >자유 게시판</a>
         			</div>
 			</div>   
 			<!-- 측면 메뉴 -->   		     
@@ -202,103 +207,6 @@
 						</div>
 					</div>
 				</c:forEach>
-		<!-- 
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Four</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Five</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Six</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-           -->
 
         	</div>
         	<!-- /.row -->    
@@ -348,8 +256,6 @@
 			</div>
 			<!-- /.col-lg-10 -->
       
-      
-
     	</div>
    		 <!-- /.row -->
 
@@ -364,10 +270,5 @@
     <!-- /.container -->
 	</footer>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-
 </body>
-
 </html>

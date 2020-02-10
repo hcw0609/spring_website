@@ -3,216 +3,220 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html class="Custom_html">
 <head>
-<meta charset="UTF-8">
 
-<!-- Bootstrap -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-<!-- JQUERY  -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- Custom  -->
-<link rel="stylesheet" type="text/css" href="/resources/css/style1.css"/>
-
-<title>회원가입</title>
-
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		
-		$(".cancle").on("click", function(){
-			location.href = "/";
-		})
-		
-		
-		// 아이디가 가입 도중에 변경되면 일단 N값을 줘서 다시 아이디를 체크하게 한다.
-		$("#ID").on("propertychange change keyup paste input", function() {		
-			$("#overLap").attr("value", "N");
-		})
-				
-				
-		$("#submit").on("click", function(){
-			if( $("#ID").val() == '' ){
-				alert("아이디를 입력해주세요.");
-				$("#overLap").attr("value", "N");
-				$("#ID").focus();
-				return false;
-			}
-			if($("#PASSWORD").val()==""){
-				alert("비밀번호를 입력해주세요.");
-				$("#PASSWORD").focus();
-				return false;
-			}		
+	<title>회원가입</title>
+	
+	<!-- 2 -->
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 			
-			var overLapVal = $("#overLap").val();
-			var email_check = $("#email_check").val();
-			var pwd_chk = $("#pwd_chk").val();
-			
-			if(overLapVal == "N"){
-				alert("아이디를 체크해주세요.");
-			} else if (pwd_chk == "N" ){
-				alert("비밀번호를 체크해 주세요.");
-			}
-			else if(email_check == "N") {
-				alert("이메일 인증을 해주세요.");
-			}
-			else if(overLapVal == "Y" && email_check == "Y" && pwd_chk == "Y"){
-				$("#register").submit();
-			}
-			
-		})
+	<!-- JQUERY  -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!-- Custom  -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/Login_Register.css"/>
+	<!-- 2 -->
 		
-		// 아이디 체크
-		$("#overLap").on("click", function(){
-			$.ajax({
-				url : "/board/overLap",
-				type : "post",
-				dataType : "json",
-				data : {"ID" : $("#ID").val()},
-				success : function(data){
-					if(data == 1){
-						$("#ID").css("background-color", "#dc3545");
-						$("#overLap").attr("value", "N");
-						alert("중복된 아이디입니다.");				
-					}else if(data == 0){	
-						
-						// ID 정규식 체크
-						// 문자 : 영어소문자  or 영어대문자  or 숫자  
-						// 길이 : 4~20 사이 
-						var IdRule = /^[a-zA-Z0-9]{4,20}$/;
-					
-						if( IdRule.test($("#ID").val()) ) {
-							$("#overLap").attr("value", "Y");
-							$("#ID").css("background-color", "#ffffff");
-							alert("사용가능한 아이디입니다.");
-						} else {
-							$("#ID").css("background-color", "#dc3545");
-							$("#overLap").attr("value", "N");
-							alert("아이디는 4~20자 사이의 영어만 가능합니다.");
-							$("#ID").focus();
-							return false;
-						}						
-					}
-				}
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			
+			$(".cancle").on("click", function(){
+				location.href = "/";
 			})
-		})
-		
 			
-		// 비밀번호 체크 1
-		$("#PASSWORD").on("propertychange change keyup paste input", function() {
-		
-			// PASSWORD 정규식 체크
-			// 문자 : 영어대소문자, 숫자, 특수문자 각각 최소 1개씩 이 포함되어야 한다. 
-			// 길이 : 8~20 사이 
-			var PwdRule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
 			
-			if( PwdRule.test($("#PASSWORD").val()) ) {
-				var pwd1 = $("#PASSWORD").val();
-				var pwd2 = $("#PASSWORD_CHECK").val();
-				
-				if(pwd1 != pwd2) {
-					$("#pwd_chk").attr("value", "N");
-					$(".message").html("패스워드가 서로 다릅니다.");
-				} else {
-					$("#pwd_chk").attr("value", "Y");
-					$(".message").html("");
+			// 아이디가 가입 도중에 변경되면 일단 N값을 줘서 다시 아이디를 체크하게 한다.
+			$("#ID").on("propertychange change keyup paste input", function() {		
+				$("#overLap").attr("value", "N");
+			})
+					
+					
+			$("#submit").on("click", function(){
+				if( $("#ID").val() == '' ){
+					alert("아이디를 입력해주세요.");
+					$("#overLap").attr("value", "N");
+					$("#ID").focus();
+					return false;
 				}
-			} else {
-				$("#pwd_chk").attr("value", "N");
-				$(".message").html("사용불가한 형식의 비밀번호 입니다.");
-			}						
-		});
-		
-		
-		// 비밀번호 체크 2
-		$("#PASSWORD_CHECK").on("propertychange change keyup paste input", function() {
-		
-			// PASSWORD 정규식 체크
-			// 문자 : 영어대소문자, 숫자, 특수문자 각각 최소 1개씩 이 포함되어야 한다. 
-			// 길이 : 8~20 사이 
-			var PwdRule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
-			
-			if( PwdRule.test($("#PASSWORD").val()) ) {
-				var pwd1 = $("#PASSWORD").val();
-				var pwd2 = $("#PASSWORD_CHECK").val();
+				if($("#PASSWORD").val()==""){
+					alert("비밀번호를 입력해주세요.");
+					$("#PASSWORD").focus();
+					return false;
+				}		
 				
-				if(pwd1 != pwd2) {
-					$("#pwd_chk").attr("value", "N");
-					$(".message").html("패스워드가 서로 다릅니다.");
-				} else {
-					$("#pwd_chk").attr("value", "Y");
-					$(".message").html("");
+				var overLapVal = $("#overLap").val();
+				var email_check = $("#email_check").val();
+				var pwd_chk = $("#pwd_chk").val();
+				
+				if(overLapVal == "N"){
+					alert("아이디를 체크해주세요.");
+				} else if (pwd_chk == "N" ){
+					alert("비밀번호를 체크해 주세요.");
 				}
-			} else {
-				$("#pwd_chk").attr("value", "N");
-				$(".message").html("사용불가한 형식의 비밀번호 입니다.");
-			}		
-		});
-
-		
-		// 이메일로 인증번호 전송
-		$("#email_receive").on("click", function(){
+				else if(email_check == "N") {
+					alert("이메일 인증을 해주세요.");
+				}
+				else if(overLapVal == "Y" && email_check == "Y" && pwd_chk == "Y"){
+					$("#register").submit();
+				}
+				
+			})
 			
-			// E-MAIL 정규식 체크
-			// 문자 : [영어소문자 or 영어대문자 or 숫자 or _ or -] "@"  [영어소문자 or 영어대문자 or 숫자] "." [영어소문자 or 영어대문자 or 숫자]
-			var EmailRule = /^[a-zA-Z0-9_\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
-			
-			if( EmailRule.test($("#EMAIL").val()) ) {											
+			// 아이디 체크
+			$("#overLap").on("click", function(){
 				$.ajax({
-					url : "/board/auth",
+					url : "/board/overLap",
 					type : "post",
 					dataType : "json",
-					data : {"email" : $("#EMAIL").val()},
-					success : function(dice){
-						if(dice == 0 ) {						
-							$("#EMAIL").css("background-color", "#dc3545");
-							$("#email_check").attr("value", "N");
-							$("#EMAIL").focus();
-							alert("이미 가입된 이메일 입니다.");
-						} else {
-							$("#email_check").attr("value", "Y");
-							$("#EMAIL").css("background-color", "#ffffff");
-							$("#dice").attr("value", dice);
-							alert("인증번호를 보냈습니다. 이메일을 확인해 주세요. "+ dice);
-						}						
+					data : {"ID" : $("#ID").val()},
+					success : function(data){
+						if(data == 1){
+							$("#ID").css("background-color", "#dc3545");
+							$("#overLap").attr("value", "N");
+							alert("중복된 아이디입니다.");				
+						}else if(data == 0){	
+							
+							// ID 정규식 체크
+							// 문자 : 영어소문자  or 영어대문자  or 숫자  
+							// 길이 : 4~20 사이 
+							var IdRule = /^[a-zA-Z0-9]{4,20}$/;
+						
+							if( IdRule.test($("#ID").val()) ) {
+								$("#overLap").attr("value", "Y");
+								$("#ID").css("background-color", "#ffffff");
+								alert("사용가능한 아이디입니다.");
+							} else {
+								$("#ID").css("background-color", "#dc3545");
+								$("#overLap").attr("value", "N");
+								alert("아이디는 4~20자 사이의 영어만 가능합니다.");
+								$("#ID").focus();
+								return false;
+							}						
+						}
 					}
-				})		
-								
-			} else {
-				$("#EMAIL").css("background-color", "#dc3545");
-				$("#email_check").attr("value", "N");
-				$("#EMAIL").focus();
-				alert("이메일 형식에 적합하지 않습니다.");
-				return false;
-			}					
+				})
+			})
+			
+				
+			// 비밀번호 체크 1
+			$("#PASSWORD").on("propertychange change keyup paste input", function() {
+			
+				// PASSWORD 정규식 체크
+				// 문자 : 영어대소문자, 숫자, 특수문자 각각 최소 1개씩 이 포함되어야 한다. 
+				// 길이 : 8~20 사이 
+				var PwdRule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+				
+				if( PwdRule.test($("#PASSWORD").val()) ) {
+					var pwd1 = $("#PASSWORD").val();
+					var pwd2 = $("#PASSWORD_CHECK").val();
+					
+					if(pwd1 != pwd2) {
+						$("#pwd_chk").attr("value", "N");
+						$(".message").html("패스워드가 서로 다릅니다.");
+					} else {
+						$("#pwd_chk").attr("value", "Y");
+						$(".message").html("");
+					}
+				} else {
+					$("#pwd_chk").attr("value", "N");
+					$(".message").html("사용불가한 형식의 비밀번호 입니다.");
+				}						
+			});
+			
+			
+			// 비밀번호 체크 2
+			$("#PASSWORD_CHECK").on("propertychange change keyup paste input", function() {
+			
+				// PASSWORD 정규식 체크
+				// 문자 : 영어대소문자, 숫자, 특수문자 각각 최소 1개씩 이 포함되어야 한다. 
+				// 길이 : 8~20 사이 
+				var PwdRule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+				
+				if( PwdRule.test($("#PASSWORD").val()) ) {
+					var pwd1 = $("#PASSWORD").val();
+					var pwd2 = $("#PASSWORD_CHECK").val();
+					
+					if(pwd1 != pwd2) {
+						$("#pwd_chk").attr("value", "N");
+						$(".message").html("패스워드가 서로 다릅니다.");
+					} else {
+						$("#pwd_chk").attr("value", "Y");
+						$(".message").html("");
+					}
+				} else {
+					$("#pwd_chk").attr("value", "N");
+					$(".message").html("사용불가한 형식의 비밀번호 입니다.");
+				}		
+			});
+	
+			
+			// 이메일로 인증번호 전송
+			$("#email_receive").on("click", function(){
+				
+				// E-MAIL 정규식 체크
+				// 문자 : [영어소문자 or 영어대문자 or 숫자 or _ or -] "@"  [영어소문자 or 영어대문자 or 숫자] "." [영어소문자 or 영어대문자 or 숫자]
+				var EmailRule = /^[a-zA-Z0-9_\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/;
+				
+				if( EmailRule.test($("#EMAIL").val()) ) {											
+					$.ajax({
+						url : "/board/auth",
+						type : "post",
+						dataType : "json",
+						data : {"email" : $("#EMAIL").val()},
+						success : function(dice){
+							if(dice == 0 ) {						
+								$("#EMAIL").css("background-color", "#dc3545");
+								$("#email_check").attr("value", "N");
+								$("#EMAIL").focus();
+								alert("이미 가입된 이메일 입니다.");
+							} else {
+								$("#email_check").attr("value", "Y");
+								$("#EMAIL").css("background-color", "#ffffff");
+								$("#dice").attr("value", dice);
+								alert("인증번호를 보냈습니다. 이메일을 확인해 주세요. "+ dice);
+							}						
+						}
+					})		
+									
+				} else {
+					$("#EMAIL").css("background-color", "#dc3545");
+					$("#email_check").attr("value", "N");
+					$("#EMAIL").focus();
+					alert("이메일 형식에 적합하지 않습니다.");
+					return false;
+				}					
+			})
+			
+			
+			// 이메일로 전송받은 인증번호 체크
+			$("#email_check").on("click", function(){
+				var auth = $('#auth').val();
+				var dice = $('#dice').val();
+				if(auth == dice) {
+					alert("인증 성공");
+					$("#auth	").css("background-color", "#ffffff");
+					$("#email_check").attr("value", "Y");
+				} else {
+					alert("인증 실패");
+					$("#auth").css("background-color", "#dc3545");
+					$("#email_check").attr("value", "N");
+				}			
+			})		
 		})
 		
-		
-		// 이메일로 전송받은 인증번호 체크
-		$("#email_check").on("click", function(){
-			var auth = $('#auth').val();
-			var dice = $('#dice').val();
-			if(auth == dice) {
-				alert("인증 성공");
-				$("#auth	").css("background-color", "#ffffff");
-				$("#email_check").attr("value", "Y");
-			} else {
-				alert("인증 실패");
-				$("#auth").css("background-color", "#dc3545");
-				$("#email_check").attr("value", "N");
-			}			
-		})		
-	})
-	
-</script>
+	</script>
 	
 </head>
-<body>
+<body class="Custom_body">
 
-<div class="container">
-	<div class="main">
+<div class="Custom_container">
+	<div class="Custom_main">
 		<form action="/board/register" method="post" id="register">
 			<div class="mb-3">
 				<input type="text" class="form-control" id="ID" name="ID" placeholder="ID"/>

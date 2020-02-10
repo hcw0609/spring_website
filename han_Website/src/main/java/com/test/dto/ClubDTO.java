@@ -6,7 +6,8 @@ public class ClubDTO {
 	 	CREATE TABLE `club` (
 			club_image    CHAR(100) NOT NULL,
 			club_name     CHAR(30)  NOT NULL PRIMARY KEY,
-			club_belong   CHAR(30)  NOT NULL
+			club_belong   CHAR(30)  NOT NULL,
+			club_search   CHAR(30)  NOT NULL
 		);
 	 
 	 */
@@ -14,6 +15,8 @@ public class ClubDTO {
 	private String club_image;
 	private String club_name;
 	private String club_belong;
+	private String club_search;
+	
 	
 	
 	public String getClub_image() {
@@ -34,7 +37,12 @@ public class ClubDTO {
 	public void setClub_belong(String club_belong) {
 		this.club_belong = club_belong;
 	}
-	
+	public String getClub_search() {
+		return club_search;
+	}
+	public void setClub_search(String club_search) {
+		this.club_search = club_search;
+	}
 
 
 	

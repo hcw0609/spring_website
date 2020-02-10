@@ -698,8 +698,31 @@ public class BoardController {
     }
     
     
+    // 축구 팀 데이터 가져오기
+    @RequestMapping(value = "/Information" , method=RequestMethod.GET)
+    public void Information( Model model, HttpSession hs, @RequestParam("name") String name) throws Exception{
+    	
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+       	
+    	Soccer_Team_Info sti = new Soccer_Team_Info();
+	   	
+    	// 팀 정보
+    	JsonArray Team_Info =  sti.Team_Info(name);
+    	
+    	// 팀의 스쿼드에 대한 정보 
+    	ArrayList<LinkedHashMap<String, String>> Player_Info = sti.Player_Info(name);
+    	
+    	model.addAttribute("loginInfo",loginInfo);
+    	model.addAttribute("Team_Info", Team_Info);
+    	model.addAttribute("Player_Info", Player_Info);
+    	
+    }
+    
+    
     // 축구 리그 데이터
-    @RequestMapping(value = "/soccer_data" , method=RequestMethod.GET)
+    @RequestMapping(value = "/League_Table" , method=RequestMethod.GET)
     public void soccer_data(Model model, HttpSession hs) throws Exception {
     	
     	// 로그인된 사용자가 누구 인지 확인
@@ -718,7 +741,7 @@ public class BoardController {
     	model.addAttribute("SERIEA",SERIEA); 	
     }
     
-    
+    /*
     // 축구 팀 데이터 
     @RequestMapping(value = "/Soccer_Team_Info" , method=RequestMethod.GET)
     public void Soccer_Team_Info(Model model, @RequestParam("name") String name) throws Exception {
@@ -735,6 +758,8 @@ public class BoardController {
     	model.addAttribute("Team_Info", Team_Info);
     	model.addAttribute("Player_Info", Player_Info);
     }
+    
+    */
     
     // 축구 리그 데이터 
     @RequestMapping(value = "/sample" , method=RequestMethod.GET)

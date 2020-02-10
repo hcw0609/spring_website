@@ -4,61 +4,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 
-<!-- Ckeditor -->
-<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
-
-<!-- Bootstrap -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-
-<!-- Custom -->
-<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-
-<!-- Jquery -->
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-<title>Insert title here</title>
-
-<script type="text/javascript">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"
+	>
+	<title>Insert title here</title>
 	
-	var g_count = 0;
+	<!-- 2 -->
+	<!-- Ckeditor -->
+	<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 	
-	$(document).ready(function(){
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	
+	<!-- Custom -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+	
+	<!-- Jquery -->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- 2 -->
+	
+	
+	<script type="text/javascript">
 		
-		$("#btnCreate").on("click", function(e) {
-		       e.preventDefault();
-		       
-		       var category = document.getElementById("category_select").value;
-		       $("#category").attr("value", category);
-		       
-		       var formObj = $("form[name='form']");
-		       formObj.submit();
-		});
+		var g_count = 0;
 		
-		$("#addFile").on("click", function(e){
-			var str = "<p><input type='file' name='file_"+(g_count++)+"'/><a href='#' name='delete' class='btn btn-sm btn-danger'>삭제하기</a></p> ";
-	        
-	        $("#fileDiv").append(str);
-	        
-	        $("a[name='delete']").on("click",function(e){
-	            e.preventDefault();
-	            fn_fileDelete($(this));         
-	        })
+		$(document).ready(function(){
+			
+			$("#btnCreate").on("click", function(e) {
+			       e.preventDefault();
+			       
+			       var category = document.getElementById("category_select").value;
+			       $("#category").attr("value", category);
+			       
+			       var formObj = $("form[name='form']");
+			       formObj.submit();
+			});
+			
+			$("#addFile").on("click", function(e){
+				var str = "<p><input type='file' name='file_"+(g_count++)+"' style='width:250px'/><a href='#' name='delete' class='btn btn-sm btn-danger'>삭제하기</a></p> ";
+		        
+		        $("#fileDiv").append(str);
+		        
+		        $("a[name='delete']").on("click",function(e){
+		            e.preventDefault();
+		            fn_fileDelete($(this));         
+		        })
+			})
+			
+			$("#btnList").on("click", function(e){
+				location.href="/board/list"			
+			})
 		})
+			
 		
-		$("#btnList").on("click", function(e){
-			location.href="/board/list"			
-		})
-	})
+		function fn_fileDelete(obj){
+	    	obj.parent().remove();
+		}
 		
-	
-	function fn_fileDelete(obj){
-    	obj.parent().remove();
-	}
-	
-	
-</script>
+		
+	</script>
 
 </head>
 <body>
@@ -69,7 +74,7 @@
 	
 		<label class="text_title">Title</label>
 		<div style="float:left; width:100%;" class="mb-3">
-			<div style="float:left; width:10%">
+			<div style="float:left; width:15%">
 			<select class="form-control text_etc" name="category_select" id="category_select">
 				<option class="text_etc" value="해외축구">해외축구</option>
 				<option class="text_etc" value="국내축구">국내축구</option>
@@ -80,7 +85,7 @@
 			
 			<input type="hidden" id="category" name="category" value="">
 			
-			<div style="float:left; width:90%">
+			<div style="float:left; width:85%">
 			<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
 			</div>
 		</div>

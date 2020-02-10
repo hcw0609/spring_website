@@ -1,0 +1,48 @@
+
+
+
+	.Custom_html{
+		 height: 100%;
+	}
+
+
+    .Custom_body {
+        background: #fcfafa;
+        display: table;
+    	margin: 0 auto;
+    	width: 100%;
+    	max-width:400px;
+        height: 100%;
+    }
+    
+    .Custom_container
+	{
+    	display: table-cell;
+    	vertical-align: middle;
+	}
+ 
+ 
+	.Custom_main
+	{
+    	height: auto;
+    	width: 100%;   
+	}
+
+
+    #register > div {
+        margin: 5px 0;
+    }
+    
+    
+    #LoginForm > div {
+        margin: 10px 0;
+    }
+    
+    
+    .btnmargin2 {
+   		margin-bottom: 2px;
+    }
+    
+    .text_title { font-size: 16px; font-weight: bold;}
+
+	

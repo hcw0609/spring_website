@@ -112,7 +112,8 @@ span[lang]
 }
 
 figure
-{
+{	
+	width:100%;
 	text-align: center;
 	outline: solid 1px #ccc;
 	background: rgba(0,0,0,0.05);
@@ -128,6 +129,7 @@ figure > figcaption
 }
 
 a > img {
+	width:100%;
 	padding: 1px;
 	margin: 1px;
 	border: none;
@@ -206,3 +208,4 @@ a > img {
 	max-height: 1080px;
 	margin:0 auto;
 }
+

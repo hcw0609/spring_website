@@ -9,6 +9,9 @@ import java.util.Map;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 
 
 public class Soccer_Team_Info {
@@ -115,14 +118,14 @@ public class Soccer_Team_Info {
 	
 	
 	// 팀의 대한 정보
-	public LinkedHashMap<String, String> Team_Info (String name) throws Exception {	
+	public JsonArray Team_Info (String name) throws Exception {	
 		
 		// html 파일 읽어오기
 		Document doc = Jsoup.connect("https://namu.wiki/w/"+name+"").get();
 				
 		// 문자열 저장
-		String Team_Title[] = new String[15];
-		String Team_Info[] = new String[15];
+		String Team_Title[] = new String[20];
+		String Team_Info[] = new String[20];
 		
 		int array_index = 0;				
 		int i = 3;
@@ -176,14 +179,32 @@ public class Soccer_Team_Info {
 			}				
 		}
 		
+		String jsonstr = "";
 			
+		for(int index=0; index<array_index; index++) {
+			if(index < array_index-1 ) {
+				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"},";
+			} else {
+				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"}";
+			}			
+		}
+		
+		jsonstr = "["+jsonstr+"]";
+			
+		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		JsonParser jsonParser = new JsonParser();
+		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
+				
+		/*
 		// 가져온 문자열을 맵형태로 변환
 		LinkedHashMap<String, String> team_map = new LinkedHashMap<String, String>();
 		for(int index=0; index<array_index; index++) {
 			team_map.put(Team_Title[index], Team_Info[index]);
 		}
+		*/
 		
-		return team_map;
+		System.out.println(jsonArray);
+		return jsonArray;
 		
 	}
 	
@@ -194,5 +215,6 @@ public class Soccer_Team_Info {
 		soccer_team_info.Team_Info("아틀레티코 마드리드");
 		soccer_team_info.Player_Info("아틀레티코 마드리드");			
 	}
+	
 	
 }

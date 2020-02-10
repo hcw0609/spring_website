@@ -11,6 +11,7 @@
 	.text_title { font-size: 16px; font-weight: bold;}
 	.text_subtitle { font-size: 14px; }
 	.text_subtitle1 { font-size: 14px; font-weight: bold; }
+	.text_subtitle2 { font-size: 12px; font-weight: bold; }
 	.text_etc { font-size: 12px;}
 	.text-center { text-align: center;}
 	.text-left { text-align: left; !important;}
@@ -48,3 +49,9 @@
     margin-bottom: 1rem!important;
 	}
 	
+	.pb-5, .py-5 {
+    padding-bottom: 1rem!important;
+    padding-top: 1rem!important;
+	}
+
+	img { max-width:100% !important}

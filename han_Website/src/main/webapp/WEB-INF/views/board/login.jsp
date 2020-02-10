@@ -2,23 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html class="Custom_html">
 <head>
-<meta charset="EUC-KR">
-<title>로그인</title>
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<meta charset="EUC-KR">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<title>Soccer Site</title>
 
-<!-- Custion CSS -->
-<link rel="stylesheet" type="text/css" href="/resources/css/style1.css"/>
+	<!-- 2 -->
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/Login_Register.css"/>
+	<!-- 2 -->
 
 </head>
-<body>
 
-<div class="container">
-    <div class="main">
-        
+<body class="Custom_body">
+
+<div class="Custom_container">
+    <div class="Custom_main">      
             <div>
                 <label class="text_title" style="margin-bottom: .0rem;">로그인</label>
             </div>
@@ -40,8 +45,7 @@
                     </div>
                     
                 </form>
-            </div>
-            
+            </div>           
     </div>
 </div>
 

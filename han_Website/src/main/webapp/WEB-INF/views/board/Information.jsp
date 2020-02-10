@@ -10,28 +10,69 @@
 
 	<title>Soccer Site</title>
 	
-	<!--  1 -->
+	<!-- 1 -->
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom styles for this template -->
-	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
-		
+	<link href="/resources/css/shop-homepage.css" rel="stylesheet">  
+	
 	<!-- Bootstrap core JavaScript -->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>
 	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-    <!--  1 -->
-    
-    
-    <!-- 2 -->
+	<!-- 1 -->
+  
+  	<!-- 2 -->
 	<!-- Custom -->
  	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
   
 	<!-- Jquery -->
  	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  	<!-- 2 -->
-  	
+ 	<!-- 2 -->
+  
 	<script type="text/javascript">
+		
+		// 이미지를 넣기 위한 작업
+		var list = ${Team_Info};
+		var team_image = "/Image/team_image/"+list[0]["정식 명칭"]+".png";
+		console.log(team_image);
+		
+		$(document).ready(function(){	
+			$("#team_image").attr("src",team_image);
+			$(".message").html(list[0]["정식 명칭"]);
+						
+			$('#Basebtn').on("click", function(e){
+				
+				var html = "";
+				
+				for (var i=0; i<=list.length; i++) {
+					
+					var data = ""
+					html = "<tr>"	
+					
+					for(key in list[i]) {
+						
+						console.log(key);
+						console.log(list[i][key]);
+						
+						html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
+						html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>"+ list[i][key] +"</td>";
+													
+					}
+					
+					html += "</tr>"
+					
+					var trHtml = $( ".start_list:last" );
+					$('#list').append(html);
+					trHtml.after(html);
+				}							
+			})
+
+		
+			
+			
+			
+		})
 		
 	</script>
   
@@ -91,53 +132,47 @@
 		
 			<!-- 측면 메뉴 -->
 			<div class="col-lg-2">			
-	        	<h3 class="my-4">Club</h3>
+	        	<h3 class="my-4 message"></h3>
         			<div class="list-group">
-        			<c:choose>	
-        				<c:when test="${club_belong eq 'EPL'}">	
-	        				<a class="list-group-item" href="/board/Club_Info?club_belong=EPL" style="font-weight: bold;">EPL</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA">LALIGA</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA">SERIEA</a>
-	        			</c:when>	        			
-	        			<c:when test="${club_belong eq 'LALIGA'}">
-	        				<a class="list-group-item" href="/board/Club_Info?club_belong=EPL">EPL</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA" style="font-weight: bold;">LALIGA</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA">SERIEA</a>
-	        			</c:when>
-	        			<c:when test="${club_belong eq 'SERIEA'}">	
-	        				<a class="list-group-item" href="/board/Club_Info?club_belong=EPL">EPL</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA">LALIGA</a>
-          					<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA" style="font-weight: bold;">SERIEA</a>
-	        			</c:when>		
-        			</c:choose>      				
+        				<a class="list-group-item" id="Basebtn" style="font-weight:bold;">Base</a>
+          				<a class="list-group-item" id="Titlebtn">Title</a>
+          				<a class="list-group-item" id="Rosterbtn">Roster</a>	
         			</div>
 			</div>   
 			<!-- 측면 메뉴 -->   		     
 			<!-- /.col-lg-2 -->
 
-			<div class="col-lg-10">
-			<div class="row">
-        	
-        	<c:forEach items="${list}" var="list">		
-			<div class="col-lg-4 col-md-6 mb-4">
-				<div class="card h-100">
-					<a href="/board/Information?name=${list.club_search}"><img class="card-img-top" src='${list.club_image}' alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="/board/Information?name=${list.club_search}">${list.club_name}</a>
-						</h4>
-						<h5>${list.club_belong}</h5>		
-					</div>
-	            </div>
-			</div>
-			</c:forEach>	         
+			<div class="col-lg-10 ">
+			<div class="row justify-content-center">
 
-        	</div>
-        	<!-- /.row -->    
-
+			<div style="max-width:700px; width:100%; border: 2px solid #787777; text-align:center;">
+				<div>
+					<img id="team_image" style="width:200px; height:200px;">			
+				</div>
+				
+				</br>
+				
+				<div class="text_title message" style="color:#ffffff; background-color:#000000; border: 1.5px solid #787777;"></div>
+				
+			
+				<table style="max-width:700px; width:100%; border:1.5px solid #787777;  "> 
+					<colgroup class="start_list">
+						<col style="width:30%; "/>
+						<col style="width:70%; "/>	
+					</colgroup>
+				
+					
+				</table>
 			</div>
-			<!-- /.col-lg-10 -->
-      
+			
+        				
+			</div>			
+   			<!-- /.row -->
+   			
+   			<br>
+   			</div>
+			<!-- /.col-lg-10 -->       
+
     	</div>
    		 <!-- /.row -->
 

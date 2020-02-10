@@ -31,7 +31,7 @@
 </head>
 <body>
 
-<div style="width:350px; text-align:center; position:absolute; margin-top:50px; margin-left:120px; border: 2px solid #787777">
+<div style="width:350px; text-align:center; position:absolute; margin-top:50px; margin-left:120px; border: 2px solid #787777;">
 	<div>
 		<img id="team_image" style="width:200px; height:200px;">			
 	</div>
