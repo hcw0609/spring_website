@@ -180,7 +180,6 @@
 				html += "</tr>"
 				
 				var trHtml = $( ".start_list:last" );
-				$('#list').append(html);
 				trHtml.after(html);
 			}			
 		})

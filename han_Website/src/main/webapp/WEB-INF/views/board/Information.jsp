@@ -32,46 +32,148 @@
   
 	<script type="text/javascript">
 		
-		// 이미지를 넣기 위한 작업
+		// 팀 정보 가져오기
 		var list = ${Team_Info};
+		
+		// 이미지를 넣기 위한 작업
 		var team_image = "/Image/team_image/"+list[0]["정식 명칭"]+".png";
-		console.log(team_image);
 		
 		$(document).ready(function(){	
 			$("#team_image").attr("src",team_image);
 			$(".message").html(list[0]["정식 명칭"]);
-						
+			
+
 			$('#Basebtn').on("click", function(e){
 				
+				// 이전 데이터 삭제
+				for(var i=1; i<50; i++) {
+					$('.base, .title, .roster').remove();				
+				}
+				
+				$('#Basebtn').css("font-weight","bold");
+				$('#Titlebtn').css("font-weight","400");
+				$('#Rosterbtn').css("font-weight","400");
+				
+				var html_base = "<colgroup class='base'>" +
+									"<col style='width:30%;'/>" +
+									"<col style='width:70%;'/>" +
+								"</colgroup>";	
+							
 				var html = "";
 				
-				for (var i=0; i<=list.length; i++) {
-					
-					var data = ""
-					html = "<tr>"	
+				for (var i=list.length; i>=0; i--) {
+
+					html = "<tr class='base'>"	
 					
 					for(key in list[i]) {
 						
-						console.log(key);
-						console.log(list[i][key]);
-						
 						html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
 						html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>"+ list[i][key] +"</td>";
-													
+												
 					}
 					
 					html += "</tr>"
 					
 					var trHtml = $( ".start_list:last" );
-					$('#list').append(html);
-					trHtml.after(html);
+					trHtml.after(html_base+html);
 				}							
 			})
+			
+			
+			
+			$('#Titlebtn').on("click", function(e){
+				
+				// 이전 데이터 삭제
+				for(var i=1; i<50; i++) {
+					$('.base, .title ,.roster').remove();				
+				}
+				
+				$('#Basebtn').css("font-weight","400");
+				$('#Titlebtn').css("font-weight","bold");
+				$('#Rosterbtn').css("font-weight","400");
+				
+				var html_title = "<colgroup class='base'>" +
+									"<col style='width:30%;'/>" +
+									"<col style='width:70%;'/>" +
+								"</colgroup>";
+								
+				// 팀의 우승에 대한 정보 가져오기
+				var Champion = ${Champion};
+								
+				var html = "";
+				
+				for (var i=Champion.length; i>=0; i--) {
 
-		
+					html = "<tr class='title'>"	
+					
+					for(key in Champion[i]) {
+						
+						html += "<td class='text_subtitle1' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
+						html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>"+ Champion[i][key] +"</td>";
+												
+					}
+					
+					html += "</tr>"
+					
+					var trHtml = $( ".start_list:last" );
+					trHtml.after(html_title+html);
+				}							
+			})
 			
 			
-			
+			$("#Rosterbtn").on("click", function(e) {
+				
+				// 이전 데이터 삭제
+				for(var i=1; i<50; i++) {
+					$('.base, .title, .roster').remove();				
+				}
+				
+				$('#Basebtn').css("font-weight","400");
+				$('#Titlebtn').css("font-weight","400");
+				$('#Rosterbtn').css("font-weight","bold");
+				
+				// 스쿼드 정보 가져오기
+				var Player_list = ${Player_Info};
+																	
+				var html_title = "";
+				var html_content = "";
+							
+				// 타이틀 
+				html_title = "<tr class='roster'>";				
+				for (key in Player_list[0]) {		
+					if(key == "") {
+						html_title += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ "국적" +"</td>";					
+					} else {
+						html_title += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";					
+					}
+					
+				}
+				html_title += "</tr>";
+				// 타이틀 
+				
+				
+				// 정보
+				for(var i=0; i<=Player_list.length; i++) {
+					
+					html_content += "<tr class='roster'>"
+					
+					for (key in Player_list[i] ) {
+						if(key == "") {
+							html_content += "<td class='text_subtitle1 ' style='border: 1.5px solid #787777;'>" + "<img art='' src="+Player_list[i][key]+" style='width:50px; height:30px;'>"+"</td>";
+						} else {
+							html_content += "<td class='text_subtitle1 ' style='border: 1.5px solid #787777;'>"+ Player_list[i][key] +"</td>";
+						}
+						
+					}
+					
+					html_content += "</tr>"
+				}
+				// 정보		
+																	
+				var trHtml = $( ".start_list:last" );
+				trHtml.after(html_title+html_content);
+						
+			})					
 		})
 		
 	</script>
@@ -149,23 +251,16 @@
 				<div>
 					<img id="team_image" style="width:200px; height:200px;">			
 				</div>
-				
-				</br>
-				
+										
 				<div class="text_title message" style="color:#ffffff; background-color:#000000; border: 1.5px solid #787777;"></div>
-				
-			
-				<table style="max-width:700px; width:100%; border:1.5px solid #787777;  "> 
-					<colgroup class="start_list">
-						<col style="width:30%; "/>
-						<col style="width:70%; "/>	
-					</colgroup>
-				
-					
+							
+				<table class="start_list" style="max-width:700px; width:100%; border:1.5px solid #787777;">
+					<input class="start_list" type="hidden">				
 				</table>
+				
 			</div>
 			
-        				
+        			
 			</div>			
    			<!-- /.row -->
    			

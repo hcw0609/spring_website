@@ -711,11 +711,15 @@ public class BoardController {
     	// 팀 정보
     	JsonArray Team_Info =  sti.Team_Info(name);
     	
+    	// 팀의 우승에 대한 정보
+    	JsonArray Champion = sti.Champion(name);
+    	
     	// 팀의 스쿼드에 대한 정보 
-    	ArrayList<LinkedHashMap<String, String>> Player_Info = sti.Player_Info(name);
+    	JsonArray Player_Info = sti.Player_Info(name);
     	
     	model.addAttribute("loginInfo",loginInfo);
     	model.addAttribute("Team_Info", Team_Info);
+    	model.addAttribute("Champion", Champion);
     	model.addAttribute("Player_Info", Player_Info);
     	
     }

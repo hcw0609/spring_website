@@ -161,13 +161,13 @@
 					</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="carousel-item active">
-						<img class="d-block img-fluid" src="/Image/logo.jpg" style="width:900px; height:300px;" alt="First slide">
+						<img class="d-block img-fluid" src="/Image/background/logo.jpg" style="width:900px; height:300px;" alt="First slide">
 					</div>
  					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/dd.png" style="width:900px; height:300px;" alt="Second slide">
+						<img class="d-block img-fluid" src="/Image/background/dd.png" style="width:900px; height:300px;" alt="Second slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/free.png" style="width:900px; height:300px;" alt="Third slide">
+						<img class="d-block img-fluid" src="/Image/background/free.png" style="width:900px; height:300px;" alt="Third slide">
 					</div>
           		</div>
           		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
