@@ -36,6 +36,8 @@
 	
 	$(document).ready(function(){
 		
+		alert("해당 데이터는 네이버에서 실시간으로 가져오는 데이터 입니다.");
+		
 		$('#EPLbtn').on("click", function(e){
 			for(var i=1; i<21; i++) {
 				$('#EPL, #LALIGA, #SERIEA').remove();				
@@ -282,6 +284,7 @@
 		</div>
 		<!-- 로그인 유저 확인 -->
 		
+		<!-- 화면의 크기가 정해진 크기보다 작아 지면 버튼을 보여준다. 그리고 id=navbarResponsive인 놈들 활성화 시킨다. -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
  		</button>
@@ -328,9 +331,7 @@
 
 			<div class="col-lg-10">
 			<div class="row">
-        	
-        	<h2 style="text-align:center;">네이버에서 실시간으로 파싱해오는 데이터 입니다.</h2>
-        	
+        	       	
         	<table class="table table-hover" style="max-width:850px; width:100%; border: 1px solid #787777">
 				<colgroup>
 						<col style="width:5%; "/>

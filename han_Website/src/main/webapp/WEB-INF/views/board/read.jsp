@@ -89,7 +89,6 @@
 		    $.ajax({
 		        url : "/board/rePlyList",
 		        type : "get",
-		        dataType : "json",
 		        data : {'dno':dno},
 		        success : function(data){
 		            var a =''; 
@@ -125,7 +124,6 @@
 		    			$.ajax({
 		    	   			url : "/board/replyDelete",
 		    	   			type : "post",
-		    	   			dataType : "json",
 		    	   			data : {"rno" : rno, "dno" : dno}
 		    		   	})
 		    		});
@@ -165,7 +163,6 @@
 			    				$.ajax({
 			    			        url : '/board/replyUpdate',
 			    			        type : 'post',
-			    			        dataType : "json",
 			    			        data : {'content' : content, 'rno' : rno},
 			    			        success : function(data){
 			    			        	//댓글 수정후 목록 출력 

@@ -73,7 +73,6 @@
 				$.ajax({
 					url : "/board/overLap",
 					type : "post",
-					dataType : "json",
 					data : {"ID" : $("#ID").val()},
 					success : function(data){
 						if(data == 1){
@@ -167,7 +166,6 @@
 					$.ajax({
 						url : "/board/auth",
 						type : "post",
-						dataType : "json",
 						data : {"email" : $("#EMAIL").val()},
 						success : function(dice){
 							if(dice == 0 ) {						

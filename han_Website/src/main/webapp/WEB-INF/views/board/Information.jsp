@@ -32,6 +32,8 @@
   
 	<script type="text/javascript">
 		
+		alert("해당 데이터는 나무위키에서 실시간으로 가져오는 데이터입니다.");
+		
 		// 팀 정보 가져오기
 		var list = ${Team_Info};
 		
@@ -42,7 +44,7 @@
 			$("#team_image").attr("src",team_image);
 			$(".message").html(list[0]["정식 명칭"]);
 			
-
+			// Base 버튼		
 			$('#Basebtn').on("click", function(e){
 				
 				// 이전 데이터 삭제
@@ -67,9 +69,14 @@
 					
 					for(key in list[i]) {
 						
-						html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
-						html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>"+ list[i][key] +"</td>";
-												
+						if(key == "홈 구장" || key == "홈 구장" ) {
+							html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
+							html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>" + "<a onclick=\"window.open('/board/map?execute=yes&address="+list[i][key]+"','window_name','width=1400px, height=700px, location=no, status=no,scrollbars=yes')\">" + list[i][key] +"</td>";
+						} else {
+							html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
+							html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>"+ list[i][key] +"</td>";
+						}
+														
 					}
 					
 					html += "</tr>"
@@ -80,7 +87,7 @@
 			})
 			
 			
-			
+			// Title 버튼			
 			$('#Titlebtn').on("click", function(e){
 				
 				// 이전 데이터 삭제
@@ -121,6 +128,7 @@
 			})
 			
 			
+			// Roster 버튼
 			$("#Rosterbtn").on("click", function(e) {
 				
 				// 이전 데이터 삭제
@@ -200,6 +208,7 @@
 		</div>
 		<!-- 로그인 유저 확인 -->
 		
+			<!-- 화면의 크기가 정해진 크기보다 작아 지면 버튼을 보여준다. 그리고 id=navbarResponsive인 놈들 활성화 시킨다. -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
  		</button>

@@ -5,7 +5,7 @@
 <title>Home</title>
 <script type="text/javascript">
 
-location.href = "/board/login"
+location.href = "/board/list"
 
 </script>
 </head>

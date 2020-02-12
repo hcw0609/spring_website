@@ -67,7 +67,6 @@
 	           $.ajax({
 	   			url : "/board/modifyDelete",
 	   			type : "post",
-	   			dataType : "json",
 	   			data : {"tagid" : tagid}
 		   		})  		
 	        })		
@@ -131,7 +130,8 @@
 					
 			<div>
 				<button type="button" class="btn btn-sm btn-dark" id="addFile">파일 추가</button>
-				<button type="button" class="btn btn-sm btn-dark" id="stored" style="min-width: ">저장</button>
+				<button type="button" class="btn btn-sm btn-dark" id="stored"">저장</button>
+				<button type="button" class="btn btn-sm btn-dark" id="list" onclick="location.href='/board/list'">목록</button>
 			</div>		
 				 
 		</form>		
