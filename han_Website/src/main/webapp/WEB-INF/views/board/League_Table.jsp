@@ -38,6 +38,110 @@
 		
 		alert("해당 데이터는 네이버에서 실시간으로 가져오는 데이터 입니다.");
 		
+		$("#EPLbtn, #LALIGAbtn, #SERIEAbtn").on("click", function(e) {
+			for(var i=1; i<21; i++) {
+				$("#table").remove();				
+			}
+			
+			// 가져올 데이터 선택
+			var EPL_jsonArray = ${EPL};		
+			var LALIGA_jsonArray = ${LALIGA};
+			var SERIEA_jsonArray = ${SERIEA};
+			var League_table;
+			var League;
+			
+			// 눌린 버튼에 대한 정보
+			var rno = $(this).attr('id');
+			
+			if(rno == "EPLbtn") {
+				$('#EPLbtn').css("font-weight","bold");
+				$('#LALIGAbtn').css("font-weight","400");
+				$('#SERIEAbtn').css("font-weight","400");
+				
+				League_table = EPL_jsonArray;
+				League = "EPL";
+				
+			} else if (rno == "LALIGAbtn") {
+				$('#EPLbtn').css("font-weight","400");
+				$('#LALIGAbtn').css("font-weight","bold");
+				$('#SERIEAbtn').css("font-weight","400");
+				
+				League_table = LALIGA_jsonArray;
+				League = "LALIGA";
+				
+			} else {
+				$('#EPLbtn').css("font-weight","400");
+				$('#LALIGAbtn').css("font-weight","400");
+				$('#SERIEAbtn').css("font-weight","bold");
+				
+				League_table = SERIEA_jsonArray;
+				League = "SERIEA";
+			}
+			
+			var html = "";
+			
+			for (var i=League_table.length-1; i>=0; i--) {
+				
+				var data = ""
+				var teamCode = "";	
+				html = "<tr id='table'>"
+				
+				while(true) {
+					
+					teamCode = League_table[i]["teamCode"];
+					data = League_table[i]["rank"]
+					switch( data ) {
+						case 1:
+							html += "<td style='padding:.25rem; background-color:#85e26a;' class='text-center text_subtitle2' >" + data + "</td>";
+							break;
+						case 2:
+						case 3:
+						case 4: 
+							html += "<td style='padding:.25rem; background-color:#c3dc9a;' class='text-center text_subtitle2' >" + data + "</td>";
+							break;
+						case 5:
+						case 6:
+							html += "<td style='padding:.25rem; background-color:#bdd9ef;' class='text-center text_subtitle2' >" + data + "</td>";
+							break; 
+						case 18:
+						case 19:
+						case 20:
+							html += "<td style='padding:.25rem; background-color:#c0c0c0;' class='text-center text_subtitle2' >" + data + "</td>";
+							break;
+						default:
+							html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					}
+					
+					data = League_table[i]["teamName"]
+					html += "<td style='padding:.25rem' class='text_subtitle2' >" + "<img src='/Image/"+League+"/"+teamCode+".png' style='width:20px; height:20px;'>" + data + "</td>";  
+					data = League_table[i]["gameCount"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["gainPoint"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["won"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["drawn"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["lost"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["gainGoal"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["loseGoal"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["goalGap"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					data = League_table[i]["lastResult"]
+					html += "<td style='padding:.25rem' class='text-center text_subtitle2' >" + data + "</td>";
+					break;					
+				}
+				
+				html += "</tr>"					
+				var trHtml = $( ".start_list:last" );
+				trHtml.after(html);
+			}			
+		})
+		
+		/* 예전 방식
 		$('#EPLbtn').on("click", function(e){
 			for(var i=1; i<21; i++) {
 				$('#EPL, #LALIGA, #SERIEA').remove();				
@@ -258,6 +362,7 @@
 				trHtml.after(html);
 			}			
 		})
+		*/
 	})
 		
 	</script>
@@ -330,7 +435,7 @@
 			<!-- /.col-lg-2 -->
 
 			<div class="col-lg-10">
-			<div class="row">
+			<div class="row" style="margin-top:20px">
         	       	
         	<table class="table table-hover" style="max-width:850px; width:100%; border: 1px solid #787777">
 				<colgroup>
@@ -347,7 +452,9 @@
 						<col style="width:25%; "/>
 				</colgroup>
 				
-				<tr class="start_list" style="background-color: #2d2d2d" >
+				<br> 
+				
+				<tr class="start_list" style="background-color: #2d2d2d;" >
 					<td style="padding:.25rem" class="text-white text-center text_title" >순위</td>
 					<td style="padding:.25rem" class="text-white text_title" >팀 이름</td>
 					<td style="padding:.25rem" class="text-white text-center text_title" >경기</td>

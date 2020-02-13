@@ -187,13 +187,13 @@
 					</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="carousel-item active">
-						<img class="d-block img-fluid" src="/Image/background/logo.jpg" style="width:900px; height:300px;" alt="First slide">
+						<img class="d-block img-fluid" src="/Image/background/logo.jpg" style="width:900px; height:280px;" alt="First slide">
 					</div>
  					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/background/dd.png" style="width:900px; height:300px;" alt="Second slide">
+						<img class="d-block img-fluid" src="/Image/background/Domestic football.png" style="width:900px; height:280px;" alt="Second slide">
 					</div>
 					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/background/free.png" style="width:900px; height:300px;" alt="Third slide">
+						<img class="d-block img-fluid" src="/Image/background/free.png" style="width:900px; height:280px;" alt="Third slide">
 					</div>
           		</div>
           		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -210,19 +210,21 @@
 	       	 <div class="row">
         		<input type="hidden" id="category" name="${category}" value="${category}">
 				<c:forEach items="${list}" var="list">	
-					<div style="float:left; width:100%" >
+						
+						
+						<div style="float:left; width:100%" >
 						<div style="float:left;">	
 							<a href="/board/read?dno=${list.dno}">	<img class="thumbnail" src="${list.thumbnail}"></a>
 						</div>
 							
 						<div>
-							<div>
+							<div style= "overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 								<a class="text_title" href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
 								<c:if test="${list.fileyn == 'y'}">
-									<span><img style="width:11px; height:11px;" src="/Image/File_Image.gif"></span>
+									<span><img style="width:12px; height:12px;" src="/Image/File_Image.gif"></span>
 								</c:if>	
 								<c:if test="${list.imageyn == 'y'}">
-									<span><img style="width:11px; height:11px;" src="/Image/Image_Icon.png"></span>
+									<span><img style="width:12px; height:12px;" src="/Image/Image_Icon.png"></span>
 								</c:if>		
 							</div>
 											
@@ -232,6 +234,7 @@
 						
 						</div>
 					</div>
+						
 				</c:forEach>
 
         	</div>

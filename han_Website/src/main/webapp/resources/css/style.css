@@ -1,13 +1,10 @@
-
-	body {
-		margin-top:30px;
-	}
 	
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.readonly{
 		background-color:#ffffff !important;
 	}
 
-		
+	/* 글자 관련  */
 	.text_title { font-size: 16px; font-weight: bold;}
 	.text_subtitle { font-size: 14px; }
 	.text_subtitle1 { font-size: 14px; font-weight: bold; }
@@ -16,13 +13,16 @@
 	.text-center { text-align: center;}
 	.text-left { text-align: left; !important;}
 
-
-	.btn-Logout {padding: .2rem .2rem;font-size:.8rem; border-radius:.1rem}
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
+	.btn-Logout {padding: .2rem .2rem;font-size:.6rem; border-radius:.1rem}
 	
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.btn-reply-MD { padding: .1rem .1rem; font-size: 0.6rem; border-radius: .2rem; }
 	
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.marker {background-color:yellow; font-size: 1.2em;}
 	
+	/* 페이징 관련 색상 변경 */
 	.page-item.active .page-link {
 		z-index: 1;
     	color: #fff;
@@ -31,11 +31,13 @@
     }
     
     
+    /* 방문전, 방문후, 마우스가올려져 있을때  3가지 경우를 수정하기 위해*/
     a:link	  {text-decoration: none; color: #000000;}
     a:visited {text-decoration: none; color: #000000;}
   	a:hover   {text-decoration: underline; color: red;}
   	
   	
+  	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
   	.list-group-item {
     position: relative;
     display: block;
@@ -45,13 +47,25 @@
     border: 0px solid rgba(0,0,0,.125) !important; 
 	}
 	
+	
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.mb-4, .my-4 {
     margin-bottom: 1rem!important;
 	}
 	
+	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.pb-5, .py-5 {
     padding-bottom: 1rem!important;
     padding-top: 1rem!important;
+	}	
+	
+	/* 기본으로 정해진 p의 위아래 마진을 없애기 위해*/
+	p {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
-
-	img { max-width:100% !important}
+	
+	/* 위 공간을 30px정도만 띄우기 위해 */
+	.body_read {
+		margin-top: 30px;
+	}

@@ -21,6 +21,9 @@
 	<!-- Custom -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
 	
+	<!-- For_Mobile_Image Custom -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/For_Mobile_Image.css"/>
+	
 	<!-- Jquery -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<!-- 2 -->
@@ -180,7 +183,7 @@
 	</script>
 
 </head>
-<body> 	
+<body class="body_read"> 	
 
 
 	<div class="container" role="main">
@@ -191,19 +194,28 @@
 		
 		<label class="text_title">Title</label>
 		<div style="float:left; width:100%;" class="mb-3">		
-			<div style="float:left; width:15%">
+			<div style="float:left;">
+				<p clsss="text_etc" id="category" name="category">[${read.category}]</p>
+				<!-- 버린 방법
 				<input type="text" class="form-control text_etc readonly" name="category" id="category" value="${read.category}" readonly="readonly">
+				-->
 			</div>
 						
-			<div style="float:left; width:85%">
+			<div style="float:left;">
+				<p clsss="text_etc" name="title" id="title">${read.title}</p>
+				<!-- 버린 방법
 				<input type="text" class="form-control readonly" name="title" id="title" value="${read.title}" readonly="readonly">
+				-->
 			</div>				
 		</div>
 		
 		
 		<div class="mb-3">
 			<label class="text_title">Writer</label>
-			<input type="text" class="form-control readonly" name="writer" id="writer" value="${read.writer}" readonly="readonly">
+			<p clsss="text_etc" name="writer" id="writer">${read.writer}</p>
+			<!-- 버린 방법
+			  <input type="text" class="form-control readonly" name="writer" id="writer" value="${read.writer}" readonly="readonly">
+			-->
 		</div>
 			
 

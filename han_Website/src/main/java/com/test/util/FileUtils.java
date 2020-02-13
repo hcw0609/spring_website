@@ -14,14 +14,14 @@ import com.test.dto.DbDTO;
 
 public class FileUtils {
 
-	
-	private static final String filePath = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\han_Website\\resources\\mp_file\\"; // 파일이 저장될 위치
-	
-	
 	/*
+	private static final String filePath = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"; // 파일이 저장될 위치
+	*/
+	
+	
 	// for ftp
 	private static final String filePath = "/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"; // 파일이 저장될 위치
-	*/
+	
 	
 	public List<Map<String, Object>> parseInsertFileInfo(DbDTO dbdto, 
 														 MultipartHttpServletRequest mpRequest) throws Exception{

@@ -30,6 +30,10 @@
 		var g_count = 0;
 		
 		$(document).ready(function(){
+				
+			// 타이틀은 전체 넓이 - 카테고리의 넓이이다.
+			var select_board_width = $(".select_board").outerWidth();			
+			$('.title').css({ 'width': 'calc(100% - ' + select_board_width+ 'px)' });
 			
 			$("#btnCreate").on("click", function(e) {
 			       e.preventDefault();
@@ -74,19 +78,18 @@
 	
 		<label class="text_title">Title</label>
 		<div style="float:left; width:100%;" class="mb-3">
-			<div style="float:left; width:15%">
+			<div class="select_board" style="float:left;">
 			<select class="form-control text_etc" name="category_select" id="category_select">
 				<option class="text_etc" value="해외축구">해외축구</option>
 				<option class="text_etc" value="국내축구">국내축구</option>
-				<option class="text_etc" value="축구 소식통">축구 소식통</option>
 				<option class="text_etc" value="자유 게시판">자유 게시판</option>
 			</select>
 			</div>
 			
 			<input type="hidden" id="category" name="category" value="">
 			
-			<div style="float:left; width:85%">
-			<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+			<div class="title" style="float:left;">
+				<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
 			</div>
 		</div>
 				

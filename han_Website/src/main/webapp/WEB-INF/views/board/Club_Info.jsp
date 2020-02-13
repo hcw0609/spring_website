@@ -120,7 +120,7 @@
 			<div class="row">
         	
         	<c:forEach items="${list}" var="list">		
-			<div class="col-lg-4 col-md-6 mb-4">
+			<div class="col-lg-3 col-md-5 mb-4" style="margin-top:20px;">
 				<div class="card h-100">
 					<a href="/board/Information?name=${list.club_search}"><img class="card-img-top" src='${list.club_image}' alt=""></a>
 					<div class="card-body">

@@ -1,0 +1,5 @@
+	/* 모바일에서도 비율이 깨지지않고 제대로 보이게 하기 위해 */
+	img { 
+		max-width:100% !important;
+		height:auto !important;
+	}

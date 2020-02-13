@@ -254,7 +254,7 @@
 			<!-- /.col-lg-2 -->
 
 			<div class="col-lg-10 ">
-			<div class="row justify-content-center">
+			<div class="row justify-content-center" style="margin-top:20px">
 
 			<div style="max-width:700px; width:100%; border: 2px solid #787777; text-align:center;">
 				<div>
