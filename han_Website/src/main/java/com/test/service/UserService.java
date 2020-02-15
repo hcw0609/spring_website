@@ -1,6 +1,7 @@
 package com.test.service;
 
 import com.test.dto.UserDTO;
+import com.test.dto.VisitorDTO;
 
 public interface UserService {
 
@@ -15,4 +16,5 @@ public interface UserService {
 	
 	// ID 중복체크
 	public int overLap(UserDTO userdto) throws Exception;
+
 }

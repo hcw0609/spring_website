@@ -14,6 +14,7 @@ import com.test.dao.BoardDAO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
+import com.test.dto.VisitorDTO;
 import com.test.util.FileUtils;
 import com.test.util.Search;
 import com.test.util.Thumbnail;
@@ -270,4 +271,5 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.commentList(dno);
 	}
+
 }

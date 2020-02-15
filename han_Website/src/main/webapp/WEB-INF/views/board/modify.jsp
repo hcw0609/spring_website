@@ -50,9 +50,9 @@
 			$('#addFile').on("click", function(e){
 				e.preventDefault();
 				
-		        var str = "<p>" +
-	         	  		  "<input type='file' id='file_"+(gfv_count)+"' name='file_"+(gfv_count)+"'>"+
-	           			  "<a href='#' class='btn btn-sm btn-danger' id='delete_"+(gfv_count)+"' name='delete_"+(gfv_count)+"'>삭제</a>" +
+		        var str = "<p style='padding-bottom:5px;'>" +
+	         	  		  "<input type='file' id='file_"+(gfv_count)+"' name='file_"+(gfv_count)+"' style='max-width:75%'>"+
+	           			  "<a href='#' class='btn btn_file_modify_delete btn-danger' id='delete_"+(gfv_count)+"' name='delete_"+(gfv_count)+"' style='float:right;'>삭제</a>" +
 	      	 			  "</p>";
 	      	 			  
 	  			$("#fileDiv").append(str);
@@ -123,9 +123,9 @@
 				
 			<div id="fileDiv" class="mb-3">
 				<c:forEach items="${file}" var="file" varStatus="row">
-					<div>
-					<a href="#" id="name_${row.index}" name="name_${row.index}">${file.org_file_name}</a>(${file.file_size}kb)
-					<a href="#" id="${file.file_no}" name="delete_${row.index}" class="btn btn-sm btn-danger">삭제</a>		
+					<div style="padding-bottom:5px;">
+					<a href="#" id="name_${row.index}" name="name_${row.index}" style="max-width:75%">${file.org_file_name}</a>(${file.file_size}kb)
+					<a href="#" id="${file.file_no}" name="delete_${row.index}" class="btn btn_file_modify_delete btn-danger" style="float:right">삭제</a>		
 					</div>
 				</c:forEach>
 			</div>

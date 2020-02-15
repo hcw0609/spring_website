@@ -94,7 +94,7 @@
 		<!-- 로그인 유저 확인 -->
       	<div>
 			<c:if test="${loginInfo.ID == null}">
-				<span class="text_subtitle1" style="color:white; ">"비로그인"님 어서오세요.</span>
+				<span class="text_subtitle1" style="color:white;">"비로그인"님 어서오세요.</span>
 				<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
 			</c:if>
 			<c:if test="${loginInfo.ID != null}">

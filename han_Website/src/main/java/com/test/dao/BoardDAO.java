@@ -6,6 +6,7 @@ import java.util.Map;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
+import com.test.dto.VisitorDTO;
 import com.test.util.Search;
 
 public interface BoardDAO {
@@ -87,4 +88,5 @@ public interface BoardDAO {
     
     // 리플 카운트한 결과를 테이블에 저장
     public void reply_cnt_store(DbDTO dto2) throws Exception;
+    
 }

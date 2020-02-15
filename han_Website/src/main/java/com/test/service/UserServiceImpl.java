@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.test.dao.UserDAO;
 import com.test.dto.UserDTO;
+import com.test.dto.VisitorDTO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,7 +18,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void register(UserDTO userdto) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("UserServiceImpl");
 		userdao.register(userdto);
 	}
 	
@@ -44,7 +44,5 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userdao.overLap(userdto);
 	}
-
-	
 
 }

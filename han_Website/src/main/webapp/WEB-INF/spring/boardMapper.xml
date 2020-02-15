@@ -324,6 +324,15 @@
     	where club_belong =#{club_belong}
     </select>   
     <!-- ClubDTO -->
+    
+    
+    <!-- VistiorDTO -->
+    <!-- 방문자 체크 -->
+    <insert id="visitor_count" parameterType="com.test.dto.VisitorDTO">
+		insert into visitor ( visitor_regdate, visitor_ip  )
+		values ( DATE_FORMAT(CURRENT_TIMESTAMP, '%Y.%m.%d'), #{visitor_ip}  )
+	</insert>
+	<!-- VistiorDTO -->
  
 	
 </mapper>

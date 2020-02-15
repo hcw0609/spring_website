@@ -16,5 +16,4 @@ public interface UserDAO {
 	// ID 중복체크
 	public int overLap(UserDTO userdto) throws Exception;
 	
-	
 }

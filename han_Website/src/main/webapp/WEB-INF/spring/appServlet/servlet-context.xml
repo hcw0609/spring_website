@@ -41,7 +41,8 @@
 		  <beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
 	
-	<!--  채팅   -->	    
+	
+	<!--  채팅   	    
     <websocket:handlers>
         <websocket:mapping handler="echoHandler" path="/board/echo-ws" />
       
@@ -52,5 +53,7 @@
     </websocket:handlers>
     
     <beans:bean id="echoHandler" class="com.test.util.EchoHandler"/>
-	 
+	-->
+	
+		
 </beans:beans>

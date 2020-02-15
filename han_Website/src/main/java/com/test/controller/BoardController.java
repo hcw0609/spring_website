@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -247,7 +245,7 @@ public class BoardController {
 			// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
 			service.deleteReplyBoard(dto.getDno());
 			
-			/*
+			
 			//나의 컴퓨터를 서버로 이용할 때 저장공간에 있는 파일 삭제
 			List<String> deleteServerFile = service.deleteServer(dto.getDno());
 			for(int i = 0; i<deleteServerFile.size(); i++) {
@@ -258,8 +256,8 @@ public class BoardController {
 
 				}
 			}
-			*/			
-			
+						
+			/*
 			// 호스팅받은 서버를 이용할 때 파일 삭제
 			List<String> deleteServerFile = service.deleteServer(dto.getDno());
 			for(int i = 0; i<deleteServerFile.size(); i++) {
@@ -270,7 +268,7 @@ public class BoardController {
 
 				}
 			}
-			
+			*/
 			
 			// 게시글 삭제
 			service.delete(dto.getDno());		
@@ -402,17 +400,17 @@ public class BoardController {
 	  String fileName = upload.getOriginalFilename();
 	  byte[] bytes = upload.getBytes();
 
-	  /*
+	  
 	  // 나의 컴퓨터를 서버로 이용할 때
 	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
 	  
 		
-	  */
+	  /*
 	  // 호스팅받은 서버를 이용할 때
 	  String path = "/hcw0609/tomcat/webapps/ROOT/resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
-	  
+	  */
 	  
 	  
 	  // 업로드 경로에  out에 저장된 데이터를 전송하고 초기화
@@ -456,15 +454,15 @@ public class BoardController {
 		String originalFileName = service.selectFileInfo(dto).getOrg_file_name();
 		String storedFileName = service.selectFileInfo(dto).getStored_file_name();
 		
-		/*
+		
 		//파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다. [나의 컴퓨터를 서버로 이용할 때]
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName));
-		*/
 		
 		
+		/*
 		// 호스팅받은 서버를 이용할 때
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName));
-		
+		*/
 		
 		
 		res.setContentType("application/octet-stream");
@@ -486,14 +484,15 @@ public class BoardController {
 		String deleteServerFile = service.modifyDeleteServer(dno);
 		String storedFileName = deleteServerFile;	
 		
-		/*
+		
 		//나의 컴퓨터를 서버로 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
 		File file = new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName);   
-		*/
 		
+		
+		/*
 		// 호스팅받은 서버를 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
 		File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
-		
+		*/
 		
 		
 		// 파일이 존재한다면 삭제해라.
@@ -673,13 +672,13 @@ public class BoardController {
     	
     } 
     
-    
+    /*
     // chat
     @RequestMapping(value = "/chat" , method=RequestMethod.GET)
     public void Chat() throws Exception {
     	
     }
-    
+    */
     
     // 축구 팀 리스트
     @RequestMapping(value = "/Club_Info" , method=RequestMethod.GET)

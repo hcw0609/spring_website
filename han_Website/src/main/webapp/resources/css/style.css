@@ -69,3 +69,20 @@
 	.body_read {
 		margin-top: 30px;
 	}
+	
+	
+	/* 기본으로 정해진 btn-sm 크기를 더 줄이기 위해 */
+	.btn_file_modify_delete {
+    padding: .2rem .4rem;
+    font-size: .8rem;
+    line-height: 1.2;
+    border-radius: .2rem;
+	}
+	
+	/* 기본으로 정해진 btn-sm 크기를 더 줄이기 위해 */
+	.btn_file_create_delete {
+    padding: .2rem .4rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    border-radius: .2rem;
+	}

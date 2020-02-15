@@ -237,9 +237,6 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".reply_cnt_store", dto2);
 	}
-	
-	
-	
-	
+
 
 }

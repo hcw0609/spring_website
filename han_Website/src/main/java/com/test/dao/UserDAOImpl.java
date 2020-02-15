@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.test.dto.UserDTO;
+import com.test.dto.VisitorDTO;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -19,7 +20,6 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void register(UserDTO userdto) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("UserDAOImpl");
 		sql.insert(namespace + ".register", userdto);
 	}
 
@@ -46,8 +46,6 @@ public class UserDAOImpl implements UserDAO {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".overLap", userdto);
 	}
-
-
 	
 
 }

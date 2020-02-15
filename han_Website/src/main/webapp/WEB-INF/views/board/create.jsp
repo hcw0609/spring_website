@@ -46,7 +46,7 @@
 			});
 			
 			$("#addFile").on("click", function(e){
-				var str = "<p><input type='file' name='file_"+(g_count++)+"' style='width:250px'/><a href='#' name='delete' class='btn btn-sm btn-danger'>삭제하기</a></p> ";
+				var str = "<p style='padding-bottom:5px'><input type='file' name='file_"+(g_count++)+"' style='max-width:75%'/><a href='#' name='delete' class='btn btn_file_create_delete btn-danger' style='float:right;'>삭제</a></p> ";
 		        
 		        $("#fileDiv").append(str);
 		        
@@ -85,7 +85,6 @@
 				<option class="text_etc" value="자유 게시판">자유 게시판</option>
 			</select>
 			</div>
-			
 			<input type="hidden" id="category" name="category" value="">
 			
 			<div class="title" style="float:left;">
