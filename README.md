@@ -21,7 +21,7 @@ http://hcw0609.cafe24.com
     ex) 주소창에 http://hcw0609.cafe24.com/board/modify?dno=4 를 쳐서 접근하는 형태
 12. Google Map Api 활용 하여 지도 검색  
 13. 파싱  
-    (1) 네이버 스포츠
+    (1) 네이버 스포츠  
     (2) 나무위키   
 
 ## 사용 기술  
