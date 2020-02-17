@@ -70,6 +70,15 @@
 		margin-top: 30px;
 	}
 	
+	/* admin 페이지 공간을 50px정도만 띄우기 위해 */
+	.body_admin {
+		margin: 50px auto;
+    	width: 90%;
+    	max-width:800px;
+    	height:100%
+
+	}
+	
 	
 	/* 기본으로 정해진 btn-sm 크기를 더 줄이기 위해 */
 	.btn_file_modify_delete {
@@ -79,10 +88,19 @@
     border-radius: .2rem;
 	}
 	
+	
 	/* 기본으로 정해진 btn-sm 크기를 더 줄이기 위해 */
 	.btn_file_create_delete {
     padding: .2rem .4rem;
     font-size: 1rem;
     line-height: 1.2;
     border-radius: .2rem;
+	}
+	
+	
+	/* 기본으로 정해진 table td,th 의 패딩을 줄이기 위해 */
+	.padding_reduce{
+		padding: .2rem;
+	    vertical-align: top;
+	    border-top: 1px solid #dee2e6;
 	}

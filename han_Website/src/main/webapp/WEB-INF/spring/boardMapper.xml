@@ -151,7 +151,20 @@
  		from han_user
  		where ID = #{ID}
 	</select>
+	
+	
+	<!-- 유저 리스트  -->
+	<select id="user_list" resultType="com.test.dto.UserDTO" parameterType="com.test.util.Search"> 
+		select ID, EMAIL from han_user
+	</select>
+	
+	
+	<!-- 유저의 총 수 -->
+	<select id="user_count" resultType="int">
+		select * from han_user
+	</select>
 	<!-- UserDTO -->
+	
 
 
 	<!-- oracle db에 파일에 대한 정보 업로드  
@@ -330,8 +343,25 @@
     <!-- 방문자 체크 -->
     <insert id="visitor_count" parameterType="com.test.dto.VisitorDTO">
 		insert into visitor ( visitor_regdate, visitor_ip  )
-		values ( DATE_FORMAT(CURRENT_TIMESTAMP, '%Y.%m.%d'), #{visitor_ip}  )
+		values ( DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'), #{visitor_ip}  )
 	</insert>
+	
+	<!-- 날짜 가져오기 -->
+	<select id="visitor_visitor_regdate" resultType="com.test.dto.VisitorDTO">
+		select visitor_regdate from visitor
+	</select>
+	
+	<!-- 날자별 방문자수 가져오기 [ip 중복처리 x] -->
+	<select id="visitor_count_all" resultType="int" parameterType="String">
+		select count(*) from visitor where visitor_regdate=#{visitor_regdate}
+	</select>
+		
+	<!-- 날자별 방문자수 가져오기 [ip 중복처리 o] -->
+	<select id="visitor_count_notall" resultType="int" parameterType="String">
+		select count(distinct(visitor_ip)) from visitor where visitor_regdate=#{visitor_regdate}
+	</select>
+	
+
 	<!-- VistiorDTO -->
  
 	

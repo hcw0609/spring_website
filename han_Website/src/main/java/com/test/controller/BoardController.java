@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +36,13 @@ import com.google.gson.JsonObject;
 import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
-
 import com.test.dto.ReplyDTO;
 import com.test.dto.UserDTO;
+import com.test.dto.VisitorDTO;
 import com.test.service.BoardService;
 import com.test.service.ClubService;
 import com.test.service.UserService;
+import com.test.util.Double_check;
 import com.test.util.Maputil;
 import com.test.util.Search;
 import com.test.util.Soccer;
@@ -739,6 +741,7 @@ public class BoardController {
     	
     	model.addAttribute("loginInfo",loginInfo);
     	
+    	// 자바에서 파싱해온 데이터 가져오기
     	Soccer soccer = new Soccer();
     	JsonArray EPL = soccer.getDataHtml();
     	JsonArray LALIGA = soccer.getDataHtml1();
@@ -750,23 +753,105 @@ public class BoardController {
     }
     
     
+    // admin_main 페이지
+    @RequestMapping(value = "/admin_main" , method=RequestMethod.GET)
+    public void admin_main() throws Exception{
     
-    
-    
-    
-    
-    
-    // 축구 리그 데이터 
-    @RequestMapping(value = "/Garbage/aaa" , method=RequestMethod.GET)
-    public void sample( ) throws Exception{
-    		
-    	
     }
     
     
     
+    // admin_board 페이지
+    @RequestMapping(value = "/admin_board" , method=RequestMethod.GET)
+    public void admin_board( Search search, Model model ) throws Exception{
+    	   	
+    	// 검색
+    	search.setKeyword(search.getKeyword());
+    	search.setSearchType(search.getSearchType());
+    			
+    	// 페이징
+    	int listCnt = service.getBoardListCnt(search);
+    	search.Paging(listCnt, search.getCurPage());
+    			
+    	// 글 목록 꺼내오기
+    	List<DbDTO> list = service.list(search);
+    	
+    	model.addAttribute("paging", search);
+		model.addAttribute("list", list);
+    }
     
     
+    // admin 게시물 삭제
+    @ResponseBody
+    @RequestMapping(value = "/admin_delete" , method=RequestMethod.POST)
+    public void admin_delete( DbDTO dto) throws Exception{
+    	
+    	service.delete(dto.getDno());
+    	
+    }
+    
+    
+    // admin_board 페이지
+    @RequestMapping(value = "/admin_User" , method=RequestMethod.GET)
+    public void admin_User( Search search, Model model ) throws Exception{
+    	   	
+    	// 검색
+    	search.setKeyword(search.getKeyword());
+    	search.setSearchType(search.getSearchType());
+    			
+    	// 페이징
+    	int listCnt = service.getBoardListCnt(search);
+    	search.Paging(listCnt, search.getCurPage());
+    			
+    	// 유저 리스트 가져오기
+    	List<UserDTO> list = service1.user_list();
+    	
+    	model.addAttribute("paging", search);
+		model.addAttribute("list", list);
+    }
+    
+        
+    // admin 방문자 통계 확인
+    @RequestMapping(value = "/admin_visitorcount" , method=RequestMethod.GET)
+    public void admin_visitorcount() throws Exception{
+    	
+    }
+    
+    
+    // 날짜별 방문자수 구하기
+    @ResponseBody
+    @RequestMapping(value = "/visitor_visitor_regdate" , method=RequestMethod.POST)
+    public List visitor_visitor_regdate( ) throws Exception{
+    	
+    	// 날짜 가져오기
+		List<VisitorDTO> list = service1.visitor_visitor_regdate();		
+		Double_check dc = new Double_check();	
+		List list_regdate = dc.Visitor_Double_check(list);
+
+		
+		// 날자별 방문자수 가져오기 [ip중복처리 x]
+		List list_count_all = new ArrayList();	   	
+    	for(int i=0; i<list_regdate.size(); i++ ) {
+    		list_count_all.add(service1.visitor_count_all((String) list_regdate.get(i)));
+    	}
+    	
+    	
+    	// 날자별 방문자수 가져오기 [ip중복처리 o]
+    	List list_count_notall = new ArrayList();	   	
+    	   for(int i=0; i<list_regdate.size(); i++ ) {
+    		   list_count_notall.add(service1.visitor_count_notall((String) list_regdate.get(i)));
+    	}
+    	
+    	List all = new ArrayList();
+    	all.add(list_regdate);
+    	all.add(list_count_all);
+    	all.add(list_count_notall);
+    	
+    	return all;
+    		
+    }
+    
+ 
 }
 
 

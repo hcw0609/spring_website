@@ -10,29 +10,28 @@
 
 	<title>Soccer Site</title>
 	
-	<!--  1 -->
-	<!-- Bootstrap core CSS -->
-	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- Custom styles for this template -->
-	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
-	
-	<!-- Bootstrap core JavaScript -->
-	<script src="/resources/vendor/jquery/jquery.min.js"></script>
-	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-	<!--  1 -->
-    
-    
-    <!-- 2 -->
+	<!-- 2 -->
+    <!-- Jquery -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
 	<!-- Thumbnail -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/Thumbnail.css"/>
   
 	<!-- Custom -->
  	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-  
-	<!-- Jquery -->
- 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
   	<!-- 2 -->
+  	
+  	
+	<!--  1 -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Custom styles for this template -->
+	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
+	<!--  1 --> 
   
 	<script type="text/javascript">
 		// 글 찾기
@@ -125,7 +124,7 @@
             		<a class="nav-link" href="/board/League_Table">LEAGUE</a>
           		</li>
           		<li class="nav-item">
-            		<a class="nav-link" href="#">Contact</a>
+            		<a class="nav-link" href="/board/admin_main">Contact</a>
           		</li>
         	</ul>
 		</div>
