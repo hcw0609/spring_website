@@ -102,7 +102,7 @@
 		            	
 		            	a += '<div class="ReplyArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
 						a += '<div class="ReplyInfo'+value.rno+' text_subtitle">'+'작성자 : '+value.writer;     
-		            	if(writer == login_writer) {
+		            	if(writer == login_writer || login_writer == "admin") {
 		            		a += '&nbsp;&nbsp;<button type="button" class="btn btn-dark btn-reply-MD" name="modify_'+value.rno+'">수정</button>';
 							a += '&nbsp;&nbsp;<button type="button" class="btn btn-dark btn-reply-MD" name="delete_'+value.rno+'">삭제</button>';
 		            	}
@@ -269,9 +269,9 @@
 				
 		<c:if test="${read.writer == loginInfo.ID}">
 			<div class="mb-3">
-				<input type="button" class="btn btn-sm btn-dark" value="글 수정" onclick="Modify()">
-				<input type="button" class="btn btn-sm btn-dark" value="글 삭제" onclick="Delete()">
-				<input type="button" class="btn btn-sm btn-dark" value="글 목록" onclick="List()">
+				<input type="button" class="btn btn-sm btn-dark" value="수정" onclick="Modify()">
+				<input type="button" class="btn btn-sm btn-dark" value="삭제" onclick="Delete()">
+				<input type="button" class="btn btn-sm btn-dark" value="목록" onclick="List()">
 			</div>
 		</c:if>
 							

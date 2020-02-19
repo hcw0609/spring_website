@@ -1,4 +1,8 @@
 	
+	body {
+ 	 	padding-top: 50px;
+	}
+	
 	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.readonly{
 		background-color:#ffffff !important;
@@ -10,8 +14,8 @@
 	.text_subtitle1 { font-size: 14px; font-weight: bold; }
 	.text_subtitle2 { font-size: 12px; font-weight: bold; }
 	.text_etc { font-size: 12px;}
-	.text-center { text-align: center;}
-	.text-left { text-align: left; !important;}
+	.text_center { text-align: center;}
+	.text_left { text-align: left; !important;}
 
 	/* 기본으로 정해진 값을 원하는대로 수정하기 위해*/
 	.btn-Logout {padding: .2rem .2rem;font-size:.6rem; border-radius:.1rem}
@@ -70,16 +74,32 @@
 		margin-top: 30px;
 	}
 	
-	/* admin 페이지 공간을 50px정도만 띄우기 위해 */
-	.body_admin {
-		margin: 50px auto;
+	
+	/* admin_main의 body */
+	.body_admin_main {
+		position: absolute;
+  		top: 45%;
+  		left: 45%;
+  		transform: translate(-50%, -50%);
+  		z-index: 1;
+	}
+	
+	/* body_admin_board의 body */
+	.body_admin_board {
+		margin: 100px auto;
     	width: 90%;
     	max-width:800px;
     	height:100%
-
 	}
 	
-	
+	/* body_admin_User의 body */
+	.body_admin_User {
+		margin: 100px auto;
+    	width: 90%;
+    	max-width:330px;
+    	height:100%
+	}
+		
 	/* 기본으로 정해진 btn-sm 크기를 더 줄이기 위해 */
 	.btn_file_modify_delete {
     padding: .2rem .4rem;

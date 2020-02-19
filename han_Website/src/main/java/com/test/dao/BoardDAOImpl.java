@@ -77,7 +77,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 게시글의 총 갯수 1
+	// 게시글의 총 갯수 [전체]
 	@Override
 	public int getBoardListCnt(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -85,7 +85,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 게시글의 총 갯수 2
+	// 게시글의 총 갯수 [카테고리 별]
 	@Override
 	public int getBoardListCnt2(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -98,6 +98,14 @@ public class BoardDAOImpl implements BoardDAO {
 	public void ViewCount(int dno) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update(namespace + ".viewcnt", dno);
+	}
+	
+	
+	// 날자별 작성된 게시글
+	@Override
+	public int board_count_day(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".board_count_day", str);
 	}
 
 
@@ -197,7 +205,38 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sql.selectList(namespace +".commentList", dno);
 	}
+	
+	
+	// 전체 리플 카운트
+	@Override
+	public int reply_allcnt() throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace +".reply_allcnt");
+	}
+		
+	
+	// 리플 카운트
+	@Override
+	public int reply_cnt(int dno) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".reply_cnt", dno);
+	}
 
+	
+	// 리플 카운트한 결과를 테이블에 저장
+	@Override
+	public void reply_cnt_store(DbDTO dto2) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".reply_cnt_store", dto2);
+	}	
+
+	
+	// 날짜별 작성된 리플
+	@Override
+	public int reply_count_day(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace +".reply_count_day", str);
+	}
 
 	// 작성중인 게시물의 첨부파일 존재 유무 [YES]
 	@Override
@@ -223,20 +262,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 리플 카운트
-	@Override
-	public int reply_cnt(int dno) throws Exception {
-		// TODO Auto-generated method stub
-		return sql.selectOne(namespace + ".reply_cnt", dno);
-	}
 
 
-	// 리플 카운트한 결과를 테이블에 저장
-	@Override
-	public void reply_cnt_store(DbDTO dto2) throws Exception {
-		// TODO Auto-generated method stub
-		sql.insert(namespace + ".reply_cnt_store", dto2);
-	}
 
 
 }

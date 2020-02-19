@@ -3,7 +3,6 @@ package com.test.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import com.test.dao.BoardDAO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
-import com.test.dto.VisitorDTO;
 import com.test.util.FileUtils;
 import com.test.util.Search;
 import com.test.util.Thumbnail;
@@ -157,18 +155,25 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 총 갯수
+	// 총 갯수 [전체]
 	@Override
 	public int getBoardListCnt(Search search) throws Exception {
 		// TODO Auto-generated method stub		
 		return dao.getBoardListCnt(search);
 	}
 	
-	// 총 갯수2
+	// 총 갯수 [카테고리 별]
 	@Override
 	public int getBoardListCnt2(Search search) throws Exception {
 		// TODO Auto-generated method stub		
 		return dao.getBoardListCnt2(search);
+	}
+	
+	// 날자별 작성된 게시글
+	@Override
+	public int board_count_day(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.board_count_day(str);
 	}
 
 
@@ -264,6 +269,13 @@ public class BoardServiceImpl implements BoardService{
 		dao.deleteReplyBoard(dno);
 	}
 
+	// 전체 리플 카운트 
+	@Override
+	public int reply_allcnt() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.reply_allcnt();
+	}
+
 	
 	// 리플 리스트
 	@Override
@@ -271,5 +283,14 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return dao.commentList(dno);
 	}
+	
+	
+	// 날짜별 작성된 리플
+	@Override
+	public int reply_count_day(String str) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.reply_count_day(str);
+	}
+
 
 }

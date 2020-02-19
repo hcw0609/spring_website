@@ -7,7 +7,7 @@
 		#{변수명}  변수명은  jsp의 태그안에 있는 name에 맞추는게 아니다.
 	 -->
 
-	
+	<!-- BOARD DTO -->
 	<!-- oracle db 게시물 목록
 	<select id="List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
@@ -63,7 +63,7 @@
 	<!-- 마리아 db 글 생성 -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="dno">
 		insert into han ( title, content, writer, regdate, imageyn, thumbnail, category ) 
-		values (  #{title}, #{content, jdbcType=VARCHAR}, #{writer}, DATE_FORMAT(CURRENT_TIMESTAMP, '%Y.%m.%d') ,#{imageyn}, #{thumbnail}, #{category} )
+		values (  #{title}, #{content, jdbcType=VARCHAR}, #{writer}, DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d') ,#{imageyn}, #{thumbnail}, #{category} )
 	</insert>
 	
 		
@@ -105,6 +105,12 @@
 	</select>
 	
 	
+	<!-- 날자별 작성된 게시글  -->
+	<select id="board_count_day" resultType="int" parameterType="String">
+		select count(*) from han where regdate =#{regdate}
+	</select>
+	
+	
 	<!-- Oracle db 검색 
 	<sql id="search">
   		<if test="searchType=='title' and keyword != null and keyword != '' ">where title like '%' || #{keyword} || '%'</if>
@@ -119,7 +125,11 @@
   		<if test="searchType=='title' and keyword != null and keyword != '' ">where title like CONCAT('%',#{keyword},'%')</if>
   		<if test="searchType=='content' and keyword != null and keyword != '' ">where content like CONCAT('%',#{keyword},'%')</if>
   		<if test="searchType=='writer' and keyword != null and keyword != '' ">where writer like CONCAT('%',#{keyword},'%')</if>
+  		<if test="searchType=='ID' and keyword != null and keyword != '' ">where ID like CONCAT('%',#{keyword},'%')</if>
 	</sql>
+	<!-- BOARD DTO -->
+	
+	
 	
 	
 	<!-- UserDTO -->
@@ -155,16 +165,29 @@
 	
 	<!-- 유저 리스트  -->
 	<select id="user_list" resultType="com.test.dto.UserDTO" parameterType="com.test.util.Search"> 
-		select ID, EMAIL from han_user
+		SELECT ID, EMAIL 		
+		FROM (	SELECT ID, EMAIL 
+				FROM han_user 
+				<include refid="search"/> ) B 
+  		<![CDATA[
+  		ORDER BY ID desc
+  		LIMIT #{startIndex}, #{pageSize}
+		]]>
 	</select>
 	
 	
 	<!-- 유저의 총 수 -->
-	<select id="user_count" resultType="int">
-		select * from han_user
+	<select id="user_count" resultType="int" parameterType="com.test.util.Search">
+		select count(*) from han_user <include refid="search"/>
 	</select>
+	
+	<!-- 유저 삭제 -->
+	<delete id="user_delete" parameterType="com.test.dto.UserDTO">
+		delete from han_user where ID =#{ID}
+	</delete>
 	<!-- UserDTO -->
 	
+
 
 
 	<!-- oracle db에 파일에 대한 정보 업로드  
@@ -186,6 +209,9 @@
 	-->
 	
 	
+	
+	
+	<!-- File 관련 -->
 	<!-- 마리아 db 에 파일에 대한 정보 업로드 -->
 	<insert id="insertFile" parameterType="hashMap">
 		insert into mp_file (
@@ -247,8 +273,12 @@
 		from mp_file
 		where dno=#{dno}
 	</select>
+	<!-- File 관련 -->
 	
 	
+	
+	
+	<!-- 리플 관련 -->
 	<!-- 리플 작성
 	<insert id="writeReply">
 	insert into mp_reply( dno, rno, content, writer )
@@ -259,8 +289,8 @@
 	
 	<!-- 마리아 db 리플 작성 -->
 	<insert id="writeReply" parameterType="com.test.dto.ReplyDTO">
-	insert into mp_reply( dno, content, writer)
-	values( #{dno}, #{content} ,#{writer})
+	insert into mp_reply( dno, content, writer, regdate)
+	values( #{dno}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
 	</insert>
 	
 		
@@ -292,6 +322,35 @@
         where dno = #{dno}
     </select>
     
+    
+    <!-- 전체 리플 카운트  -->
+   	<select id="reply_allcnt" resultType="int">
+   		select count(*)
+   		from mp_reply
+   	</select> 
+    
+    
+    <!-- 리플 카운트 -->
+    <select id="reply_cnt" resultType="int" parameterType="int">
+    	select count(*)
+    	from mp_reply
+    	where dno =#{dno}
+    </select>
+    
+    
+    <!-- 리플 카운트한 결과를 테이블에 저장 -->
+    <update id="reply_cnt_store" parameterType="com.test.dto.DbDTO">
+    	update han set reply_cnt=#{reply_cnt} where dno=#{dno}
+    </update>
+    
+    
+    <!-- 날짜별 작성된 리플  -->
+    <select id="reply_count_day" resultType="int" parameterType="String">
+    	select count(*) from mp_reply where regdate =#{regdate}
+    </select>
+    <!-- 리플 관련 -->
+    	
+    	
     	
     <!-- 작성중인 게시물의 첨부파일 존재 유무 [YES] -->
     <update id="file_yes" parameterType="int">
@@ -313,20 +372,8 @@
     	from mp_file
     	where dno = #{dno}
     </select>
+       
     
-    
-    <!-- 리플 카운트 -->
-    <select id="reply_cnt" resultType="int" parameterType="int">
-    	select count(*)
-    	from mp_reply
-    	where dno =#{dno}
-    </select>
-    
-    
-    <!-- 리플 카운트한 결과를 테이블에 저장 -->
-    <update id="reply_cnt_store" parameterType="com.test.dto.DbDTO">
-    	update han set reply_cnt=#{reply_cnt} where dno=#{dno}
-    </update>
     
     
     <!-- ClubDTO -->
@@ -337,6 +384,8 @@
     	where club_belong =#{club_belong}
     </select>   
     <!-- ClubDTO -->
+    
+    
     
     
     <!-- VistiorDTO -->
@@ -360,8 +409,6 @@
 	<select id="visitor_count_notall" resultType="int" parameterType="String">
 		select count(distinct(visitor_ip)) from visitor where visitor_regdate=#{visitor_regdate}
 	</select>
-	
-
 	<!-- VistiorDTO -->
  
 	

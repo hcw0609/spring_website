@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.test.dto.UserDTO;
 import com.test.dto.VisitorDTO;
+import com.test.util.Search;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -51,16 +52,23 @@ public class UserDAOImpl implements UserDAO {
 
 	// 유저 리스트 가져오기
 	@Override
-	public List<UserDTO> user_list() throws Exception {
+	public List<UserDTO> user_list(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".user_list");
+		return sql.selectList(namespace + ".user_list", search);
 	}
 	
 	// 유저의 총 수
 	@Override
-	public int user_count() throws Exception {
+	public int user_count(Search search) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectOne(namespace + ".user_count");
+		return sql.selectOne(namespace + ".user_count", search);
+	}
+	
+	// 유저 삭제
+	@Override
+	public void user_delete(UserDTO userdto) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace + ".user_delete" ,userdto);
 	}
 
 	// 날짜 가져오기
@@ -84,6 +92,9 @@ public class UserDAOImpl implements UserDAO {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".visitor_count_notall", str);
 	}
+
+
+
 
 
 	

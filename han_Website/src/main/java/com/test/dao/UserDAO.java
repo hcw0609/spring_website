@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.test.dto.UserDTO;
 import com.test.dto.VisitorDTO;
+import com.test.util.Search;
 
 public interface UserDAO {
 
@@ -20,10 +21,13 @@ public interface UserDAO {
 	public int overLap(UserDTO userdto) throws Exception;
 	
 	// 유저 리스트
-	public List<UserDTO> user_list() throws Exception;
+	public List<UserDTO> user_list(Search search) throws Exception;
 	
 	// 유저의 총 수
-	public int user_count() throws Exception;
+	public int user_count(Search search) throws Exception;
+	
+	// 유저 삭제
+	public void user_delete(UserDTO userdto) throws Exception;
 	
 	// 날짜 가져오기
 	public List<VisitorDTO> visitor_visitor_regdate() throws Exception;

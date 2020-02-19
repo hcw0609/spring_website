@@ -8,7 +8,14 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<title>Soccer Site</title>
+	<title>Soccer Site</title>  	
+	<!--  1 -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--  1 --> 
 	
 	<!-- 2 -->
     <!-- Jquery -->
@@ -20,18 +27,6 @@
 	<!-- Custom -->
  	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
   	<!-- 2 -->
-  	
-  	
-	<!--  1 -->
-	<!-- Bootstrap core JavaScript -->
-	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-	
-	<!-- Bootstrap core CSS -->
-	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- Custom styles for this template -->
-	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
-	<!--  1 --> 
   
 	<script type="text/javascript">
 		// 글 찾기
@@ -94,11 +89,11 @@
       	<div>
 			<c:if test="${loginInfo.ID == null}">
 				<span class="text_subtitle1" style="color:white;">"비로그인"님 어서오세요.</span>
-				<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
+				<button class="btn-Logout btn" onclick="location.href='/board/login'"><img alt="" src="/Image/Icon/login.png"></button>
 			</c:if>
 			<c:if test="${loginInfo.ID != null}">
 				<span class="text_subtitle1" style="color:white;">"${loginInfo.ID}"님 어서오세요.</span>
-				<input type="button" class="btn-Logout btn-danger" value="로그아웃" onclick="location.href='/board/logout'"></input>
+				<button class="btn-Logout btn" onclick="location.href='/board/logout'"><img alt="" src="/Image/Icon/logout.png"></button>
 			</c:if>
 				<input type="hidden" id="loginInfoID" name="${loginInfo.ID}" value="${loginInfo.ID}">
 		</div>
@@ -124,7 +119,7 @@
             		<a class="nav-link" href="/board/League_Table">LEAGUE</a>
           		</li>
           		<li class="nav-item">
-            		<a class="nav-link" href="/board/admin_main">Contact</a>
+            		<a class="nav-link" href="/board/admin_main">Admin</a>
           		</li>
         	</ul>
 		</div>

@@ -6,7 +6,6 @@ import java.util.Map;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.ReplyDTO;
-import com.test.dto.VisitorDTO;
 import com.test.util.Search;
 
 public interface BoardDAO {
@@ -37,6 +36,9 @@ public interface BoardDAO {
 	
 	// 조회수 증가
 	public void ViewCount(int dno) throws Exception;
+	
+	// 날자별 작성된 게시글
+	public int board_count_day(String str) throws Exception;
 	
 	// db에 파일에 대한 정보 업로드
 	public void insertFile(Map<String, Object> map) throws Exception;
@@ -73,6 +75,18 @@ public interface BoardDAO {
 	
 	// 리플 리스트
     public List<ReplyDTO> commentList(int dno) throws Exception;
+    
+    // 전체 리플 카운트
+    public int reply_allcnt() throws Exception;
+    
+    // 리플 카운트
+    public int reply_cnt(int dno) throws Exception;
+    
+    // 날짜별 작성된 리플
+    public int reply_count_day(String str) throws Exception;
+    
+    // 리플 카운트한 결과를 테이블에 저장
+    public void reply_cnt_store(DbDTO dto2) throws Exception;
 
     // 작성중인 게시물의 첨부파일 존재 유무 [YES]
     public void file_yes(int dno) throws Exception;
@@ -83,10 +97,6 @@ public interface BoardDAO {
     // 이미 작성된 게시물의 첨부파일 존재 유무
     public int file_exist(int dno) throws Exception;
     
-    // 리플 카운트
-    public int reply_cnt(int dno) throws Exception;
-    
-    // 리플 카운트한 결과를 테이블에 저장
-    public void reply_cnt_store(DbDTO dto2) throws Exception;
+   
     
 }

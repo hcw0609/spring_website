@@ -25,7 +25,7 @@
 		function find() {
 			var searchType = $('#searchType').val();
 			var keyword = $('#keyword').val();		
-			var url = "/board/admin";
+			var url = "/board/admin_User";
 			url = url + "?searchType=" + searchType
 			url = url + "&keyword="    + keyword	
 			location.href=url;
@@ -36,7 +36,7 @@
 		function fn_prev(curPage, curRange, rangeSize, searchType, keyword) {
 			var curPage = ((curRange - 2) * rangeSize) + 1;
 			var curRange = curRange - 1;
-			var url = "/board/admin";
+			var url = "/board/admin_User";
 			url = url + "?curPage="    + curPage;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -47,7 +47,7 @@
 	
 		// 페이지 번호 클릭 
 		function fn_pagination(idx, curRange, searchType, keyword) {
-			var url = "/board/admin";
+			var url = "/board/admin_User";
 			url = url + "?curPage="    + idx;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -60,7 +60,7 @@
 		function fn_next(curPage, curRange, rangeSize, searchType, keyword) {
 			var curPage = parseInt((curRange * rangeSize)) + 1;
 			var curRange = parseInt(curRange) + 1;
-			var url = "/board/admin";
+			var url = "/board/admin_User";
 			url = url + "?curPage="    + curPage;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -72,16 +72,16 @@
 			
 	 		// admin 삭제
 			$("button[name^='delete']").on("click", function(e){
-				var dno = $(this).val();
+				var ID = $(this).val();
 				$(this).parent().parent().remove();
 		        			        	
 				$.ajax({
-					url : "/board/admin_delete",
+					url : "/board/admin_User_delete",
 					type : "post",
-					data : {"dno" : dno},
+					data : {"ID" : ID},
 	    	   		success : function(data){   
-	 					alert("글 번호:"+dno+"를 삭제하였습니다.");
-	    	   				
+	    	   			location.reload(true);
+	 					alert("유저:"+ID+"를 삭제하였습니다.");    	   			
 	    	   		}	    	   			
 		        })		        	
 			})	        	        	        
@@ -90,9 +90,15 @@
 	</script>
 	
 </head>
-<body class="body_admin" >
+<body class="body_admin_User" >
 <div>
-	<table class="table-hover">
+	
+	<div class="row justify-content-center">
+	<label class="text_title">총 유저 수 : &nbsp; ${user_count} </label>
+	</div>
+	</br>
+	
+	<table class="table-hover" style="width:100%">
 		<colgroup>
 			<col style="width:20%; "/>
 			<col style="width:auto;"/>
@@ -138,7 +144,7 @@
 	<div class="row justify-content-center">
 		<div style="padding-right:10px">
 			<select class="form-control form-control-sm" name="searchType" id="searchType">
-				<option value="writer">ID</option>
+				<option value="ID">ID</option>
 			</select>
 		</div>
 

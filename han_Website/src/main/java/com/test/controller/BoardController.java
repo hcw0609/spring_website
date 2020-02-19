@@ -71,7 +71,6 @@ public class BoardController {
 	public void  getList(Search search,
 						Model model,
 						HttpSession hs) throws Exception {
-
 		// 검색
 		search.setKeyword(search.getKeyword());
 		search.setSearchType(search.getSearchType());
@@ -101,7 +100,6 @@ public class BoardController {
 	public void  getoverseas_soccer(Search search,
 									Model model, 
 									HttpSession hs) throws Exception {
-
 		// 검색
 		search.setKeyword(search.getKeyword());
 		search.setSearchType(search.getSearchType());
@@ -311,6 +309,9 @@ public class BoardController {
 		
 		if( login == null) {
 			return "no";
+		} else if ( login.getID().equals("admin")) {
+			hs.setAttribute("User", login);
+			return "admin";
 		} else {
 			//"User" 이라는 이름으로 login을 세션에 바인딩 시킨다. 
 			hs.setAttribute("User", login);
@@ -593,13 +594,7 @@ public class BoardController {
             String title = "회원가입 인증 이메일 입니다.";
             
             // 이메일 내용
-            String content =      
-            System.getProperty("line.separator")+ //한줄씩 줄간격을 두기위해 작성
-            System.getProperty("line.separator")+
-            "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
-            +System.getProperty("line.separator")+
-            System.getProperty("line.separator")+
-            " 인증번호는 " + dice + " 입니다. ";
+            String content = "인증 번호는 " + dice + " 입니다.";
 
             try {
                 MimeMessage message = mailSender.createMimeMessage();
@@ -613,8 +608,7 @@ public class BoardController {
                 mailSender.send(message);
             } catch (Exception e) {
                 System.out.println(e);
-            }
-                  
+            }                  
             return dice;        
     	}   	
     }	
@@ -623,7 +617,7 @@ public class BoardController {
     // 비정상적인 접근 막기
     @RequestMapping(value = "/Wrong_approach" , method=RequestMethod.GET )
     public void Wrong_approach(Model model) throws Exception {
-    	model.addAttribute("msg", "잘못된 접근입니다.");
+    	model.addAttribute("msg", "접근 권한이 없습니다.");
     }
     
     
@@ -755,16 +749,31 @@ public class BoardController {
     
     // admin_main 페이지
     @RequestMapping(value = "/admin_main" , method=RequestMethod.GET)
-    public void admin_main() throws Exception{
+    public String admin_main(HttpSession hs) throws Exception{
     
+    	// 로그인된 사용자가 누구 인지 확인
+    	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
+    	UserDTO loginInfo = (UserDTO) hs.getAttribute("User");
+    	
+    	// 관리자 확인
+    	UserCheck uc = new UserCheck();
+    	String result = uc.User_Check(loginInfo);
+    	if(result == "NullSession") {
+    		return "redirect:/board/needlogin";
+    	} else {
+    		if(loginInfo.getID().equals("admin")) {
+    			return "/board/admin_main";
+        	} else {
+        		return "redirect:/board/Wrong_approach";    		
+        	}  	
+    	}
+   	
     }
     
-    
-    
+     
     // admin_board 페이지
     @RequestMapping(value = "/admin_board" , method=RequestMethod.GET)
     public void admin_board( Search search, Model model ) throws Exception{
-    	   	
     	// 검색
     	search.setKeyword(search.getKeyword());
     	search.setSearchType(search.getSearchType());
@@ -772,26 +781,36 @@ public class BoardController {
     	// 페이징
     	int listCnt = service.getBoardListCnt(search);
     	search.Paging(listCnt, search.getCurPage());
-    			
+    	   
     	// 글 목록 꺼내오기
     	List<DbDTO> list = service.list(search);
     	
+    	// 전체 리플 카운트
+    	int reply_allcnt = service.reply_allcnt();
+    	
+    	
+    	model.addAttribute("reply_allcnt", reply_allcnt);
+    	model.addAttribute("listCnt", listCnt);
     	model.addAttribute("paging", search);
 		model.addAttribute("list", list);
     }
     
-    
-    // admin 게시물 삭제
+       
+    // admin_board삭제
     @ResponseBody
-    @RequestMapping(value = "/admin_delete" , method=RequestMethod.POST)
+    @RequestMapping(value = "/admin_board_delete" , method=RequestMethod.POST)
     public void admin_delete( DbDTO dto) throws Exception{
     	
-    	service.delete(dto.getDno());
+    	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
+    	service.deleteReplyBoard(dto.getDno());
     	
+    	// 게시글 삭제
+    	service.delete(dto.getDno());
+    	   	  	
     }
     
     
-    // admin_board 페이지
+    // admin_User 페이지
     @RequestMapping(value = "/admin_User" , method=RequestMethod.GET)
     public void admin_User( Search search, Model model ) throws Exception{
     	   	
@@ -799,15 +818,26 @@ public class BoardController {
     	search.setKeyword(search.getKeyword());
     	search.setSearchType(search.getSearchType());
     			
-    	// 페이징
-    	int listCnt = service.getBoardListCnt(search);
+    	// 유저 페이징
+    	int listCnt = service1.user_count(search);
     	search.Paging(listCnt, search.getCurPage());
     			
     	// 유저 리스트 가져오기
-    	List<UserDTO> list = service1.user_list();
+    	List<UserDTO> list = service1.user_list(search);
     	
+    	
+    	model.addAttribute("user_count", listCnt);
     	model.addAttribute("paging", search);
 		model.addAttribute("list", list);
+    }
+    
+    
+    // admin_User_delete
+    @ResponseBody
+    @RequestMapping(value="/admin_User_delete", method=RequestMethod.POST)
+    public void admin_User_delete(UserDTO userdto) throws Exception{
+    	
+    	service1.user_delete(userdto);
     }
     
         
@@ -847,10 +877,40 @@ public class BoardController {
     	all.add(list_count_all);
     	all.add(list_count_notall);
     	
-    	return all;
-    		
+    	return all;   		
     }
     
+    
+    // 날자별 작성된 게시글
+    @ResponseBody
+    @RequestMapping(value="/board_count_day", method=RequestMethod.POST)
+    public List board_count_day() throws Exception{
+    	
+    	// 날짜 가져오기
+    	List<VisitorDTO> list = service1.visitor_visitor_regdate();		
+    	Double_check dc = new Double_check();	
+    	List list_regdate = dc.Visitor_Double_check(list);
+    	
+    	// 날짜별 작성된 게시글 가져오기
+    	List board_count_day = new ArrayList();
+    	for(int i=0; i<list_regdate.size(); i++ ) {
+    		board_count_day.add(service.board_count_day((String) list_regdate.get(i)));
+    	}
+    	
+    	List reply_count_day = new ArrayList();
+    	for(int i=0; i<list_regdate.size(); i++ ) {
+    		reply_count_day.add(service.reply_count_day((String) list_regdate.get(i)));
+    	}
+    	
+    	// 날짜별 작성된 리플 가져오기
+    	
+    	List all = new ArrayList();
+    	all.add(list_regdate);
+    	all.add(board_count_day);
+    	all.add(reply_count_day);
+    	
+		return all;
+    }
  
 }
 

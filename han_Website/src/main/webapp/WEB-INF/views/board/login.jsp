@@ -36,7 +36,9 @@
 					type : "POST",
 					data : {"ID" : ID, "PASSWORD":PASSWORD},
 					success: function(confirm) {
-						if( confirm == "yes") {
+						if( confirm == "admin") {
+							location.href="/board/admin_main"
+						} else if( confirm == "yes") {
 							location.href="/board/list"
 						} else {
 							alert("아이디와 패스워드를 확인해 주세요.");
@@ -60,21 +62,21 @@
     <div class="Custom_main">  
         
             <div>
-                <label class="text_title" style="margin-bottom: .0rem;">로그인</label>
+                <label class="text_title" style="margin-top: .0rem;">로그인</label>
             </div>
             
             <div class="panel-body">
 				<div>
-					<input type="text" class="form-control" id="ID" placeholder="ID" autofocus>
+					<input type="text" class="form-control btnmargin2" id="ID" placeholder="ID" autofocus>
 				</div>
 
                 <div>
-					<input type="password" class="form-control" id="PASSWORD" placeholder="PASSWORD">
+					<input type="password" class="form-control" style="margin-bottom:10px;" id="PASSWORD" placeholder="PASSWORD">
 				</div>
 
 				<div>
 					<button type="button" class="form-control btn btn-primary btn-dark btnmargin2" id="login_btn">로그인</button> <br>
-					<button type="button" class="form-control btn btn-primary btn-dark btnmargin2" onclick="location.href='/board/register'">회원가입</button>
+					<button type="button" class="form-control btn btn-primary btn-dark" onclick="location.href='/board/register'">회원가입</button>
 				</div>
             </div>           
     </div>

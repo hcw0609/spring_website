@@ -29,12 +29,15 @@ public interface BoardService  {
 	// 글 수정
 	public void modify(DbDTO dto, MultipartHttpServletRequest mpRequest) throws Exception;
 	
-	// 게시글의 총 갯수1
+	// 게시글의 총 갯수 [전체]
 	public int getBoardListCnt(Search search) throws Exception;
 	
-	// 게시글의 총 갯수2
+	// 게시글의 총 갯수 [카테고리 별]
 	public int getBoardListCnt2(Search search) throws Exception;
 	
+	// 날자별 작성된 게시글
+	public int board_count_day(String str) throws Exception;
+		
 	// 파일 리스트 조회
 	public List<FileDTO> selectFileList(int dno) throws Exception;
 	
@@ -62,7 +65,13 @@ public interface BoardService  {
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;
 	
+	// 전체 리플 카운트
+    public int reply_allcnt() throws Exception;
+    
 	// 리플 리스트
     public List<ReplyDTO> commentList(int dno) throws Exception;
+    
+    // 날짜별 작성된 리플
+    public int reply_count_day(String str) throws Exception;
 
 }

@@ -104,12 +104,12 @@
     	<!-- 로그인 유저 확인 -->
       	<div>
 			<c:if test="${loginInfo.ID == null}">
-				<span class="text_subtitle1" style="color:white; ">"비로그인"님 어서오세요.</span>
-				<input type="button" class="btn-Logout btn-danger" value="로그인하기" onclick="location.href='/board/login'"></input>
+				<span class="text_subtitle1" style="color:white;">"비로그인"님 어서오세요.</span>
+				<button class="btn-Logout btn" onclick="location.href='/board/login'"><img alt="" src="/Image/Icon/login.png"></button>
 			</c:if>
 			<c:if test="${loginInfo.ID != null}">
 				<span class="text_subtitle1" style="color:white;">"${loginInfo.ID}"님 어서오세요.</span>
-				<input type="button" class="btn-Logout btn-danger" value="로그아웃" onclick="location.href='/board/logout'"></input>
+				<button class="btn-Logout btn" onclick="location.href='/board/logout'"><img alt="" src="/Image/Icon/logout.png"></button>
 			</c:if>
 				<input type="hidden" id="loginInfoID" name="${loginInfo.ID}" value="${loginInfo.ID}">
 		</div>

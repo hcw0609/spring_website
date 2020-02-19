@@ -21,8 +21,8 @@
 		       
 			// 받아올 데이터를 저장할 배열 선언
 	        var chartLabels = []; 
-	        var chartData_all = []; 
-	        var chartData_notall = []; 
+	        var chartData_1 = []; 
+	        var chartData_2 = [];
 	                 
 	        function createChart() {
 	            
@@ -40,14 +40,64 @@
 	                }
 	            });
 	        }
-	 	 	        
+	 	 	 
 	        
-	        //버튼을 클릭하면 차트가 그려진다. createChart()함수를 안에다 선언해야지 차트값을 받더라...
-	        $('#btn').click(function(){
+	        // 버튼을 클릭하면 차트가 그려진다. [게시글]
+	        $("#board_btn").on("click", function(e){
+	        	
+	        	chartLabels = [];
+				chartData_1 = []; 
+		        chartData_2 = [];
+		        
+		        $.ajax({
+		        	url: '/board/board_count_day',
+		        	type: 'post',
+		        	success : function(data){
+		        		
+		        		chartLabels = data[0];
+	            		chartData_1 = data[1];
+	            		chartData_2 = data[2];
+	            		
+	            		lineChartData = {
+	                            labels : chartLabels,
+	                            datasets : [
+	                            	{
+		                                label : "날짜별 작성된 게시글",
+		                                backgroundColor:"#bfdaf9",
+		                                borderColor: "#80b6f4",
+		                                pointBorderColor: "#80b6f4",
+		                                pointBackgroundColor: "#80b6f4",
+		                                pointHoverBackgroundColor: "#80b6f4",
+		                                pointHoverBorderColor: "#80b6f4",
+		                                fill: false,
+		                                borderWidth: 4,
+		                                data : chartData_1 },
+									{
+										label : "날짜별 작성된 리플",
+										backgroundColor:"#187ff5",
+										borderColor: "#187ff5",
+										pointBorderColor: "#187ff5",
+										pointBackgroundColor: "#187ff5",
+										pointHoverBackgroundColor: "#187ff5",
+										pointHoverBorderColor: "#187ff5",
+										fill: false,
+										borderWidth: 4,
+										data : chartData_2 }
+								]   
+						}
+	            		createChart();
+		        	}
+		        	
+		        })
+	        })
+	        
+	        
+	        // 버튼을 클릭하면 차트가 그려진다. [방문자]
+	        $('#visitor_btn').click(function(){
 	            
 				chartLabels = [];
-				chartData_all = []; 
-		        chartData_notall = []; 
+				chartData_1 = []; 
+		        chartData_2 = []; 
 	                                      	            
 	            $.ajax({
 	            	url:'/board/visitor_visitor_regdate',
@@ -55,8 +105,8 @@
 	            	success : function(data){           		
 	           			
 	            		chartLabels = data[0];
-	            		chartData_all = data[1];
-	            		chartData_notall = data[2];
+	            		chartData_1 = data[1];
+	            		chartData_2 = data[2];
 	            		
 	            		lineChartData = {
 	                            labels : chartLabels,
@@ -71,10 +121,10 @@
 		                                pointHoverBorderColor: "#80b6f4",
 		                                fill: false,
 		                                borderWidth: 4,
-		                                data : chartData_all },
+		                                data : chartData_1 },
 									{
 		                                label : "날짜별 방문자수 [중복처리O]",
-		                                backgroundColor:"#bfdaf9",
+		                                backgroundColor:"#187ff5",
 		                                borderColor: "#187ff5",
 		                                pointBorderColor: "#187ff5",
 		                                pointBackgroundColor: "#187ff5",
@@ -82,7 +132,7 @@
 		                                pointHoverBorderColor: "#187ff5",
 		                                fill: false,
 		                                borderWidth: 4,
-		                                data : chartData_notall }
+		                                data : chartData_2 }
 								]   
 						}
 						createChart();           		
@@ -101,7 +151,8 @@
 
 	<div>
 		<div style="margin-top:20px; margin-left:80px">                  
-			<button id="btn">방문자 통계</button>
+			<button id="visitor_btn">방문자 통계</button>
+			<button id="board_btn">게시글 통계</button>
  		</div>
 	</div>
 

@@ -7,6 +7,9 @@
 	<title>Insert title here</title>
 	
 	<!-- 1 -->
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+ 	
 	<!-- Jquery -->
  	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
  	
@@ -16,12 +19,14 @@
 	
 	
 </head>
-<body>
-
-<button class="btn btn-dark" onclick="location.href='/board/admin_board'">게시물 관리</button>
-<button class="btn btn-dark" onclick="location.href='/board/admin_User'">유저 관리</button>
-<button class="btn btn-dark" onclick="location.href='/board/admin_visitorcount'">방문자 확인</button>
-
+<body class="body_admin_main">
+	
+	<ul style="list-style:none;">
+	  <li style="padding-bottom:10px; font-size:2rem;"><button class="btn btn-dark" onclick="location.href='/board/list'">메인으로 가기</button></li>
+      <li style="padding-bottom:10px; font-size:2rem;"><button class="btn btn-dark" onclick="location.href='/board/admin_board'">게시물 관리</button></li>
+      <li style="padding-bottom:10px; font-size:2rem;"><button class="btn btn-dark" onclick="location.href='/board/admin_User'">유저 관리</button></li>
+      <li style="padding-bottom:10px; font-size:2rem;"><button class="btn btn-dark" onclick="location.href='/board/admin_visitorcount'">통계</button></li>
+	</ul>
 
 </body>
 </html>

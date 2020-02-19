@@ -25,7 +25,7 @@
 		function find() {
 			var searchType = $('#searchType').val();
 			var keyword = $('#keyword').val();		
-			var url = "/board/admin";
+			var url = "/board/admin_board";
 			url = url + "?searchType=" + searchType
 			url = url + "&keyword="    + keyword	
 			location.href=url;
@@ -36,7 +36,7 @@
 		function fn_prev(curPage, curRange, rangeSize, searchType, keyword) {
 			var curPage = ((curRange - 2) * rangeSize) + 1;
 			var curRange = curRange - 1;
-			var url = "/board/admin";
+			var url = "/board/admin_board";
 			url = url + "?curPage="    + curPage;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -47,7 +47,7 @@
 	
 		// 페이지 번호 클릭 
 		function fn_pagination(idx, curRange, searchType, keyword) {
-			var url = "/board/admin";
+			var url = "/board/admin_board";
 			url = url + "?curPage="    + idx;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -60,7 +60,7 @@
 		function fn_next(curPage, curRange, rangeSize, searchType, keyword) {
 			var curPage = parseInt((curRange * rangeSize)) + 1;
 			var curRange = parseInt(curRange) + 1;
-			var url = "/board/admin";
+			var url = "/board/admin_board";
 			url = url + "?curPage="    + curPage;
 			url = url + "&curRange="   + curRange;
 			url = url + "&searchType=" + searchType
@@ -75,12 +75,12 @@
 				$(this).parent().parent().remove();
 		        			        	
 				$.ajax({
-					url : "/board/admin_delete",
+					url : "/board/admin_board_delete",
 					type : "post",
 					data : {"dno" : dno},
-	    	   		success : function(data){   
+	    	   		success : function(data){    					
+	 					location.reload(true);  
 	 					alert("글 번호:"+dno+"를 삭제하였습니다.");
-	    	   				
 	    	   		}	    	   			
 		        })		        	
 			})	        	        	        
@@ -89,14 +89,22 @@
 	</script>
 	
 </head>
-<body class="body_admin" >
+<body class="body_admin_board">
 <div>
-	<table class="table-hover">
+
+	<div class="row justify-content-center">
+	<label class="text_title">총 게시물 수 : &nbsp;[${listCnt}]</label> &nbsp;&nbsp;&nbsp;
+	
+	<label class="text_title">총 댓글 수 :  &nbsp; [${reply_allcnt}]</label>
+	</div>
+	</br>
+	
+	<table class="table-hover" style="width:100%">
 		<colgroup>
 			<col style="width:10%; "/>
 			<col style="width:15%; "/>	
 			<col style="width:auto;"/>
-			<col style="width:12%; "/>
+			<col style="width:15%; "/>
 			<col style="width:10%; "/>
 			<col style="width:10%; "/>
 		</colgroup>
@@ -115,7 +123,7 @@
 				<td class="text-center">${list.dno}</td>
 				<td class="text-center">${list.writer}</td>
 				<td>
-					<a href="/board/read?dno=${list.dno}">${list.title}</a>
+					<a href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
 					<c:if test="${list.fileyn == 'y'}">
 					<span><img src="//image.fmkorea.com/modules/document/tpl/icons/file.gif"></span>
 					</c:if>	
@@ -170,6 +178,7 @@
 	</div>
 	<!-- 검색 -->	
 </div>
+
 	
 
 </body>

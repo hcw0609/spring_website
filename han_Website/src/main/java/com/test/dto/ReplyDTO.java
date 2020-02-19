@@ -1,7 +1,5 @@
 package com.test.dto;
 
-import java.util.Date;
-
 public class ReplyDTO {
 
 	/*
@@ -19,7 +17,7 @@ public class ReplyDTO {
 	private int rno;
 	private String content;
 	private String writer;
-	private Date regdate;
+	private String regdate;
 	
 	public int getDno() {
 		return dno;
@@ -45,10 +43,10 @@ public class ReplyDTO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public Date getRegdate() {
+	public String getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
+	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
 	
