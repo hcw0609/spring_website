@@ -3,21 +3,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html class="Custom_html">
+<html>
 <head>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>회원가입</title>
+	<title>Register</title>
 	
-	<!-- 2 -->
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-			
+	<!-- 1 -->
 	<!-- JQUERY  -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<!-- 1 -->
+	
+	<!-- 2 -->
 	<!-- Custom  -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/Login_Register.css"/>
 	<!-- 2 -->
@@ -27,7 +29,7 @@
 		$(document).ready(function(){
 			
 			$(".cancle").on("click", function(){
-				location.href = "/";
+				location.href = "/board/login";
 			})
 			
 			
@@ -124,7 +126,7 @@
 					}
 				} else {
 					$("#pwd_chk").attr("value", "N");
-					$(".message").html("사용불가한 형식의 비밀번호 입니다.");
+					$(".message").html("8~20자 사이 영어대소문, 숫자, 특수문자 각각 최소 1개");
 				}						
 			});
 			
@@ -211,42 +213,41 @@
 	</script>
 	
 </head>
-<body class="Custom_body">
+<body class="body_center">
 
-<div class="Custom_container">
-	<div class="Custom_main">
-		<form action="/board/register" method="post" id="register">
-			<div class="mb-3">
-				<input type="text" class="form-control" id="ID" name="ID" placeholder="ID"/>
-				<button class="btn form-control btn-dark" type="button" id="overLap" value="N">아이디 체크</button>
-			</div>
-								
-			<div class="mb-3">
-				<input type="password" class="form-control" id="PASSWORD" name="PASSWORD" placeholder="PASSWORD" />
-				<input type="password" class="form-control" id="PASSWORD_CHECK" name="PASSWORD_CHECK" placeholder="PASSWORD_CHECK"/>
-				<input type="hidden" id="pwd_chk" value="N">
-				<p class="message" align="center"></p>
-			</div>
-				
-			<div class="mb-3">
-				<input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="E-MAIL"/>
-				<button type="button" class="btn form-control btn-dark" id="email_receive">인증번호 받기</button>
-			</div>
-				
-			<div class="mb-3">
-				<input type="hidden" id="dice" name="dice" value="dice"/>
-				<input type="text" class="form-control" id="auth" name="auth" placeholder="E-MAIL_CHECK"/>
-				<button type="button" class="btn form-control btn-dark" id="email_check" value="N">인증번호 확인</button>
-			</div>
-								
-		</form>
+<div>
+
+	<form action="/board/register" method="post" id="register">
+		<div class="mb-3">
+			<input type="text" class="form-control" id="ID" name="ID" placeholder="ID"/>
+			<button class="btn form-control btn-dark" type="button" id="overLap" value="N">아이디 체크</button>
+		</div>
+							
+		<div class="mb-3">
+			<input type="password" class="form-control" id="PASSWORD" name="PASSWORD" placeholder="PASSWORD" />
+			<input type="password" class="form-control" id="PASSWORD_CHECK" name="PASSWORD_CHECK" placeholder="PASSWORD_CHECK"/>
+			<input type="hidden" id="pwd_chk" value="N">
+			<p class="message" align="center"></p>
+		</div>
 			
-		<div>
-			<button type="button" class="btn btn-dark form-control btnmargin2" id="submit">회원가입</button>
-			<button type="button" class="cancle btn btn-danger form-control">취소</button>
-		</div>	
-	</div>		
-</div>
+		<div class="mb-3">
+			<input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="E-MAIL"/>
+			<button type="button" class="btn form-control btn-dark" id="email_receive">인증번호 받기</button>
+		</div>
+			
+		<div class="mb-3">
+			<input type="hidden" id="dice" name="dice" value="dice"/>
+			<input type="text" class="form-control" id="auth" name="auth" placeholder="E-MAIL_CHECK"/>
+			<button type="button" class="btn form-control btn-dark" id="email_check" value="N">인증번호 확인</button>
+		</div>							
+	</form>
+		
+	<div>
+		<button type="button" class="btn btn-dark form-control btn_margin" id="submit">회원가입</button>
+		<button type="button" class="cancle btn btn-danger form-control">취소</button>
+	</div>	
+	
+</div>		
 
 </body>
 </html>

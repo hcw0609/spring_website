@@ -9,25 +9,27 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<title>Insert title here</title>
+	<title>Read</title>
 	
-	<!-- 2 -->
+	<!--  1 -->
 	<!-- Ckeditor -->
 	<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	
-	<!-- Custom -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-	
-	<!-- For_Mobile_Image Custom -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/For_Mobile_Image.css"/>
-	
 	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--  1 --> 
 	
+	<!-- 2 -->	
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+ 	
+ 	<!-- For_Mobile_Image Custom -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/For_Mobile_Image.css"/>
+  	<!-- 2 -->
+  	
 	<script type="text/javascript">
 	
 		// 수정버튼
@@ -86,7 +88,7 @@
 		});
 		
 		
-		//리플 목록 
+		//리플 리스트
 		function commentList(){
 			var dno = ${read.dno};	
 		    $.ajax({
@@ -114,7 +116,7 @@
 		         	            	            
 		            $(".ReplyList").html(a);
 		            
-		            // 삭제 버튼
+		            // 리플 삭제 버튼
 		            $("button[name^='delete']").on("click", function(e){
 		    			e.preventDefault();
 		    			$(this).parent().parent().remove();
@@ -132,7 +134,7 @@
 		    		});
 		            
 		                        
-		            // 수정 폼 버튼
+		            // 리플 수정 폼 버튼
 		            $("button[name^='modify']").on("click", function(e){
 		    			e.preventDefault();
 	    			
@@ -151,7 +153,7 @@
 		    		    
 		    		    $('.ReplyContent'+rno).html(a);
 		    		    
-		    		 	// 수정 버튼
+		    		 	// 리플 수정 버튼
 			            $("button[name^='saveModify']").on("click", function(e){
 			    			e.preventDefault();
 		    			
@@ -183,54 +185,36 @@
 	</script>
 
 </head>
-<body class="body_read"> 	
-
+<body> 	
 
 	<div class="container" role="main">
 		<form name="for_fileno" method="post">
 			<input type="hidden" id="file_no" name="file_no" value=""> 
 		</form>
 		
-		
+		<!-- Main Content -->
 		<label class="text_title">Title</label>
 		<div style="float:left; width:100%;" class="mb-3">		
 			<div style="float:left;">
-				<p clsss="text_etc" id="category" name="category">[${read.category}]</p>
-				<!-- 버린 방법
-				<input type="text" class="form-control text_etc readonly" name="category" id="category" value="${read.category}" readonly="readonly">
-				-->
+				<p class="text_subtitle" id="category" name="category">[${read.category}]</p>
 			</div>
 						
 			<div style="float:left;">
-				<p clsss="text_etc" name="title" id="title">${read.title}</p>
-				<!-- 버린 방법
-				<input type="text" class="form-control readonly" name="title" id="title" value="${read.title}" readonly="readonly">
-				-->
+				<p class="text_subtitle" name="title" id="title">${read.title}</p>
 			</div>				
 		</div>
-		
-		
+				
 		<div class="mb-3">
 			<label class="text_title">Writer</label>
-			<p clsss="text_etc" name="writer" id="writer">${read.writer}</p>
-			<!-- 버린 방법
-			  <input type="text" class="form-control readonly" name="writer" id="writer" value="${read.writer}" readonly="readonly">
-			-->
+			<p class="text_subtitle" name="writer" id="writer">${read.writer}</p>
 		</div>
 			
-
 		<div class="mb-3">
 			<label class="text_title">Content</label>
-			<div class="form-control img-fluid" style="overflow:hidden; height:auto; min-height:200px;" id="content" >${read.content}</div>
-			
-			<!--  버린 방법
-			<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" >${read.content}</textarea>
-			<script> CKEDITOR.replace('content',{readOnly:true}); </script>
-			-->
-			
+			<div class="form-control img-fluid" style="overflow:hidden; height:auto; min-height:200px;" id="content" >${read.content}</div>		
 		</div>
-				
-				
+		<!-- Main Content -->
+							
 		<!-- File List -->		
 		<div class="mb-3">
 			<label class="text_title">File</label></br>
@@ -247,14 +231,12 @@
 		<div class="mb-3">
 			<label class="text_title">Reply</label>
 				<div class="ReplyList" style="border-top:1px solid darkgray; padding-top:10px;"></div>
-			
-			
+						
     	</div>
 		<!-- Reply List -->	
 		
 		</br>
-			
-		
+					
 		<!-- Reply Write -->
   		<div class="mb-3">
   			<input type="hidden" id="dno" name="dno" value="${read.dno}" />
@@ -266,7 +248,7 @@
 			
 		</br>
 			
-				
+		<!-- Button -->				
 		<c:if test="${read.writer == loginInfo.ID}">
 			<div class="mb-3">
 				<input type="button" class="btn btn-sm btn-dark" value="수정" onclick="Modify()">
@@ -274,9 +256,9 @@
 				<input type="button" class="btn btn-sm btn-dark" value="목록" onclick="List()">
 			</div>
 		</c:if>
+		<!-- Button -->	
 							
 	</div>
-
 
 </body>
 </html>

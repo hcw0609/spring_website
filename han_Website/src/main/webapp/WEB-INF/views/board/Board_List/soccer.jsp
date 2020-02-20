@@ -13,9 +13,6 @@
 	<!--  1 -->
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Custom styles for this template -->
-	<link href="/resources/css/shop-homepage.css" rel="stylesheet">
 	
 	<!-- Bootstrap core JavaScript -->
 	<script src="/resources/vendor/jquery/jquery.min.js"></script>
@@ -116,17 +113,15 @@
 		<!-- 로그인 유저 확인 -->
 		
 		<!-- 화면의 크기가 정해진 크기보다 작아 지면 버튼을 보여준다. 그리고 id=navbarResponsive인 놈들 활성화 시킨다. -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
  		</button>
       
       	<!-- 상위 메뉴 -->
-		<div class="collapse navbar-collapse" id="navbarResponsive">
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
-  					<a class="nav-link" href="/board/list">Community
-						<span class="sr-only">(current)</span>
-         		  	</a>
+  					<a class="nav-link" href="/board/list">Community</a>
          		</li>
          		<li class="nav-item">
             		<a class="nav-link" href="/board/Club_Info?club_belong=EPL">Club</a>
@@ -135,13 +130,14 @@
             		<a class="nav-link" href="/board/League_Table">LEAGUE</a>
           		</li>
           		<li class="nav-item">
-            		<a class="nav-link" href="#">Contact</a>
+            		<a class="nav-link" href="/board/admin_main">Admin</a>
           		</li>
         	</ul>
 		</div>
 		<!-- 상위 메뉴 -->
     </div>
   	</nav>
+  	<!-- Navigation -->
 
   	<!-- Page Content -->
 	<div class="container">
@@ -221,10 +217,10 @@
 							<div style= "overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 								<a class="text_title" href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
 								<c:if test="${list.fileyn == 'y'}">
-									<span><img style="width:12px; height:12px;" src="/Image/File_Image.gif"></span>
+									<span><img style="width:12px; height:12px;" src="/Image/Icon/File_Image.gif"></span>
 								</c:if>	
 								<c:if test="${list.imageyn == 'y'}">
-									<span><img style="width:12px; height:12px;" src="/Image/Image_Icon.png"></span>
+									<span><img style="width:12px; height:12px;" src="/Image/Icon/Image_Icon.png"></span>
 								</c:if>		
 							</div>
 											

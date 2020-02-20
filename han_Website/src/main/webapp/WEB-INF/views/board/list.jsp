@@ -6,21 +6,23 @@
 <head>
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<title>Soccer Site</title>  	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>List</title>  
+		
 	<!--  1 -->
-	<!-- Bootstrap core JavaScript -->
-	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-	
-	<!-- Bootstrap core CSS -->
-	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!--  1 --> 
-	
-	<!-- 2 -->
-    <!-- Jquery -->
+	<!-- Jquery -->
  	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
  	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!--  1 --> 
+	
+	<!-- 2 -->	
 	<!-- Thumbnail -->
 	<link rel="stylesheet" type="text/css" href="/resources/css/Thumbnail.css"/>
   
@@ -99,18 +101,16 @@
 		</div>
 		<!-- 로그인 유저 확인 -->
 		
-			<!-- 화면의 크기가 정해진 크기보다 작아 지면 버튼을 보여준다. 그리고 id=navbarResponsive인 놈들 활성화 시킨다. -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<!-- 화면의 크기가 정해진 크기보다 작아 지면 버튼을 보여준다. 그리고 id=navbarResponsive인 놈들 활성화 시킨다. -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
  		</button>
       
 		<!-- 상위 메뉴 -->
-		<div class="collapse navbar-collapse" id="navbarResponsive">
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
-  					<a class="nav-link" href="/board/list">Community
-						<span class="sr-only">(current)</span>
-         		  	</a>
+  					<a class="nav-link" href="/board/list">Community</a>
          		</li>
          		<li class="nav-item">
             		<a class="nav-link" href="/board/Club_Info?club_belong=EPL">Club</a>
@@ -127,7 +127,8 @@
       
     </div>
 	</nav>
-
+	<!-- Navigation -->
+	
 	<!-- Page Content -->
 	<div class="container">
 		<div class="row">
@@ -143,42 +144,40 @@
         			</div>
 			</div>   
 			<!-- 측면 메뉴 -->   		     
-			<!-- /.col-lg-2 -->
-
+			
+			<!-- Main Content  -->
 			<div class="col-lg-10">
 			
 				<!-- 광고판 -->
-        		<div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+        		<div id="carouselExampleControls" class="carousel slide my-4" data-ride="carousel">
 					<ol class="carousel-indicators">
-     					<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-   						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+     					<li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+						<li data-target="#carouselExampleControls" data-slide-to="1"></li>
+   						<li data-target="#carouselExampleControls" data-slide-to="2"></li>
 					</ol>
-				<div class="carousel-inner" role="listbox">
+				<div class="carousel-inner">
 					<div class="carousel-item active">
-						<img class="d-block img-fluid" src="/Image/background/logo.jpg" style="width:900px; height:280px;" alt="First slide">
+						<img class="d-block img-fluid" src="/Image/background/logo.jpg" style="width:900px; height:280px;" data-interval="3000" alt="First">
 					</div>
  					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/background/Domestic football.png" style="width:900px; height:280px;" alt="Second slide">
+						<img class="d-block img-fluid" src="/Image/background/Domestic football.png" style="width:900px; height:280px;" data-interval="500" alt="Second">  
 					</div>
 					<div class="carousel-item">
-						<img class="d-block img-fluid" src="/Image/background/free.png" style="width:900px; height:280px;" alt="Third slide">
+						<img class="d-block img-fluid" src="/Image/background/unnamed.png" style="width:900px; height:280px;" alt="Third">
 					</div>
           		</div>
-          		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          		<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            		<span class="sr-only">Previous</span>
           		</a>
-          		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          		<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
             		<span class="carousel-control-next-icon" aria-hidden="true"></span>
-            		<span class="sr-only">Next</span>
           		</a>
 				</div>
 				<!-- 광고판 -->
 	
 	       	 <div class="row">
-        		
-        		<!-- 게시글 리스트  -->
+	       	 
+        		<!-- 게시글 리스트  -->       		
 				<c:forEach items="${list}" var="list">	
 					<div style="float:left; width:100%" >
 						<div style="float:left;">	
@@ -189,10 +188,10 @@
 							<div style= "overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 								<a class="text_title" href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
 								<c:if test="${list.fileyn == 'y'}">
-									<span><img style="width:11px; height:11px;" src="/Image/File_Image.gif"></span>
+									<span><img style="width:11px; height:11px;" src="/Image/Icon/File_Image.gif"></span>
 								</c:if>	
 								<c:if test="${list.imageyn == 'y'}">
-									<span><img style="width:11px; height:11px;" src="/Image/Image_Icon.png"></span>
+									<span><img style="width:11px; height:11px;" src="/Image/Icon/Image_Icon.png"></span>
 								</c:if>		
 							</div>
 											
@@ -205,8 +204,7 @@
 				</c:forEach>
 				<!-- 게시글 리스트  -->
 				
-        	</div>
-        	<!-- /.row -->    
+        	</div>       	
 
 			<!-- 페이징 -->
 			<div>
@@ -226,7 +224,6 @@
 				</ul>
 			</div>
 			<!-- 페이징 -->
-
 
 			<!-- 검색 -->
 			<div class="row justify-content-center">
@@ -251,21 +248,19 @@
 			<!-- 검색 -->
 
 			</div>
-			<!-- /.col-lg-10 -->
+			<!-- Main Content  -->
       
     	</div>
-   		 <!-- /.row -->
-
   	</div>
-  	<!-- /.container -->
+  	<!-- Page Content -->
 
 	<!-- Footer -->
 	<footer class="py-5 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+			<p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
 		</div>
-    <!-- /.container -->
 	</footer>
+	<!-- Footer -->
 
 </body>
 </html>

@@ -2,24 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html class="Custom_html">
+<html>
 <head>
 
 	<meta charset="EUC-KR">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<title>Soccer Site</title>
 
-	<!-- 2 -->
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	
-	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/Login_Register.css"/>
-	
+	<!-- 1 -->
 	<!-- Jquery -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<!-- 1 -->
+	
 	<!-- 2 -->
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/Login_Register.css"/>
+	<!-- 2 -->
+	
+	
 	
 	<script type="text/javascript">
 	
@@ -44,11 +48,8 @@
 							alert("아이디와 패스워드를 확인해 주세요.");
 						}
 					}
-
-				})
-										
+				})										
 			})			
-
 		})
 
 		
@@ -56,30 +57,27 @@
 	</script>
 </head>
 
-<body class="Custom_body">
+<body class="body_center">
 
-<div class="Custom_container">
-    <div class="Custom_main">  
-        
-            <div>
-                <label class="text_title" style="margin-top: .0rem;">로그인</label>
-            </div>
-            
-            <div class="panel-body">
-				<div>
-					<input type="text" class="form-control btnmargin2" id="ID" placeholder="ID" autofocus>
-				</div>
+<div>  
+	<div>	
+		<label class="text_title" style="margin-top: .0rem;">로그인</label>
+ 		</div>
+          
+	<div>
+		<div>
+			<input type="text" class="form-control btn_margin" id="ID" placeholder="ID" autofocus>
+		</div>
 
-                <div>
-					<input type="password" class="form-control" style="margin-bottom:10px;" id="PASSWORD" placeholder="PASSWORD">
-				</div>
+		<div>
+			<input type="password" class="form-control" style="margin-bottom:10px;" id="PASSWORD" placeholder="PASSWORD">
+		</div>
 
-				<div>
-					<button type="button" class="form-control btn btn-primary btn-dark btnmargin2" id="login_btn">로그인</button> <br>
-					<button type="button" class="form-control btn btn-primary btn-dark" onclick="location.href='/board/register'">회원가입</button>
-				</div>
-            </div>           
-    </div>
+		<div>
+			<button type="button" class="form-control btn btn-primary btn-dark btn_margin" id="login_btn">로그인</button> <br>
+			<button type="button" class="form-control btn btn-primary btn-dark" onclick="location.href='/board/register'">회원가입</button>
+		</div>		
+	</div> 	          
 </div>
 
 </body>

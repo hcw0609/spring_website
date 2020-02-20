@@ -1,0 +1,16 @@
+
+body, html { 
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.bgimg {
+    border: 0;
+    padding: 0; 
+    width:100%;
+    height:auto;
+    max-height:95%;
+    background-position: center;
+    background-size: cover;
+}

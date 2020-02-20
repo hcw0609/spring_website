@@ -6,18 +6,20 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Insert title here</title>
+	<title>Admin_Board</title>
 	
-	<!-- 2 -->
-	<!-- Custom -->
- 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-  
+	<!--  1 -->
+	<!-- Jquery -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+	<!--  1 -->
+		
+	<!-- 2 -->	
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+  	<!-- 2 -->
 	
 	<script type="text/javascript">
 	
@@ -68,8 +70,10 @@
 			location.href = url;
 		}
 		
+		
 		$(document).ready(function() {
-	 		// admin 삭제
+	 		
+			// 관리자권한으로 게시물 삭제
 			$("button[name^='delete']").on("click", function(e){
 				var dno = $(this).val();
 				$(this).parent().parent().remove();
@@ -90,15 +94,15 @@
 	
 </head>
 <body class="body_admin_board">
+
 <div>
 
 	<div class="row justify-content-center">
-	<label class="text_title">총 게시물 수 : &nbsp;[${listCnt}]</label> &nbsp;&nbsp;&nbsp;
+		<label class="text_title">총 게시물 수 : &nbsp;[${listCnt}]</label> &nbsp;&nbsp;&nbsp;	
+		<label class="text_title">총 댓글 수 :  &nbsp; [${reply_allcnt}]</label>
+	</div></br>
 	
-	<label class="text_title">총 댓글 수 :  &nbsp; [${reply_allcnt}]</label>
-	</div>
-	</br>
-	
+	<!-- Table -->
 	<table class="table-hover" style="width:100%">
 		<colgroup>
 			<col style="width:10%; "/>
@@ -125,10 +129,10 @@
 				<td>
 					<a href="/board/read?dno=${list.dno}">${list.title} [${list.reply_cnt}]</a>
 					<c:if test="${list.fileyn == 'y'}">
-					<span><img src="//image.fmkorea.com/modules/document/tpl/icons/file.gif"></span>
+						<span><img style="width:11px; height:11px;" src="/Image/Icon/File_Image.gif"></span>
 					</c:if>	
 					<c:if test="${list.imageyn == 'y'}">
-					<span><img src="/hcw0609/tomcat/webapps/ROOT/resources/image.png"></span>
+						<span><img style="width:11px; height:11px;" src="/Image/Icon/Image_Icon.png"></span>
 					</c:if>		
 				</td>
 				<td class="text-center">${list.viewcnt}</td>
@@ -137,7 +141,8 @@
 			<tr>
 		</c:forEach>	
 	</table>
-		 
+	<!-- Table -->
+		 		 
 	<!-- 페이징 -->
 	<div>
 	</br>
@@ -157,7 +162,6 @@
 	</div>
 	<!-- 페이징 -->
 
-
 	<!-- 검색 -->
 	<div class="row justify-content-center">
 		<div style="padding-right:10px">
@@ -168,7 +172,7 @@
 			</select>
 		</div>
 
-		<div class="w300" style="padding-right:10px">
+		<div style="padding-right:10px">
 			<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
 		</div>
 
@@ -176,10 +180,9 @@
 			<button class="btn btn-sm btn-dark" name="btnSearch" id="btnSearch" onclick="find()">찾기</button>		
 		</div>
 	</div>
-	<!-- 검색 -->	
+	<!-- 검색 -->
+		
 </div>
-
 	
-
 </body>
 </html>

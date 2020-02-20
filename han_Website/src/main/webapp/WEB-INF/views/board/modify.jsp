@@ -9,22 +9,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<title>Insert title here</title>
+	<title>Modify</title>
 	
-	<!-- 2 -->
+	<!--  1 -->
 	<!-- Ckeditor -->
 	<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
 	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	
-	<!-- Custom -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-
 	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--  1 --> 
 	
+	<!-- 2 -->	
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+  	<!-- 2 -->
+  	
 	<script type="text/javascript">
 	
 		var gfv_count = '${fn:length(file)+1}';
@@ -47,6 +49,7 @@
 			});
 			
 			
+			// 파일추가 버튼
 			$('#addFile').on("click", function(e){
 				e.preventDefault();
 				
@@ -64,6 +67,7 @@
 			});
 			
 			
+			// 파일삭제 버튼
 			$("a[name^='delete']").on("click",function(e){
 	            e.preventDefault();
 	            fn_fileDelete($(this));
@@ -92,6 +96,7 @@
 	<div class="container" role="main">
 		<form name="modifyForm" id="modifyForm" method="post" enctype="multipart/form-data">
 		
+			<!-- Main Content -->
 			<label class="text_title">Title</label>
 			<div style="float:left; width:100%">
 				<div class="select_board" style="float:left;">
@@ -105,11 +110,10 @@
 				<input type="hidden" id="category" name="category" value="">
 			
 				<div class="title" style="float:left;">
-					<input type="text" class="form-control" name="title" id="title" value="${modify.title}">
+					<input type="text" class="form-control text_subtitle3" name="title" id="title" value="${modify.title}">
 				</div>			
 			</div>
-
-					
+				
 			<input type="hidden" class="form-control" name="writer" id="writer" value="${modify.writer}" readonly="readonly">
 					
 			<br><br><br>
@@ -119,8 +123,9 @@
 						{filebrowserUploadUrl: '/board/ckUpload'});
 				</script>
 			</div>
-				
-				
+			<!-- Main Content -->
+			
+			<!--  FIle List-->
 			<div id="fileDiv" class="mb-3">
 				<c:forEach items="${file}" var="file" varStatus="row">
 					<div style="padding-bottom:5px;">
@@ -129,16 +134,18 @@
 					</div>
 				</c:forEach>
 			</div>
-					
+			<!--  FIle List-->
+			
+			<!-- Button -->		
 			<div>
 				<button type="button" class="btn btn-sm btn-dark" id="addFile">파일 추가</button>
 				<button type="button" class="btn btn-sm btn-dark" id="stored"">저장</button>
 				<button type="button" class="btn btn-sm btn-dark" id="list" onclick="location.href='/board/list'">목록</button>
-			</div>		
+			</div>	
+			<!-- Button -->	
 				 
 		</form>		
 	</div>
 
-	
 </body>
 </html>

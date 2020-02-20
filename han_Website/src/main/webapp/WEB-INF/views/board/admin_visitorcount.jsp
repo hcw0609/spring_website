@@ -6,17 +6,21 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Insert title here</title>
+	<title>Admin_Visitorcount</title>
 	
-	<!-- 2 -->
+	<!--  1 -->
 	<!-- charts -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 	
 	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
-	
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--  1 --> 
+
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
 		       
 			// 받아올 데이터를 저장할 배열 선언
@@ -156,13 +160,12 @@
  		</div>
 	</div>
 
-
  
 	<div id="graph" style="width: 60%; margin: 30px;">
 		<div>
     		<canvas id="canvas" height="300px" width="500px"></canvas>
 		</div>
 	</div>
-	
+		
 </body>
 </html>

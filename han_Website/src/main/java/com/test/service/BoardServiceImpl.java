@@ -56,7 +56,7 @@ public class BoardServiceImpl implements BoardService{
 
 		} else {
 			dto.setImageyn("n");
-			dto.setThumbnail("/Image/No_Image.gif");
+			dto.setThumbnail("/Image/Icon/No_Image.gif");
 		}
 		
 		// 글 생성
@@ -123,7 +123,7 @@ public class BoardServiceImpl implements BoardService{
 			dto.setThumbnail(Thumbnail_make);
 		} else {
 			dto.setImageyn("n");
-			dto.setThumbnail("/Image/No_Image.gif");
+			dto.setThumbnail("/Image/Icon/No_Image.gif");
 		}
 		
 		// 글 수정

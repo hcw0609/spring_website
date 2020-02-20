@@ -6,18 +6,20 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Insert title here</title>
+	<title>Admin_User</title>
 	
-	<!-- 2 -->
-	<!-- Custom -->
- 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-  
+	<!--  1 -->
+	<!-- Jquery -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!--  1 --> 
 	
-	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+	<!-- 2 -->	
+	<!-- Custom -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+  	<!-- 2 -->
 	
 	<script type="text/javascript">
 	
@@ -68,9 +70,10 @@
 			location.href = url;
 		}
 		
+		
 		$(document).ready(function() {
 			
-	 		// admin 삭제
+	 		// 관리자권한으로 유저 삭제
 			$("button[name^='delete']").on("click", function(e){
 				var ID = $(this).val();
 				$(this).parent().parent().remove();
@@ -91,13 +94,14 @@
 	
 </head>
 <body class="body_admin_User" >
+
 <div>
-	
+		
 	<div class="row justify-content-center">
-	<label class="text_title">총 유저 수 : &nbsp; ${user_count} </label>
-	</div>
-	</br>
-	
+		<label class="text_title">총 유저 수 : &nbsp; ${user_count} </label>
+	</div></br>
+		
+	<!-- Table -->
 	<table class="table-hover" style="width:100%">
 		<colgroup>
 			<col style="width:20%; "/>
@@ -119,6 +123,7 @@
 			<tr>
 		</c:forEach>	
 	</table>
+	<!-- Table -->		 
 		 
 	<!-- 페이징 -->
 	<div>
@@ -139,7 +144,6 @@
 	</div>
 	<!-- 페이징 -->
 
-
 	<!-- 검색 -->
 	<div class="row justify-content-center">
 		<div style="padding-right:10px">
@@ -148,7 +152,7 @@
 			</select>
 		</div>
 
-		<div class="w300" style="padding-right:10px">
+		<div style="padding-right:10px">
 			<input type="text" class="form-control form-control-sm" name="keyword" id="keyword">
 		</div>
 
@@ -157,8 +161,8 @@
 		</div>
 	</div>
 	<!-- 검색 -->	
-</div>
 	
+</div>	
 
 </body>
 </html>

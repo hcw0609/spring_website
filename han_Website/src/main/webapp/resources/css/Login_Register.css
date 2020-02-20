@@ -1,45 +1,18 @@
 
-
-
-	.Custom_html{
-		 height: 100%;
-	}
-
-
-    .Custom_body {
-        background: #fcfafa;
-        display: table;
-    	margin: 0 auto;
-    	width: 90%;
+	
+	/* body를 중앙에 위치하기 위해 */
+	.body_center {
+		position: absolute;
+  		top: 50%;
+  		left: 50%;
+  		width: 90%;
     	max-width:400px;
-        height: 100%;
-    }
-    
-    .Custom_container
-	{
-    	display: table-cell;
-    	vertical-align: middle;
+  		transform: translate(-50%, -50%);
+  		padding-top:0px;
 	}
- 
- 
-	.Custom_main
-	{
-    	height: auto;
-    	width: 100%;   
-	}
-
-
-    #register > div {
-        margin: 5px 0;
-    }
+	
     
-    
-    #LoginForm > div {
-        margin: 10px 0;
-    }
-    
-    
-    .btnmargin2 {
+    .btn_margin {
    		margin-bottom: 2px;
     }
     

@@ -6,23 +6,25 @@
 <head>
 
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1"
-	>
-	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<!-- 2 -->
+	<title>Create</title>
+	
+	<!--  1 -->
+	<!-- Jquery -->
+ 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ 	
+	<!-- Bootstrap core CSS -->
+	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
 	<!-- Ckeditor -->
 	<script type="text/javascript" src="/resources/ckeditor/ckeditor.js"></script>
+	<!--  1 --> 
 	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	
+	<!-- 2 -->	
 	<!-- Custom -->
-	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
-	
-	<!-- Jquery -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+ 	<link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+  	<!-- 2 -->
 	
 	
 	<script type="text/javascript">
@@ -65,17 +67,17 @@
 		function fn_fileDelete(obj){
 	    	obj.parent().remove();
 		}
-		
-		
+				
 	</script>
 
 </head>
 <body>
 
-	
+
 <div class="container">
 	<form name="form" id="form" method="post" enctype="multipart/form-data">
-	
+		
+		<!-- Main Content -->
 		<label class="text_title">Title</label>
 		<div style="float:left; width:100%;" class="mb-3">
 			<div class="select_board" style="float:left;">
@@ -88,11 +90,10 @@
 			<input type="hidden" id="category" name="category" value="">
 			
 			<div class="title" style="float:left;">
-				<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+				<input type="text" class="form-control text_subtitle3" name="title" id="title" placeholder="제목을 입력해 주세요">
 			</div>
 		</div>
-				
-				
+							
 		<div>
 			<input type="hidden" class="form-control" name="writer" id="writer" value="${loginInfo.ID}" readonly="readonly">
 		</div>			
@@ -105,23 +106,24 @@
 							{filebrowserUploadUrl: '/board/ckUpload'});
 			</script>
 		</div>
+		<!-- Main Content -->
 				
-				
+		<!--  FIle List-->
 		<div id="fileDiv" class="mb-3">
 					
 		</div>
-				
-				
+		<!--  FIle List-->
+			
+		<!-- Button -->
 		<div>
 			<button type="button" class="btn btn-sm btn-primary btn-dark" id="addFile">파일 추가</button>
 			<button type="button" class="btn btn-sm btn-primary btn-dark" id="btnCreate">저장</button>
 			<button type="button" class="btn btn-sm btn-primary btn-dark" id="btnList">목록</button>
 		</div>
+		<!-- Button -->
 			
 	</form>		
-	
 </div>
 	
-
 </body>
 </html>

@@ -10,16 +10,16 @@
 	
 	<title>Insert title here</title>
 	
-	<!-- 2 -->
+	<!-- 1 -->
 	<!-- Google Map Api -->
 	<script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPJ7JPbS7aFMk5hf78sP4A_ivIC_razg0&callback=reloadMap"></script>
 	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	
 	<!-- Jquery -->
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<!-- 2 -->
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+	<!-- 1 -->
 	
 	<script type="text/javascript">
 		
@@ -108,9 +108,6 @@
 		<div id="map" style="float:left; height:600px; width:50%; "></div>
 		<div id="pano" style="float:left; height:600px; width:50%;"></div>
 	</div>
-	
-
-	
 
 </body>
 </html>
