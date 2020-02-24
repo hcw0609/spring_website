@@ -24,7 +24,15 @@ http://hcw0609.cafe24.com
 14. Chart.js를 이용한 방문자, 날짜별 게시글, 리플 통계 
 15. 완벽하진 않지만 어느정도의 모바일호환  
 
-## 사용 기술  
+## 사용 기술 
+1. Fornt-End  
+    (1) Spring   
+    (2) HTML  
+    (3) Javascript    
+    (4) CSS    
+    (5) Jquery    
+    (6) Ajax    
+
 
 ## 사용 버전  
 Eclipse:4.13  
