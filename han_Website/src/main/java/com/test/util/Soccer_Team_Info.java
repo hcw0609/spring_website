@@ -31,7 +31,7 @@ public class Soccer_Team_Info {
 				
 		if (name.equals("레알마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
-			teamcode = 8;
+			teamcode = 7;
 			i = 19;
 		} else if (name.equals("fc바르셀로나")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
@@ -39,7 +39,7 @@ public class Soccer_Team_Info {
 			i = 18;
 		} else if (name.equals("아틀레티코 마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 8;
+			teamcode = 6;
 			i = 20;
 		} else if (name.equals("리버풀fc")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
@@ -48,14 +48,14 @@ public class Soccer_Team_Info {
 		} else if (name.equals("첼시FC")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 6;
-			i = 24;
+			i = 25;
 		} else if (name.equals("아스날 FC")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 6;
+			teamcode = 5;
 			i = 21;
 		} else if (name.equals("맨시티")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
-			teamcode = 8;
+			teamcode = 7;
 			i = 21;
 		}
 		
@@ -110,7 +110,7 @@ public class Soccer_Team_Info {
 		String player_title[] = new String[7];
 		String player_info[] = new String[7];
 		
-		String jsonstr[] = new String[50];
+		String jsonstr[] = new String[30];
 		String json_str = "";
 		
 		int play_num = 0;
@@ -122,7 +122,7 @@ public class Soccer_Team_Info {
 		int index_jsonstr = 0;
 		
 		if( name.equals("레알마드리드") ) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(31) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(30) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
@@ -132,7 +132,7 @@ public class Soccer_Team_Info {
 			play_num = start;
 			country = 2;
 		} else if ( name.equals("아틀레티코 마드리드")) {
-			name="#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(58) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name="#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(56) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
@@ -147,12 +147,12 @@ public class Soccer_Team_Info {
 			play_num = start;
 			country = 5;
 		} else if (name.equals("아스날 FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(51) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(50) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 0;
 			play_num = start;
 			country = 2;
 		} else if (name.equals("맨시티")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(37) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(36) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
@@ -160,7 +160,6 @@ public class Soccer_Team_Info {
 		
 		breakOut :
 		while (true) {
-			// LinkedHashMap<String, String> player_map = new LinkedHashMap<String, String>();
 			play_num = play_num + 1;
 					
 			for(int value=1; value<8; value++) {
@@ -172,8 +171,6 @@ public class Soccer_Team_Info {
 					src = doc.select( name + "> tr:nth-child("+play_num+") > td:nth-child("+value+") > div").text();
 				}
 				
-				System.out.println(src);
-							
 				// 내용이 "구단" 이라는 내용이 나오면 중첩루프 탈출
 				if(src.contains("구단")) { break breakOut; }
 				
@@ -197,35 +194,54 @@ public class Soccer_Team_Info {
 			
 			// 가져온 데이터를 json형태의 문자열로 저장해 둔다.
 			json_str = "";
-			if( play_num > start+1) {
-				for(int index=0; index<player_title.length; index++) {
-					if( index == 0) {
-						json_str = json_str + "{"+'"'+player_title[index]+'"'+":"+'"'+player_info[index]+'"'+',';
-					} else if(index < player_title.length-1 ) {
-						json_str = json_str + '"'+player_title[index]+'"'+":"+'"'+player_info[index]+'"'+',';
-					} else {
-						json_str = json_str + '"'+player_title[index]+'"'+":"+'"'+player_info[index]+'"'+"}";
-					}							
-				}	
+			int index = 0;
+			
+			breakOut2 :
+			if( play_num > start+1) {	
+				for (int i=0; i<player_title.length; i++) {					
+					int inner_index = 0;
+					
+					// 원하는 순서대로 추출하기 위함
+					while(true) {
+						
+						if( index == 0 && (player_title[inner_index].equals("등번호") || player_title[inner_index].equals("등 번호")) ) {
+							json_str = json_str + "{"+'"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 1 && (player_title[inner_index].equals("로마자 성명") || player_title[inner_index].equals("영문표기") || player_title[inner_index].equals("영문 이름")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 2 && (player_title[inner_index].equals("한글 성명") || player_title[inner_index].equals("이름")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 3 && (player_title[inner_index].equals("생년 월일") || player_title[inner_index].equals("생년월일")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 4 && (player_title[inner_index].equals("신체조건") || player_title[inner_index].equals("신체 조건") || player_title[inner_index].equals("체격") || player_title[inner_index].equals("cm / kg")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 5 && (player_title[inner_index].equals("포지션")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;
+						} else if ( index == 6 && (player_title[inner_index].equals("")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+"}";
+							index += 1;
+							break breakOut2;
+						} else {
+							inner_index += 1;	
+						}							
+					}
+				}							
 			}
-			
-			
+					
 			// 가져온 json형태의 문자열을 배열에 하나 씩 저장한다.
 			jsonstr[index_jsonstr] = json_str;		
-			index_jsonstr += 1;
-		
-			
-			/*
-			// 가져온 문자열을 맵형태로 변환
-			if( play_num > start+1) {
-				for(int index=0; index<player_title.length; index++) {
-					player_map.put(player_title[index], player_info[index]);
-				}		
-				// HashMap을 ArrayList에 삽입
-				player_list.add(player_map);
-			}
-			*/
-			
+			index_jsonstr += 1;	
 			
 		}
 		
@@ -243,9 +259,7 @@ public class Soccer_Team_Info {
 		// 통합된 문자열을 Json으로 변경 하고 원하는 데이터만 추출
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(json_str);	
-				
-		System.out.println(jsonArray);
-
+		
 		System.out.println(jsonArray);
 		return jsonArray;	
 	}
@@ -267,13 +281,13 @@ public class Soccer_Team_Info {
 		
 		if (name.equals("레알마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
-			teamcode = 8;
+			teamcode = 7;
 		} else if (name.equals("fc바르셀로나")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
 		} else if (name.equals("아틀레티코 마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 8;
+			teamcode = 6;
 		} else if (name.equals("리버풀fc")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
@@ -282,10 +296,10 @@ public class Soccer_Team_Info {
 			teamcode = 6;
 		} else if (name.equals("아스날 FC")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 6;
+			teamcode = 5;
 		} else if (name.equals("맨시티")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
-			teamcode = 8;
+			teamcode = 7;
 		}
 
 		while(true) {
@@ -337,26 +351,20 @@ public class Soccer_Team_Info {
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
 				
-		/*
-		// 가져온 문자열을 맵형태로 변환
-		LinkedHashMap<String, String> team_map = new LinkedHashMap<String, String>();
-		for(int index=0; index<array_index; index++) {
-			team_map.put(Team_Title[index], Team_Info[index]);
-		}
-		*/
-				
 		System.out.println(jsonArray);
 		return jsonArray;
 		
 	}
 	
 	
+	
 	public static void main(String[] args) throws Exception {
 
 		Soccer_Team_Info soccer_team_info = new Soccer_Team_Info();		
-		//soccer_team_info.Team_Info("맨시티");
-		//soccer_team_info.Player_Info("맨시티");
-		//soccer_team_info.Champion("맨시티");
+		//soccer_team_info.Team_Info("아틀레티코 마드리드");
+		soccer_team_info.Player_Info("첼시FC");
+		//soccer_team_info.Champion("첼시FC");
+		//soccer_team_info.aaa();
 	}
 	
 	

@@ -16,6 +16,10 @@
  	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!--  1 -->
     
     

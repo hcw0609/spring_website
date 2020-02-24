@@ -16,6 +16,10 @@
  	
 	<!-- Bootstrap core CSS -->
 	<link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	
+	<!-- Bootstrap core JavaScript -->
+	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!--  1 --> 
 	
 	<!-- 2 -->	
@@ -50,8 +54,8 @@
 				$('#Rosterbtn').css("font-weight","400");
 				
 				var html_base = "<colgroup class='base'>" +
-									"<col style='width:30%;'/>" +
-									"<col style='width:70%;'/>" +
+									"<col style='width:40%;'/>" +
+									"<col style='width:60%;'/>" +
 								"</colgroup>";	
 							
 				var html = "";
@@ -62,7 +66,7 @@
 					
 					for(key in list[i]) {
 						
-						if(key == "홈 구장" || key == "홈 구장" ) {
+						if(key == "홈 구장" || key == "홈구장" ) {
 							html += "<td class='text_title' style='color:#ffffff; background-color:#000000; border: 1.5px solid #787777;'>"+ key +"</td>";
 							html += "<td class='text_subtitle1 text-left' style='border: 1.5px solid #787777;'>" + "<a onclick=\"window.open('/board/map?execute=yes&address="+list[i][key]+"','window_name','width=1400px, height=700px, location=no, status=no,scrollbars=yes')\">" + list[i][key] +"</td>";
 						} else {
@@ -93,8 +97,8 @@
 				$('#Rosterbtn').css("font-weight","400");
 				
 				var html_title = "<colgroup class='base'>" +
-									"<col style='width:30%;'/>" +
-									"<col style='width:70%;'/>" +
+									"<col style='width:40%;'/>" +
+									"<col style='width:60%;'/>" +
 								"</colgroup>";
 								
 				// 팀의 우승에 대한 정보 가져오기
@@ -248,14 +252,14 @@
 			<div class="col-lg-10 ">
 			<div class="row justify-content-center" style="margin-top:20px">
 
-			<div style="max-width:700px; width:100%; border: 2px solid #787777; text-align:center;">
+			<div style="max-width:800px; width:100%; border: 2px solid #787777; text-align:center;">
 				<div>
 					<img id="team_image" style="width:200px; height:200px;">			
 				</div>
 										
 				<div class="text_title message" style="color:#ffffff; background-color:#000000; border: 1.5px solid #787777;"></div>
 							
-				<table class="start_list" style="max-width:700px; width:100%; border:1.5px solid #787777;">
+				<table class="start_list" style="max-width:800px; width:100%; border:1.5px solid #787777;">
 					<input class="start_list" type="hidden">				
 				</table>
 				

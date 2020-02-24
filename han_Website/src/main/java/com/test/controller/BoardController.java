@@ -406,16 +406,14 @@ public class BoardController {
 	  /*
 	  // 나의 컴퓨터를 서버로 이용할 때
 	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources";
-	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
-	  
-		
+	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;	  	
 	  */
+	  
 	  // 호스팅받은 서버를 이용할 때
 	  String path = "/hcw0609/tomcat/webapps/ROOT/resources";
 	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
 	  
-	  
-	  
+	    
 	  // 업로드 경로에  out에 저장된 데이터를 전송하고 초기화
 	  out = new FileOutputStream(new File(ckUploadPath));
 	  out.write(bytes);
