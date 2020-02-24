@@ -31,9 +31,9 @@ http://hcw0609.cafe24.com
 ## 사용 버전  
 Eclipse:4.13  
 JDK:1.8  
-Tomcat:8.5 
-MariaDB:10.1.13 
-Spring:4.3.8 
+Tomcat:8.5  
+MariaDB:10.1.13  
+Spring:4.3.8  
 Mybatis:3.4.1  
 Maven:2.9  
 Bootstrap:4.3.1  
