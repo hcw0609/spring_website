@@ -29,20 +29,15 @@ http://hcw0609.cafe24.com
 ## 사용 기술  
 
 ## 사용 버전  
-Bootstrap : 4.3.1
-Jquery    : 3.4 [항상 최신버전 유지]
-
-Spring 4.3.8
-Tomcat 8.5
-JDK 1.8
-MariaDB 10.1.13
-Maven 2.9
-Mybatis 3.4.1
-Eclipse 4.13
-
-
-
-
+Eclipse:4.13  
+JDK:1.8  
+Tomcat:8.5 
+MariaDB:10.1.13 
+Spring:4.3.8 
+Mybatis:3.4.1  
+Maven:2.9  
+Bootstrap:4.3.1  
+Jquery:3.4 [항상 최신버전 유지]  
 
 ## 일자
 2020-01-15 ~ 2020-01-28 : 일자는 Github 시작전 이라 누락  
