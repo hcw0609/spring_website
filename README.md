@@ -32,7 +32,7 @@ http://hcw0609.cafe24.com
     (4) CSS    
     (5) Jquery    
     (6) Ajax    
-2. Back-End
+2. Back-End  
     (1) Java
 3. DataBase  
     (1) OracleDB  
