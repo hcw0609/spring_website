@@ -29,6 +29,16 @@ http://hcw0609.cafe24.com
 ## 사용 기술  
 
 ## 사용 버전  
+Bootstrap : 4.3.1
+Jquery    : 3.4 [항상 최신버전 유지]
+
+Spring 4.3.8
+Tomcat 8.5
+JDK 1.8
+MariaDB 10.1.13
+Maven 2.9
+Mybatis 3.4.1
+Eclipse 4.13
 
 
 
