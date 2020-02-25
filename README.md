@@ -51,7 +51,8 @@ Jquery:3.4 [항상 최신버전 유지]
 
 
 ## 전반적인 구조  
-![진행](https://user-images.githubusercontent.com/60380909/75224323-a24b5b00-57eb-11ea-9ac1-16b3353ada47.png)
+![Untitled Diagram](https://user-images.githubusercontent.com/60380909/75225560-33bbcc80-57ee-11ea-9217-0ab283cb4ba9.jpg)
+
 
 
 ## 일자
