@@ -49,6 +49,10 @@ Maven:2.9
 Bootstrap:4.3.1  
 Jquery:3.4 [항상 최신버전 유지]  
 
+
+## 전반적인 구조  
+
+
 ## 일자
 2020-01-14 : Eclipse, JDK, Tomcat, OracleDB설치  
 2020-01-15 : Eclipse에 Spring 설치 후 Tomcat, MariaDB 연동  
