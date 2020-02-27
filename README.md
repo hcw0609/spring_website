@@ -25,16 +25,17 @@ http://hcw0609.cafe24.com
 15. 완벽하진 않지만 어느정도의 모바일호환  
 
 ## 사용 기술 
-1. Fornt-End  
-    (1) Spring   
-    (2) HTML  
-    (3) Javascript    
-    (4) CSS    
-    (5) Jquery    
-    (6) Ajax    
-2. Back-End  
+1. FrameWork
+    (1) Spring  
+2. Front-End     
+    (1) HTML  
+    (2) Javascript    
+    (3) CSS    
+    (4) Jquery    
+    (5) Ajax    
+3. Back-End  
     (1) Java
-3. DataBase  
+4. DataBase  
     (1) OracleDB  
     (2) MariaDB  
     
