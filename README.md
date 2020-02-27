@@ -53,7 +53,8 @@ Jquery:3.4 [항상 최신버전 유지]
 
 
 ## 전반적인 구조  
-![Untitled Diagram](https://user-images.githubusercontent.com/60380909/75225560-33bbcc80-57ee-11ea-9217-0ab283cb4ba9.jpg)
+![전반적인구조](https://user-images.githubusercontent.com/60380909/75451884-a2e31d80-59b4-11ea-8ed5-52243eff25bd.png)
+
 
 
 
