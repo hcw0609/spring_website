@@ -31,8 +31,9 @@ http://hcw0609.cafe24.com
     (1) HTML  
     (2) Javascript    
     (3) CSS    
-    (4) Jquery    
-    (5) Ajax    
+    (4) Bootstrap  
+    (5) Jquery    
+    (6) Ajax    
 3. Back-End  
     (1) Java
 4. DataBase  
