@@ -25,7 +25,7 @@ http://hcw0609.cafe24.com
 15. 완벽하진 않지만 어느정도의 모바일호환  
 
 ## 사용 기술 
-1. FrameWork
+1. FrameWork  
     (1) Spring  
 2. Front-End     
     (1) HTML  
