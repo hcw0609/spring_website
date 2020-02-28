@@ -52,7 +52,9 @@ Bootstrap:4.3.1
 Jquery:3.4 [항상 최신버전 유지]  
 
 
-## 전반적인 구조  
+## 전반적인 구조 
+![DataBase](https://user-images.githubusercontent.com/60380909/75510647-04e06900-5a2f-11ea-817e-24847937a1b9.png)  
+  
 ![전반적인구조](https://user-images.githubusercontent.com/60380909/75451884-a2e31d80-59b4-11ea-8ed5-52243eff25bd.png)
 
 
