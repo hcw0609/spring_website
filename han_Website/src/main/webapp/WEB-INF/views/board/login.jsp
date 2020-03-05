@@ -34,7 +34,6 @@
 				var ID = $("#ID").val();
 				var PASSWORD = $("#PASSWORD").val();
 				
-				
 				$.ajax({
 					url : "/board/login",
 					type : "POST",
@@ -49,10 +48,17 @@
 						}
 					}
 				})										
-			})			
+			})
+			
+			// 구글 로그인
+			$("#loginBtn").click(function(){
+				location.href="https://accounts.google.com/o/oauth2/auth?client_id="+
+				"1012262435218-1h0jvhs2q7ppr14qoefpm60vhndafant.apps.googleusercontent.com"+
+				"&redirect_uri="+
+				"http://hcw0609.cafe24.com/board/redirect" +
+				"&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email&approval_prompt=force&access_type=offline";
+			});
 		})
-
-		
 		
 	</script>
 </head>
@@ -75,10 +81,15 @@
 
 		<div>
 			<button type="button" class="form-control btn btn-primary btn-dark btn_margin" id="login_btn">로그인</button> <br>
-			<button type="button" class="form-control btn btn-primary btn-dark" onclick="location.href='/board/register'">회원가입</button>
+			<button type="button" class="form-control btn btn-primary btn-dark btn_margin" onclick="location.href='/board/register'">회원가입</button>
+			<button type="button" class="form-control btn btn-primary btn-dark" id="loginBtn">구글 로그인</button>
 		</div>		
 	</div> 	          
 </div>
+
+
+
+
 
 </body>
 </html>

@@ -9,9 +9,7 @@ public class UserCheck {
 		try {
 			if ( !loginInfo.getID().equals(writer) ) {
 				return "NotEqual";
-			} else if ( loginInfo.getID().equals("admin")) {
-				return "OK";
-			}
+			} 			
 		} catch (Exception e) {
 			return "NullSession";
 		}

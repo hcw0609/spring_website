@@ -97,21 +97,19 @@
 	        
 	        
 	        // 버튼을 클릭하면 차트가 그려진다. [방문자]
-	        $('#visitor_btn').click(function(){
-	            
+	        $('#visitor_btn').click(function(){ 
+	        	
 				chartLabels = [];
 				chartData_1 = []; 
-		        chartData_2 = []; 
-	                                      	            
+		        chartData_2 = [];   
+		        
 	            $.ajax({
 	            	url:'/board/visitor_visitor_regdate',
 	            	type: 'post',
-	            	success : function(data){           		
-	           			
+	            	success : function(data){           		           			
 	            		chartLabels = data[0];
 	            		chartData_1 = data[1];
-	            		chartData_2 = data[2];
-	            		
+	            		chartData_2 = data[2];            		
 	            		lineChartData = {
 	                            labels : chartLabels,
 	                            datasets : [

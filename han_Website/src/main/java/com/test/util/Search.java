@@ -1,16 +1,11 @@
 package com.test.util;
 
+// 검색
 public class Search extends Pagination{
 
-	/* 검색 타입  */
 	private String searchType = "title";
-	
-	/* 검색 키워드 */
 	private String keyword;
-	
-	/* 검색 카테고리 */
 	private String category;
-
 	
 	/////////////////////////////////////////////////////////////////////////
 	

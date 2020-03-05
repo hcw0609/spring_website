@@ -17,7 +17,7 @@
   			<include refid="search"/> 
   			) B 
   		<![CDATA[
-		WHERE RNUM > #{startIndex} AND RNUM <= #{wow}
+		WHERE RNUM > #{start_index} AND RNUM <= #{wow}
 		]]>
 	</select>	
 	-->
@@ -26,11 +26,11 @@
 	<!-- 마리아 db 게시물 목록 [전체]  -->
 	<select id="List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
-		FROM (	SELECT *  FROM han 
+		FROM (	SELECT *  FROM han_board 
 				<include refid="search"/> ) B 
   		<![CDATA[
   		ORDER BY dno desc
-  		LIMIT #{startIndex}, #{pageSize}
+  		LIMIT #{start_index}, #{per_page_post}
 		]]>
 	</select>
 	
@@ -39,12 +39,12 @@
 	<!-- 마리아 db 게시물 목록 [카테고리]  -->
 	<select id="Board_List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
-		FROM (	SELECT *  FROM han 
+		FROM (	SELECT *  FROM han_board 
 				<include refid="search"/> ) B 
   		<![CDATA[
   		WHERE category =#{category}
   		ORDER BY dno desc
-  		LIMIT #{startIndex}, #{pageSize}
+  		LIMIT #{start_index}, #{per_page_post}
 		]]>
 	</select>	
 	
@@ -62,52 +62,52 @@
 	
 	<!-- 마리아 db 글 생성 -->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="dno">
-		insert into han ( title, content, writer, regdate, imageyn, thumbnail, category ) 
+		insert into han_board ( title, content, writer, regdate, imageyn, thumbnail, category ) 
 		values (  #{title}, #{content, jdbcType=VARCHAR}, #{writer}, DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d') ,#{imageyn}, #{thumbnail}, #{category} )
 	</insert>
 	
 		
 	<!-- 글 읽기 -->
 	<select id="read" resultType="com.test.dto.DbDTO" parameterType="int">
-		select * from han where dno = #{dno}
+		select * from han_board where dno = #{dno}
 	</select>
 	
 	
 	<!-- 글 삭제 -->
 	<delete id="delete" parameterType="int">
-		delete from han where dno = #{dno}
+		delete from han_board where dno = #{dno}
 	</delete>
 	
 	
 	<!-- 글 수정 -->
 	<update id="modify" parameterType="com.test.dto.DbDTO">
-		update han set title=#{title}, writer=#{writer}, content=#{content}, imageyn=#{imageyn}, thumbnail=#{thumbnail}, category=#{category}  where dno=#{dno}
+		update han_board set title=#{title}, writer=#{writer}, content=#{content}, imageyn=#{imageyn}, thumbnail=#{thumbnail}, category=#{category}  where dno=#{dno}
 	</update>
 	
 		
 	<!-- 게시글의 총 갯수 [전체] -->
 	<select id="getBoardListCnt" resultType="int" parameterType="com.test.util.Search">
-		select count(*) from han <include refid="search"/>
+		select count(*) from han_board <include refid="search"/>
 	</select>
 	
 	
 	<!-- 게시글의 총 갯수 [카테고리] -->
 	<select id="getBoardListCnt2" resultType="int" parameterType="com.test.util.Search">
 		select count(*)
-		from ( select * from han where category =#{category} ) b
+		from ( select * from han_board where category =#{category} ) b
 		<include refid="search"/>
 	</select>
 	
 	
 	<!-- 조회수 증가 -->
 	<select id="viewcnt" resultType="com.test.dto.DbDTO" parameterType="int">
-		update han set viewcnt = viewcnt + 1  where dno = #{dno}
+		update han_board set viewcnt = viewcnt + 1  where dno = #{dno}
 	</select>
 	
 	
 	<!-- 날자별 작성된 게시글  -->
 	<select id="board_count_day" resultType="int" parameterType="String">
-		select count(*) from han where regdate =#{regdate}
+		select count(*) from han_board where regdate =#{regdate}
 	</select>
 	
 	
@@ -171,11 +171,10 @@
 				<include refid="search"/> ) B 
   		<![CDATA[
   		ORDER BY ID desc
-  		LIMIT #{startIndex}, #{pageSize}
+  		LIMIT #{start_index}, #{per_page_post}
 		]]>
 	</select>
-	
-	
+		
 	<!-- 유저의 총 수 -->
 	<select id="user_count" resultType="int" parameterType="com.test.util.Search">
 		select count(*) from han_user <include refid="search"/>
@@ -281,36 +280,57 @@
 	<!-- 리플 관련 -->
 	<!-- 리플 작성
 	<insert id="writeReply">
-	insert into mp_reply( dno, rno, content, writer )
-	values( #{dno}, MP_REPLY_SEQ.NEXTVAL, #{content} , #{writer} )
+	insert into board_reply( dno, rno, content, writer )
+	values( #{dno}, board_reply_SEQ.NEXTVAL, #{content} , #{writer} )
 	</insert>
 	 -->
 	 
 	
 	<!-- 마리아 db 리플 작성 -->
 	<insert id="writeReply" parameterType="com.test.dto.ReplyDTO">
-	insert into mp_reply( dno, content, writer, regdate)
-	values( #{dno}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
+		insert into board_reply( dno, content, writer, regdate)
+		values( #{dno}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
+	</insert>
+	
+	
+	<!-- 마리아 db 리플 작성 [축구정보 댓글]-->
+	<insert id="soccer_writeReply" parameterType="com.test.dto.Information_ReplyDTO">
+		insert into information_reply( club_name, content, writer, regdate)
+		values( #{club_name}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
 	</insert>
 	
 		
 	<!-- 리플 수정 -->
 	<update id="updateReply" parameterType="com.test.dto.ReplyDTO">
-		update mp_reply set content = #{content}
+		update board_reply set content = #{content}
+		where rno = #{rno}
+	</update>
+	
+	
+	<!-- 축구 정보 리플 수정 -->
+	<update id="soccer_updateReply" parameterType="com.test.dto.Information_ReplyDTO">
+		update information_reply set content = #{content}
 		where rno = #{rno}
 	</update>
 
 
 	<!-- 리플 삭제 -->
 	<delete id="deleteReply" parameterType="com.test.dto.ReplyDTO">
-		delete from mp_reply
+		delete from board_reply
+		where rno = #{rno}
+	</delete>
+	
+	
+	<!-- 축구 정보 리플 삭제 -->
+	<delete id="soccer_deleteReply" parameterType="com.test.dto.Information_ReplyDTO">
+		delete from information_reply
 		where rno = #{rno}
 	</delete>
 	
 	
 	<!-- 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 -->
 	<delete id="deleteReplyBoard" parameterType="int">
-		delete from mp_reply
+		delete from board_reply
 		where dno = #{dno}
 	</delete>
 	
@@ -318,50 +338,71 @@
 	<!-- 리플 리스트  -->
 	<select id="commentList" resultType="com.test.dto.ReplyDTO" parameterType="int">
         select *
-        from mp_reply
+        from board_reply
         where dno = #{dno}
+    </select>
+    
+    
+    <!-- 축구 정보 리플 리스트 -->
+    <select id="soccer_commentList" resultType="com.test.dto.Information_ReplyDTO" parameterType="String">
+        select *
+        from information_reply
+        where club_name = #{club_name}
     </select>
     
     
     <!-- 전체 리플 카운트  -->
    	<select id="reply_allcnt" resultType="int">
    		select count(*)
-   		from mp_reply
+   		from board_reply
    	</select> 
     
     
     <!-- 리플 카운트 -->
     <select id="reply_cnt" resultType="int" parameterType="int">
     	select count(*)
-    	from mp_reply
+    	from board_reply
     	where dno =#{dno}
     </select>
     
     
-    <!-- 리플 카운트한 결과를 테이블에 저장 -->
+    <!-- 리플 카운트 -->
+    <select id="soccer_reply_cnt" resultType="int" parameterType="String">
+    	select count(*)
+    	from information_reply
+    	where club_name =#{club_name}
+    </select>
+    
+    
+    <!-- 리플 카운트한 결과를 게시글 테이블에 저장 -->
     <update id="reply_cnt_store" parameterType="com.test.dto.DbDTO">
-    	update han set reply_cnt=#{reply_cnt} where dno=#{dno}
+    	update han_board set reply_cnt=#{reply_cnt} where dno=#{dno}
+    </update>
+    
+    
+    <!-- 리플 카운트한 결과를 축구 정보 테이블에 저장 -->
+    <update id="soccer_reply_cnt_store" parameterType="com.test.dto.ClubDTO">
+    	update club set club_reply_cnt=#{club_reply_cnt} where club_name=#{club_name}
     </update>
     
     
     <!-- 날짜별 작성된 리플  -->
     <select id="reply_count_day" resultType="int" parameterType="String">
-    	select count(*) from mp_reply where regdate =#{regdate}
+    	select count(*) from board_reply where regdate =#{regdate}
     </select>
     <!-- 리플 관련 -->
     	
-    	
-    	
+    	 	
     <!-- 작성중인 게시물의 첨부파일 존재 유무 [YES] -->
     <update id="file_yes" parameterType="int">
-    	update han set fileyn = 'y' 
+    	update han_board set fileyn = 'y' 
     	where dno = #{dno}
     </update>
     
     
     <!-- 작성중인 게시물의 첨부파일 존재 유무 [NO] -->
 	<update id="file_no" parameterType="int">
-    	update han set fileyn = 'n' 
+    	update han_board set fileyn = 'n' 
     	where dno = #{dno}
     </update>
     
@@ -378,12 +419,61 @@
     
     <!-- ClubDTO -->
     <!-- 클럽 리스트 가져오기  -->
-    <select id="Club_list" resultType="com.test.dto.ClubDTO" parameterType="com.test.dto.ClubDTO">
+    <select id="Club_list" resultType="com.test.dto.ClubDTO">
     	select *
     	from club
-    	where club_belong =#{club_belong}
     </select>   
-    <!-- ClubDTO -->
+    
+    <!-- 클럽 별 정보 가져오기 -->
+     <select id="Club_data" resultType="com.test.dto.ClubDTO" parameterType="String">
+    	select *
+    	from club
+    	where club_search =#{name}
+    </select> 
+    
+    <!-- 클럽 good 카운트 -->
+    <insert id="good_cnt" parameterType="com.test.dto.ClubDTO">
+    	update club set club_good = club_good + 1 where club_name=#{club_name}
+    </insert>
+    
+     <!-- 클럽 bod 카운트-->
+    <insert id="bad_cnt" parameterType="com.test.dto.ClubDTO">
+    	update club set club_bad = club_bad + 1 where club_name=#{club_name}
+    </insert>    
+    <!-- ClubDTO --> 
+    
+    
+    <!-- User_good_bad -->
+	<!-- user_good -->
+	<insert id="user_good" parameterType="com.test.dto.User_good_bad">
+		insert into user_good_bad(user_good, club_name) 
+		values( #{user_good}, #{club_name} )
+	</insert>
+	
+	
+	<!-- user_bad -->
+	<insert id="user_bad" parameterType="com.test.dto.User_good_bad">
+	insert into user_good_bad(user_bad, club_name) 
+	values( #{user_bad}, #{club_name} )
+	</insert>	
+	
+	
+	<!-- user_good_check -->
+	<select id="user_good_check" resultType="int" parameterType="com.test.dto.User_good_bad">
+		select count(*) 
+		from user_good_bad 
+		where user_good=#{user_good} and club_name=#{club_name}
+	</select>
+	
+	
+	<!-- user_bad_check -->
+	<select id="user_bad_check" resultType="int" parameterType="com.test.dto.User_good_bad">
+		select count(*) 
+		from user_good_bad 
+		where user_bad=#{user_bad} and club_name=#{club_name}
+	</select>
+    <!-- User_good_bad -->
+    
     
     
     
@@ -410,6 +500,13 @@
 		select count(distinct(visitor_ip)) from visitor where visitor_regdate=#{visitor_regdate}
 	</select>
 	<!-- VistiorDTO -->
+	
+	
+	<!-- google login  -->
+	<insert id="google_login" parameterType="String" >
+		insert into aa
+		values (#{email})
+	</insert>
  
 	
 </mapper>

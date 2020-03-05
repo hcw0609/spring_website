@@ -3,8 +3,10 @@ package com.test.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
+import com.test.dto.Information_ReplyDTO;
 import com.test.dto.ReplyDTO;
 import com.test.util.Search;
 
@@ -64,11 +66,20 @@ public interface BoardDAO {
 	// 리플 작성
 	public void writeReply(ReplyDTO dto) throws Exception;
 	
+	// 축구 정보 리플 작성 
+	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception;
+	
 	// 리플 수정
 	public void updateReply(ReplyDTO dto) throws Exception;
 	
+	// 축구 정보 리플 수정
+	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception;
+	
 	// 리플 삭제
 	public void deleteReply(ReplyDTO dto) throws Exception;
+	
+	// 축구 정보 리플 삭제
+	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception;
 	
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;
@@ -76,17 +87,26 @@ public interface BoardDAO {
 	// 리플 리스트
     public List<ReplyDTO> commentList(int dno) throws Exception;
     
+    // 축구 정보 리플 리스트
+    public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception;
+    
     // 전체 리플 카운트
     public int reply_allcnt() throws Exception;
     
     // 리플 카운트
     public int reply_cnt(int dno) throws Exception;
     
+    // 축구 정보 리플 카운트
+    public int soccer_reply_cnt(String club_name) throws Exception;
+    
     // 날짜별 작성된 리플
     public int reply_count_day(String str) throws Exception;
     
-    // 리플 카운트한 결과를 테이블에 저장
+    // 리플 카운트한 결과를 게시글 테이블에 저장
     public void reply_cnt_store(DbDTO dto2) throws Exception;
+    
+    // 리플 카운트한 결과를 축구 정보 테이블에 저장
+    public void soccer_reply_cnt_store(ClubDTO dto) throws Exception;
 
     // 작성중인 게시물의 첨부파일 존재 유무 [YES]
     public void file_yes(int dno) throws Exception;

@@ -30,14 +30,14 @@
 	</bean>	
 	-->
 	
-	<!-- Maria DB 나의 컴퓨터에 있는 db 연동  
+	<!-- Maria DB 나의 컴퓨터에 있는 db 연동 
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
  		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
  		<property name="url" value="jdbc:mariadb://localhost:3306/han" />
  		<property name="username" value="root" />
  		<property name="password" value="terror00" />
 	</bean>	
-	-->
+	 -->
 		
 	<!-- Oracle DB 연동 
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">

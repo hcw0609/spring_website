@@ -72,12 +72,12 @@
 					$.ajax({
 						 url : '/board/replyWrite',
 					     type : 'post',
-					     dataType : "json",
 					     data : {'dno':dno, 'writer':login_writer, 'content':reply_content},
 					     success : function(data){ 
 					    	 if(data == "2") {
 					    		 window.location.href="/board/needlogin";
 					    	 } else {
+					    		 // 다시 리플 리스트를 뿌려준다.
 					    		 commentList();
 					 			$('input[name=reply_content]').val("");
 					    	 }

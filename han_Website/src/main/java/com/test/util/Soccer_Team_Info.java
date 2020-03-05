@@ -26,8 +26,8 @@ public class Soccer_Team_Info {
 		String Team_Info[] = new String[30];
 				
 		int array_index = 0;				
-		int i = 0;
 		int teamcode = 0;
+		int i = 0;
 				
 		if (name.equals("레알마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
@@ -51,7 +51,7 @@ public class Soccer_Team_Info {
 			i = 25;
 		} else if (name.equals("아스날 FC")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 5;
+			teamcode = 6;
 			i = 21;
 		} else if (name.equals("맨시티")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
@@ -73,28 +73,26 @@ public class Soccer_Team_Info {
 			Team_Title[array_index] = a1;
 			Team_Info[array_index] = b1;
 						
-			array_index = array_index + 1;
-						
+			array_index = array_index + 1;						
 		}
 		
 		String jsonstr = "";
 		
+		// 가져온 문자열을 Json 형태로 바꾸어 준다.
 		for(int index=0; index<array_index; index++) {
 			if(index < array_index-1 ) {
 				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"},";
 			} else {
 				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"}";
 			}			
-		}
-		
+		}		
 		jsonstr = "["+jsonstr+"]";
 		
-		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// Json형태로 바꾼 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);
-				
-		System.out.println(jsonArray);
 		
+		System.out.println(jsonArray);
 		return jsonArray;				
 	}
 	
@@ -147,7 +145,7 @@ public class Soccer_Team_Info {
 			play_num = start;
 			country = 5;
 		} else if (name.equals("아스날 FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(50) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(51) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 0;
 			play_num = start;
 			country = 2;
@@ -212,26 +210,26 @@ public class Soccer_Team_Info {
 							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
 							index += 1;
 							break;
-						} else if ( index == 2 && (player_title[inner_index].equals("한글 성명") || player_title[inner_index].equals("이름")) ) {
+						} else if ( index == 2 && (player_title[inner_index].equals("생년 월일") || player_title[inner_index].equals("생년월일")) ) {
 							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
 							index += 1;
 							break;
-						} else if ( index == 3 && (player_title[inner_index].equals("생년 월일") || player_title[inner_index].equals("생년월일")) ) {
+						} else if ( index == 3 && (player_title[inner_index].equals("신체조건") || player_title[inner_index].equals("신체 조건") || player_title[inner_index].equals("체격") || player_title[inner_index].equals("cm / kg")) ) {
 							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
 							index += 1;
 							break;
-						} else if ( index == 4 && (player_title[inner_index].equals("신체조건") || player_title[inner_index].equals("신체 조건") || player_title[inner_index].equals("체격") || player_title[inner_index].equals("cm / kg")) ) {
+						} else if ( index == 4 && (player_title[inner_index].equals("포지션")) ) {
 							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
 							index += 1;
 							break;
-						} else if ( index == 5 && (player_title[inner_index].equals("포지션")) ) {
-							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
-							index += 1;
-							break;
-						} else if ( index == 6 && (player_title[inner_index].equals("")) ) {
+						} else if ( index == 5 && (player_title[inner_index].equals("")) ) {
 							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+"}";
 							index += 1;
 							break breakOut2;
+						}  else if ( index == 6 && (player_title[inner_index].equals("한글 성명") || player_title[inner_index].equals("이름")) ) {
+							json_str = json_str + '"'+player_title[inner_index]+'"'+":"+'"'+player_info[inner_index]+'"'+',';
+							index += 1;
+							break;							
 						} else {
 							inner_index += 1;	
 						}							
@@ -247,7 +245,7 @@ public class Soccer_Team_Info {
 		
 		// 가져온 json형태의 여러 문자열들을 하나의 문자열로 통합한다.
 		json_str = "";
-		for(int i=1; i<index_jsonstr; i++ ) {
+		for(int i=1; i<index_jsonstr-1; i++ ) {
 			if( i != index_jsonstr-1 ) {
 				json_str += jsonstr[i] + ",";
 			} else {
@@ -256,7 +254,7 @@ public class Soccer_Team_Info {
 		}
 		json_str = "["+json_str+"]";
 		
-		// 통합된 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// Json형태로 바꾼 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(json_str);	
 		
@@ -276,8 +274,8 @@ public class Soccer_Team_Info {
 		String Team_Info[] = new String[25];
 		
 		int array_index = 0;				
-		int i = 3;
 		int teamcode = 0;
+		int i = 3;
 		
 		if (name.equals("레알마드리드")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
@@ -296,7 +294,7 @@ public class Soccer_Team_Info {
 			teamcode = 6;
 		} else if (name.equals("아스날 FC")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
-			teamcode = 5;
+			teamcode = 6;
 		} else if (name.equals("맨시티")) {
 			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 7;
@@ -329,31 +327,30 @@ public class Soccer_Team_Info {
 			Team_Info[array_index] = b1;
 			
 			array_index = array_index + 1;
-				
+			
+			// "부주장"이라는 내용이나오면 break;
 			if(a1.contains("부주장")) {
 				break;
 			}				
 		}
 		
+		// 가져온 문자열을 Json 형태로 바꾸어 준다.
 		String jsonstr = "";
-			
 		for(int index=0; index<array_index; index++) {
 			if(index < array_index-1 ) {
 				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"},";
 			} else {
 				jsonstr = jsonstr + "{"+'"'+Team_Title[index]+'"'+":"+'"'+Team_Info[index]+'"'+"}";
 			}			
-		}
-		
+		}		
 		jsonstr = "["+jsonstr+"]";
 			
-		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// Json형태로 바꾼 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
-				
-		System.out.println(jsonArray);
-		return jsonArray;
 		
+		System.out.println(jsonArray);	
+		return jsonArray;		
 	}
 	
 	
@@ -361,9 +358,9 @@ public class Soccer_Team_Info {
 	public static void main(String[] args) throws Exception {
 
 		Soccer_Team_Info soccer_team_info = new Soccer_Team_Info();		
-		//soccer_team_info.Team_Info("아틀레티코 마드리드");
-		soccer_team_info.Player_Info("첼시FC");
-		//soccer_team_info.Champion("첼시FC");
+		soccer_team_info.Team_Info("맨시티");
+		soccer_team_info.Player_Info("맨시티");
+		soccer_team_info.Champion("맨시티");
 		//soccer_team_info.aaa();
 	}
 	

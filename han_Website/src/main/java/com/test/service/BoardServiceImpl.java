@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.test.dao.BoardDAO;
+import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
+import com.test.dto.Information_ReplyDTO;
 import com.test.dto.ReplyDTO;
 import com.test.util.FileUtils;
 import com.test.util.Search;
@@ -73,8 +75,7 @@ public class BoardServiceImpl implements BoardService{
 			dao.file_no(dto.getDno());
 		} else {
 			dao.file_yes(dto.getDno());
-		}
-		
+		}		
 		for (int i=0; i<size; i++) {
 			// db에 파일에 대한 정보 업로드
 			dao.insertFile(list.get(i));
@@ -233,6 +234,23 @@ public class BoardServiceImpl implements BoardService{
 		dto2.setDno(dto.getDno());
 		dao.reply_cnt_store(dto2);
 	}
+	
+	// 축구 정보 리플 작성 
+	@Override
+	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+	    // 리플 작성
+		dao.soccer_writeReply(dto);
+		
+		// 리플 카운트
+		int reply_cnt = dao.soccer_reply_cnt(dto.getClub_name());
+		
+		// 리플 카운트한 결과를 테이블에 저장
+		ClubDTO dto2 = new ClubDTO();
+		dto2.setClub_reply_cnt(reply_cnt);
+		dto2.setClub_name(dto.getClub_name());
+		dao.soccer_reply_cnt_store(dto2);			
+	}
 
 	
 	// 리플 수정
@@ -240,6 +258,13 @@ public class BoardServiceImpl implements BoardService{
 	public void updateReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateReply(dto);
+	}
+	
+	// 축구 정보 리플 수정
+	@Override
+	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		dao.soccer_updateReply(dto);
 	}
 
 
@@ -256,12 +281,25 @@ public class BoardServiceImpl implements BoardService{
 		// 리플 카운트한 결과를 테이블에 저장
 		DbDTO dto2 = new DbDTO();
 		dto2.setReply_cnt(reply_cnt);
-		System.out.println("111"+dto2.getReply_cnt());
 		dto2.setDno(dto.getDno());
-		System.out.println("222"+dto2.getDno());
 		dao.reply_cnt_store(dto2);
 	}
-
+	
+	// 축구 정보 리플 삭제
+	@Override
+	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		dao.soccer_deleteReply(dto);
+		
+		// 리플 카운트
+		int reply_cnt = dao.soccer_reply_cnt(dto.getClub_name());
+		
+		// 리플 카운트한 결과를 테이블에 저장
+		ClubDTO dto2 = new ClubDTO();
+		dto2.setClub_reply_cnt(reply_cnt);
+		dto2.setClub_name(dto.getClub_name());
+		dao.soccer_reply_cnt_store(dto2);		
+	}
 
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	@Override
@@ -282,6 +320,14 @@ public class BoardServiceImpl implements BoardService{
 	public List<ReplyDTO> commentList(int dno) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.commentList(dno);
+	}
+	
+	
+	// 축구 정보 리플 리스트
+	@Override
+	public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.soccer_commentList(club_name);
 	}
 	
 	

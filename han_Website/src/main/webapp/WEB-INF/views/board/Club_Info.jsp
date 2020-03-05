@@ -89,27 +89,8 @@
 		<div class="row">
 		
 			<!-- 측면 메뉴 -->
-			<div class="col-lg-2">			
-	        	<h3 class="my-4">Club</h3>
-        		<div class="list-group">
-        		<c:choose>	
-        			<c:when test="${club_belong eq 'EPL'}">	
-	        			<a class="list-group-item" href="/board/Club_Info?club_belong=EPL" style="font-weight: bold;">EPL</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA">LALIGA</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA">SERIEA</a>
-	        		</c:when>	        			
-	        		<c:when test="${club_belong eq 'LALIGA'}">
-	        			<a class="list-group-item" href="/board/Club_Info?club_belong=EPL">EPL</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA" style="font-weight: bold;">LALIGA</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA">SERIEA</a>
-	        		</c:when>
-	        		<c:when test="${club_belong eq 'SERIEA'}">	
-	        			<a class="list-group-item" href="/board/Club_Info?club_belong=EPL">EPL</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=LALIGA">LALIGA</a>
-          				<a class="list-group-item" href="/board/Club_Info?club_belong=SERIEA" style="font-weight: bold;">SERIEA</a>
-	        		</c:when>		
-        		</c:choose>      				
-        		</div>
+			<div class="col-lg-1">			
+	        	<h3 class="my-4"></h3>       		
 			</div>   
 			<!-- 측면 메뉴 -->   		     
 			
@@ -118,14 +99,19 @@
 			<div class="row">
         	
         	<c:forEach items="${list}" var="list">		
-				<div class="col-lg-3 col-md-6 mb-4" style="margin-top:20px;">
-					<div class="card">
-						<a href="/board/Information?name=${list.club_search}"><img class="card-img-top" src='${list.club_image}' alt=""></a>
+				<div class="col-lg-4 col-md-6 mb-4" style="margin-top:20px;">
+					<div class="card" style="mint-height:500px">
+						<a href="/board/Information?name=${list.club_search}"><img class="card-img-top" src='${list.club_image}'></a>
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="/board/Information?name=${list.club_search}">${list.club_name}</a>
 							</h4>
-							<h5>${list.club_belong}</h5>		
+							<h5>${list.club_belong}</h5>
+							<div class="row">							
+								<img alt="" src="/Image/Icon/like.png" style="width:24px; height:24px; margin-left:15px; "><h5>&nbsp; ${list.club_good}</h5>
+								<img alt="" src="/Image/Icon/hate.png" style="width:24px; height:24px; margin-left:15px; "><h5>&nbsp; ${list.club_bad}</h5>
+							</div>
+							<h5>댓글: ${list.club_reply_cnt}</h5>									
 						</div>
 		            </div>
 				</div>
@@ -134,7 +120,13 @@
         	</div>
 			</div>
 			<!-- Main Content -->
-      
+			
+      		<!-- 측면 메뉴 -->
+			<div class="col-lg-1">			
+	        	<h3 class="my-4"></h3>       		
+			</div>   
+			<!-- 측면 메뉴 --> 
+			
     	</div>
   	</div>
   	<!-- Page Content -->

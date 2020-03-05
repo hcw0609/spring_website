@@ -43,12 +43,12 @@
 		
 		
 		// 이전 버튼 이벤트
-		function fn_prev(curPage, curRange, rangeSize, searchType, keyword) {
-			var curPage = ((curRange - 2) * rangeSize) + 1;
-			var curRange = curRange - 1;
+		function fn_prev(cur_page, cur_block, per_block_page, searchType, keyword) {
+			var cur_page = ((cur_block - 2) * per_block_page) + 1;
+			var cur_block = cur_block - 1;
 			var url = "/board/list";
-			url = url + "?curPage="    + curPage;
-			url = url + "&curRange="   + curRange;
+			url = url + "?cur_page="    + cur_page;
+			url = url + "&cur_block="   + cur_block;
 			url = url + "&searchType=" + searchType
 			url = url + "&keyword="    + keyword
 			location.href = url;
@@ -56,10 +56,10 @@
 	
 	
 		// 페이지 번호 클릭 
-		function fn_pagination(idx, curRange, searchType, keyword) {
+		function fn_pagination(idx, cur_block, searchType, keyword) {
 			var url = "/board/list";
-			url = url + "?curPage="    + idx;
-			url = url + "&curRange="   + curRange;
+			url = url + "?cur_page="    + idx;
+			url = url + "&cur_block="   + cur_block;
 			url = url + "&searchType=" + searchType
 			url = url + "&keyword="    + keyword
 			location.href = url;	
@@ -67,12 +67,12 @@
 	
 		
 		// 다음 버튼 이벤트 
-		function fn_next(curPage, curRange, rangeSize, searchType, keyword) {
-			var curPage = parseInt((curRange * rangeSize)) + 1;
-			var curRange = parseInt(curRange) + 1;
+		function fn_next(cur_page, cur_block, per_block_page, searchType, keyword) {
+			var cur_page = parseInt((cur_block * per_block_page)) + 1;
+			var cur_block = parseInt(cur_block) + 1;
 			var url = "/board/list";
-			url = url + "?curPage="    + curPage;
-			url = url + "&curRange="   + curRange;
+			url = url + "?cur_page="    + cur_page;
+			url = url + "&cur_block="   + cur_block;
 			url = url + "&searchType=" + searchType
 			url = url + "&keyword="    + keyword
 			location.href = url;
@@ -210,16 +210,16 @@
 			<div>
 			</br>
 				<ul class="pagination">
-					<c:if test="${paging.prevPage}">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.curPage}', '${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')">이전</a></li>
+					<c:if test="${paging.prev_page}">
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_prev('${paging.cur_page}', '${paging.cur_block}', '${paging.per_block_page}','${paging.searchType}','${paging.keyword}')">이전</a></li>
 					</c:if>
 			
-					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="idx">
-						<li class="page-item <c:out value="${paging.curPage == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}','${paging.curRange}','${paging.searchType}','${paging.keyword}')"> ${idx} </a></li>
+					<c:forEach begin="${paging.start_page}" end="${paging.end_page}" var="idx">
+						<li class="page-item <c:out value="${paging.cur_page == idx ? 'active' : ''}"/> "><a class="page-link" href="#" onClick="fn_pagination('${idx}','${paging.cur_block}','${paging.searchType}','${paging.keyword}')"> ${idx} </a></li>
 					</c:forEach>
 					
-					<c:if test="${paging.nextPage}">
-						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.curPage}','${paging.curRange}', '${paging.rangeSize}','${paging.searchType}','${paging.keyword}')" >다음</a></li>
+					<c:if test="${paging.next_page}">
+						<li class="page-item"><a class="page-link" href="#" onClick="fn_next('${paging.cur_page}','${paging.cur_block}', '${paging.per_block_page}','${paging.searchType}','${paging.keyword}')" >다음</a></li>
 					</c:if>
 				</ul>
 			</div>
@@ -241,7 +241,7 @@
 			
 				<div>				
 					<button class="btn btn-sm btn-dark" name="btnSearch" id="btnSearch" onclick="find()">찾기</button>
-					<button type="button" class="btn btn-sm btn-dark" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>									
+					<button type="button" class="btn btn-sm btn-dark" id="btnWriteForm" onclick="location.href='/board/create'">글쓰기</button>								
 				</div>
 			</div>
 			</br>

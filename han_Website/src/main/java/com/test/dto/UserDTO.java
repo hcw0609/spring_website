@@ -1,13 +1,13 @@
 package com.test.dto;
 
 public class UserDTO {
-
+	
 	/*
 	CREATE TABLE `han_user` (
-	`ID`       CHAR(20) NOT NULL PRIMARY KEY,
-	`PASSWORD` CHAR(20) NOT NULL,
-	`EMAIL`    CHAR(25) NOT NULL
-);
+		ID        VARCHAR(20) NOT NULL PRIMARY KEY,
+		PASSWORD  VARCHAR(20) NOT NULL,
+		EMAIL     VARCHAR(30) NOT NULL,
+	);
 	*/
 	
 	private String ID;
@@ -32,8 +32,5 @@ public class UserDTO {
 	public void setEMAIL(String eMAIL) {
 		EMAIL = eMAIL;
 	}
-	
-	
 
-	
 }

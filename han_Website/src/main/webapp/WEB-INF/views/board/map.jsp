@@ -73,8 +73,7 @@
 				center: Search,
 				zoom : 17
 			});
-			
-			
+					
 			// 스트릿뷰 출력
 			var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
 				position: Search,
@@ -82,8 +81,7 @@
 			});
 			
 			map.setStreetView(panorama);
-	   		 
-			
+	   		 			
 			// 마커 설정
 			var marker = new google.maps.Marker({
 				position : Search,

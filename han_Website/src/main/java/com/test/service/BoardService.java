@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
+import com.test.dto.Information_ReplyDTO;
 import com.test.dto.ReplyDTO;
 import com.test.util.Search;
 
@@ -56,11 +57,20 @@ public interface BoardService  {
 	// 리플 작성
 	public void writeReply(ReplyDTO dto) throws Exception;
 	
+	// 축구 정보 리플 작성 
+	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception;
+	
 	// 리플 수정
 	public void updateReply(ReplyDTO dto) throws Exception;
+	
+	// 축구 정보 리플 수정
+	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception;
 		
 	// 리플 삭제
 	public void deleteReply(ReplyDTO dto) throws Exception;
+	
+	// 축구 정보 리플 삭제
+	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception;
 	
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	public void deleteReplyBoard(int dno) throws Exception;
@@ -69,7 +79,10 @@ public interface BoardService  {
     public int reply_allcnt() throws Exception;
     
 	// 리플 리스트
-    public List<ReplyDTO> commentList(int dno) throws Exception;
+    public List<ReplyDTO> commentList(int dno) throws Exception;  
+    
+    // 축구 정보 리플 리스트
+    public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception;
     
     // 날짜별 작성된 리플
     public int reply_count_day(String str) throws Exception;

@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -21,11 +22,9 @@ public class FileUtils {
 	
 	// for ftp
 	private static final String filePath = "/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"; // 파일이 저장될 위치
-	
-	
+		
 	public List<Map<String, Object>> parseInsertFileInfo(DbDTO dbdto, 
 														 MultipartHttpServletRequest mpRequest) throws Exception{
-	
 		
 		// 가져온 파일의 이름들을 Iterator<String>형태로 iterator이름에 저장한다.
 		Iterator<String> iterator = mpRequest.getFileNames();
@@ -37,7 +36,6 @@ public class FileUtils {
 		String originalFileName = null;
 		String originalFileExtension = null;
 		String storedFileName = null;
-
 		
 		// 하나의 파일에 대한 정보를 담을 그릇을 만든다.
 		Map<String, Object> listMap = null;
@@ -51,7 +49,6 @@ public class FileUtils {
 		if(file.exists() == false) {
 			file.mkdirs();
 		}
-
 		
 		while(iterator.hasNext()) {
 			// iterator에 저장된 값은 하나씩 꺼내서 값에 해당하는 결과를 multipartFile에 저장한다.
@@ -87,5 +84,4 @@ public class FileUtils {
 	public static String getRandomString() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
-
 }

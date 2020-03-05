@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 	
 		window.alert("${msg}");
-		window.location.href="/board/login";
+		window.location.href="/board/list";
 	
 	</script>
 	

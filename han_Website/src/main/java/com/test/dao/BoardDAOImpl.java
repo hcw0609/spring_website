@@ -8,8 +8,10 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
+import com.test.dto.Information_ReplyDTO;
 import com.test.dto.ReplyDTO;
 import com.test.util.Search;
 
@@ -172,6 +174,14 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".writeReply", dto); 
 	}
+	
+	
+	// 축구 정보 리플 작성
+	@Override
+	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".soccer_writeReply", dto);
+	}
 
 
 	// 리플 수정
@@ -179,6 +189,14 @@ public class BoardDAOImpl implements BoardDAO {
 	public void updateReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update(namespace +".updateReply", dto);
+		
+	}
+	
+	// 축구 정보 리플 수정
+	@Override
+	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		sql.update(namespace +".soccer_updateReply", dto);
 		
 	}
 
@@ -189,7 +207,15 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		sql.delete(namespace +".deleteReply", dto);
 	}
-
+	
+	
+	// 축구 정보 리플 삭제
+	@Override
+	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		sql.delete(namespace +".soccer_deleteReply", dto);
+	}
+	
 
 	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
 	@Override
@@ -207,6 +233,14 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
+	// 축구 정보 리플 리스트
+	@Override
+	public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".soccer_commentList",club_name);
+	}
+
+	
 	// 전체 리플 카운트
 	@Override
 	public int reply_allcnt() throws Exception {
@@ -223,12 +257,27 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	
-	// 리플 카운트한 결과를 테이블에 저장
+	// 축구 정보 리플 카운트
+	@Override
+	public int soccer_reply_cnt(String club_name) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".soccer_reply_cnt", club_name);
+	}
+
+	
+	// 리플 카운트한 결과를 게시글 테이블에 저장
 	@Override
 	public void reply_cnt_store(DbDTO dto2) throws Exception {
 		// TODO Auto-generated method stub
 		sql.insert(namespace + ".reply_cnt_store", dto2);
 	}	
+	
+	// 리플 카운트한 결과를 축구 정보 테이블에 저장
+	@Override
+	public void soccer_reply_cnt_store(ClubDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		sql.insert(namespace + ".soccer_reply_cnt_store", dto);
+	}
 
 	
 	// 날짜별 작성된 리플
@@ -260,10 +309,6 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".file_exist", dno);
 	}
-
-
-
-
 
 
 }

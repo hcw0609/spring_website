@@ -28,6 +28,10 @@
 	
 		$(document).ready(function(){
 			
+			if( "${email}" != null) {
+				
+			}
+			
 			$(".cancle").on("click", function(){
 				location.href = "/board/login";
 			})
@@ -152,7 +156,7 @@
 					}
 				} else {
 					$("#pwd_chk").attr("value", "N");
-					$(".message").html("사용불가한 형식의 비밀번호 입니다.");
+					$(".message").html("8~20자 사이 영어대소문, 숫자, 특수문자 각각 최소 1개");
 				}		
 			});
 	
@@ -179,7 +183,7 @@
 								$("#email_check").attr("value", "Y");
 								$("#EMAIL").css("background-color", "#ffffff");
 								$("#dice").attr("value", dice);
-								alert("인증번호를 보냈습니다. 이메일을 확인해 주세요. "+ dice);
+								alert("인증번호를 보냈습니다. 이메일을 확인해 주세요.");
 							}						
 						}
 					})		
@@ -200,7 +204,7 @@
 				var dice = $('#dice').val();
 				if(auth == dice) {
 					alert("인증 성공");
-					$("#auth	").css("background-color", "#ffffff");
+					$("#auth").css("background-color", "#ffffff");
 					$("#email_check").attr("value", "Y");
 				} else {
 					alert("인증 실패");
@@ -229,17 +233,25 @@
 			<input type="hidden" id="pwd_chk" value="N">
 			<p class="message" align="center"></p>
 		</div>
-			
-		<div class="mb-3">
-			<input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="E-MAIL"/>
-			<button type="button" class="btn form-control btn-dark" id="email_receive">인증번호 받기</button>
-		</div>
-			
-		<div class="mb-3">
-			<input type="hidden" id="dice" name="dice" value="dice"/>
-			<input type="text" class="form-control" id="auth" name="auth" placeholder="E-MAIL_CHECK"/>
-			<button type="button" class="btn form-control btn-dark" id="email_check" value="N">인증번호 확인</button>
-		</div>							
+		
+		<c:choose>
+			<c:when test="${email eq null}">
+				<div class="mb-3">
+					<input type="text" class="form-control" id="EMAIL" name="EMAIL" placeholder="E-MAIL"/>
+					<button type="button" class="btn form-control btn-dark" id="email_receive">인증번호 받기</button>
+				</div>
+					
+				<div class="mb-3">
+					<input type="hidden" id="dice" name="dice" value="dice"/>
+					<input type="text" class="form-control" id="auth" name="auth" placeholder="E-MAIL_CHECK"/>
+					<button type="button" class="btn form-control btn-dark" id="email_check" value="N">인증번호 확인</button>
+				</div>	
+			</c:when>
+			<c:when test="${email ne null}">
+				<input type="hidden" name="EMAIL" value="${email}">
+				<input type="hidden" id="email_check" value="Y">
+			</c:when>		
+		</c:choose>					
 	</form>
 		
 	<div>

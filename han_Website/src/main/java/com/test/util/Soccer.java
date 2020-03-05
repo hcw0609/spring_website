@@ -15,13 +15,13 @@ public class Soccer {
 		Document doc = Jsoup.connect("https://sports.news.naver.com/wfootball/record/index.nhn").get();
 		Elements a = doc.select("div#container");
 		
-		// Json 형태의 데이터 추출하기 [그래도 문자열이다.]
+		// Json 형태의 데이터를 String형으로 원하는 데이터만 뽑는다. 
 		String result1 = a.toString().substring(a.toString().lastIndexOf("regularTeamRecordList")+23);		 
 		int idx = result1.indexOf("]");
 		String result2 = result1.substring(0, idx+1);	 
 		String jsonstr = result2;				
 		
-		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
 		
@@ -33,14 +33,14 @@ public class Soccer {
 		Document doc = Jsoup.connect("https://sports.news.naver.com/wfootball/record/index.nhn?category=primera&tab=team").get();
 		Elements a = doc.select("div#container");
 		
-		// Json 형태의 데이터 추출하기 [그래도 문자열이다.]
+		// Json 형태의 데이터를 String형으로 원하는 데이터만 뽑는다. 
 		String result1 = a.toString().substring(a.toString().lastIndexOf("regularTeamRecordList")+23);		 
 		int idx = result1.indexOf("]");
 		String result2 = result1.substring(0, idx+1);	 
 		String jsonstr = result2;
 		
 		
-		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
 		
@@ -52,14 +52,14 @@ public class Soccer {
 		Document doc = Jsoup.connect("https://sports.news.naver.com/wfootball/record/index.nhn?category=seria&tab=team").get();
 		Elements a = doc.select("div#container");
 		
-		// Json 형태의 데이터 추출하기 [그래도 문자열이다.]
+		// Json 형태의 데이터를 String형으로 원하는 데이터만 뽑는다. 
 		String result1 = a.toString().substring(a.toString().lastIndexOf("regularTeamRecordList")+23);		 
 		int idx = result1.indexOf("]");
 		String result2 = result1.substring(0, idx+1);	 
 		String jsonstr = result2;
 		
 		
-		// 문자열을 Json으로 변경 하고 원하는 데이터만 추출
+		// 문자열을 Json으로 변경
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(jsonstr);	
 		System.out.println(jsonArray);

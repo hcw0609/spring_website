@@ -5,14 +5,14 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
- 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
- 
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -43,27 +43,31 @@ public class Maputil {
                     + "key=AIzaSyBPJ7JPbS7aFMk5hf78sP4A_ivIC_razg0&"
         			+ "address="+No_Blank_address;
             
+        	// URL 연결
             URL url = new URL(urlstr);
             HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
        
-            //응답 읽기
+            // 연결한 URL에서 XML읽어와서 String으로 저장한다.
             br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
             String result = "";
             String line;
             while ((line = br.readLine()) != null) {
-                result = result + line.trim();// result = URL로 XML을 읽은 값
+            	// result = 연결한 URL에서 읽어온 XML형태의 정보를 String으로 저장한다.
+                result = result + line.trim();
             }
             
-            // xml 파싱하기
+            // XML 파싱하기
+            // String XML문자열에서 파싱할경우
             InputSource is = new InputSource(new StringReader(result));
             builder = factory.newDocumentBuilder();
             doc = builder.parse(is);
             
-            XPathFactory xpathFactory = XPathFactory.newInstance();
-            XPath xpath = xpathFactory.newXPath();
+            // XPath 객체 생성
+            XPath xpath = XPathFactory.newInstance().newXPath();
             
             // XPathExpression expr = xpath.compile("/response/body/items/item");
             XPathExpression expr = xpath.compile("/GeocodeResponse/result/geometry/location");
+            //  expr.evaluate(대상, 타입)
             NodeList nodeList = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
             
             if(nodeList.getLength() == 0) {

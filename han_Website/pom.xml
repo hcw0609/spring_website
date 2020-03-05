@@ -24,6 +24,8 @@
 -->	
 	
 	<dependencies>
+
+	
 	
 <!-- 크롤링을 위한 -->
 	<dependency>
@@ -68,15 +70,6 @@
     	<version>1.6.2</version>
 	</dependency>
 <!-- 메일 전송 -->    
-	
-	
-<!-- 파일 업로드 
-	<dependency>
-   		<groupId>commons-io</groupId>
-    	<artifactId>commons-io</artifactId>
-    	<version>2.2</version>
-	</dependency>
--->
 
 
 <!-- 파일 업로드  -->
@@ -108,13 +101,11 @@
 
 
 <!-- Jackson -->
-	<!-- JSON 타입의 요청 파라미터를 Object로 변환  -->	
-	<!-- Object를 JSON 타입 문자열로 변환해서 응답  -->
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-databind</artifactId>
-	    <version>2.10.0</version>
-	</dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.9.5</version>
+    </dependency>
 <!-- Jackson -->
 
 
@@ -162,7 +153,13 @@
 	</dependency>
 <!-- mybatis와 spring 연동 -->
 
-
+<!-- oauth2 login -->
+   <dependency>
+		<groupId>org.springframework.social</groupId>
+   		<artifactId>spring-social-google</artifactId>
+		<version>1.0.0.RELEASE</version>
+   </dependency>
+   
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
