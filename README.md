@@ -53,10 +53,12 @@ Jquery:3.4 [항상 최신버전 유지]
 
 
 ## 전반적인 구조 
-![DataBase](https://user-images.githubusercontent.com/60380909/75510647-04e06900-5a2f-11ea-817e-24847937a1b9.png)  
+![DB](https://user-images.githubusercontent.com/60380909/76547862-3c402280-64d1-11ea-85a5-5f7223af30a8.png)
+
 
 [일반 사용자]  
 ![사용자](https://user-images.githubusercontent.com/60380909/76547535-af956480-64d0-11ea-84a6-c79dcc919a55.jpg)  
+
 
 [관리자]  
 ![관리자](https://user-images.githubusercontent.com/60380909/76547600-cd62c980-64d0-11ea-8a3f-fea0b874ccc5.jpg)
