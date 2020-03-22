@@ -1,9 +1,7 @@
 package com.test.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -66,18 +64,12 @@ public class BoardController {
 	
 	@Inject
 	private JavaMailSender mailSender;
-	
-	/*
-	@Inject
-	private GoogleConnectionFactory googleConnectionFactory;
-	
-	@Inject
-	private OAuth2Parameters googleOAuth2Parameters;
-	*/
+		
 	
 	// 글 목록 [통합 게시판]
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void  getList(Search search, Model model,HttpSession hs) throws Exception {
+		
 		// 검색
 		search.setKeyword(search.getKeyword());
 		search.setSearchType(search.getSearchType());
@@ -103,6 +95,7 @@ public class BoardController {
 	// 글 목록2 [해외축구, 국내축구, 자유게시판]
 	@RequestMapping(value="/Board_List/soccer", method = RequestMethod.GET)
 	public void  getoverseas_soccer(Search search, Model model, HttpSession hs) throws Exception {
+		
 		// 검색
 		search.setKeyword(search.getKeyword());
 		search.setSearchType(search.getSearchType());
@@ -240,23 +233,7 @@ public class BoardController {
 		UserCheck usercheck = new UserCheck();
 		String result = usercheck.User_Check(dto.getWriter(), loginInfo);	
 		if(result == "OK") {
-			
-			// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
-			service.deleteReplyBoard(dto.getDno());
-			
-			/*
-			//나의 컴퓨터를 서버로 이용할 때 저장공간에 있는 파일 삭제
-			List<String> deleteServerFile = service.deleteServer(dto.getDno());
-			for(int i = 0; i<deleteServerFile.size(); i++) {
-				String storedFileName = (String) deleteServerFile.get(i);			
-				File file = new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName);
-				if(file.exists() == true){
-					file.delete();
-
-				}
-			}
-			*/			
-			
+									
 			// 호스팅받은 서버를 이용할 때 파일 삭제
 			List<String> deleteServerFile = service.deleteServer(dto.getDno());
 			for(int i = 0; i<deleteServerFile.size(); i++) {
@@ -264,7 +241,6 @@ public class BoardController {
 				File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
 				if(file.exists() == true){
 					file.delete();
-
 				}
 			}
 						
@@ -281,14 +257,6 @@ public class BoardController {
 	// 로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String getLogin(HttpSession hs, Model model) throws Exception{
-		
-		/*
-		// 구글 code 발행을 위한 URL 생성 
-		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		
-		model.addAttribute("google_url", url);
-		*/
 		
 		// 로그인된 사용자가 누구 인지 확인
     	// "User"로 바인딩된 객체를 돌려준다. 그리고 그걸 원래상태인 UserDTO형태로 loginInfo에 저장한다.
@@ -310,18 +278,20 @@ public class BoardController {
 		// 세션을 가져온다.
 		HttpSession hs = req.getSession();
 		
-		// 가져온 아이디 비밀번호가 실제로 존재하는지 db에서 확인
+		// 가져온 아이디, 비밀번호가 실제로 존재하는지 DB에서 확인
 		UserDTO login = service1.login(userdto);
 		
 		if( login == null) {
-			return "no";
+			// 존재하지 않는 아이디
+			return "no";			
 		} else if ( login.getID().equals("admin")) {
-			//"User" 이라는 이름으로 login을 세션에 바인딩 시킨다. 
-			// 관리자의 로그인
-			hs.setAttribute("User", login);
-			return "admin";
+			// 관리자가 로그인
+			//"User" 이라는 이름으로 login을 세션에 바인딩 시킨다. 		
+			hs.setAttribute("User", login);			
+			return "admin";			
 		} else {
-			// 일반유저의 로그인
+			// 일반유저가 로그인
+			//"User" 이라는 이름으로 login을 세션에 바인딩 시킨다.			
 			hs.setAttribute("User", login);
 			return "yes";
 		}		
@@ -391,59 +361,42 @@ public class BoardController {
 	
 	// 이미지 업로드
 	@RequestMapping(value = "/ckUpload", method = RequestMethod.POST)
-	public void postCKEditorImgUpload(@RequestParam MultipartFile upload,
-									HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public void postCKEditorImgUpload(@RequestParam MultipartFile upload, 
+									   HttpServletResponse res) throws Exception {
 	 
 	 // 랜덤 문자 생성
-	 UUID uid = UUID.randomUUID();
+	 String random = UUID.randomUUID().toString().replace("-", "");
 	 
-	 OutputStream out = null;
-	 
-	 // 자바에서 웹으로 데이터를 출력하기 위해
-	 PrintWriter printWriter = null;
-	   
 	 // 인코딩
 	 res.setCharacterEncoding("utf-8");
 	 res.setContentType("text/html;charset=utf-8");
 	 
 	 try {
-	  // 파일 이름, 파일크기
+	  // 파일 이름 가져오기
 	  String fileName = upload.getOriginalFilename();
-	  byte[] bytes = upload.getBytes();
 
-	  /*
-	  // 나의 컴퓨터를 서버로 이용할 때
-	  String path = "C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources";
-	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;	  	
-	  */
-	  
 	  // 호스팅받은 서버를 이용할 때
 	  String path = "/hcw0609/tomcat/webapps/ROOT/resources";
-	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + uid + "_" + fileName;
+	  String ckUploadPath =  path + File.separator + "ckUpload" + File.separator + random + "_" + fileName;
 	 	    
-	  // 업로드 경로에  out에 저장된 데이터를 전송하고 초기화
-	  out = new FileOutputStream(new File(ckUploadPath));
-	  out.write(bytes);
-	  out.flush();
+	  // 지정된위치에 파일을 저장한다.
+	  File file = new File(ckUploadPath);
+	  upload.transferTo(file);
 	  
+	  // 자바에서 웹으로 데이터를 출력하기 위해
+	  PrintWriter printWriter = null;
 	  printWriter = res.getWriter();
-	  String fileUrl = "/ckUpload/" + uid + "_" + fileName;  // 작성화면
+	  String fileUrl = "/ckUpload/" + random + "_" + fileName;
 	  
-	  // json 데이터로 등록 아래와 같은 형태로 리턴이 나가야함.
-      // {"uploaded" : 1, "fileName" : "test.jpg", "url" : "/img/test.jpg"}
+      // {"uploaded" : 1, "fileName" : fileName , "url" : fileUrl}
       JsonObject json = new JsonObject();
       json.addProperty("uploaded", 1);
       json.addProperty("fileName", fileName);
-      json.addProperty("url", fileUrl);	  
-      
+      json.addProperty("url", fileUrl);	       
       printWriter.println(json);
        
-	 } catch (IOException e) { e.printStackTrace();
-	 } finally {
-		 try {
-			 if(out != null) { out.close(); }
-		 } catch(IOException e) { e.printStackTrace(); }
-	   }	 
+	 } catch (IOException e) { e.printStackTrace(); }
+	 
 	 return; 
 	}
 	
@@ -455,11 +408,6 @@ public class BoardController {
 				
 		String originalFileName = service.selectFileInfo(dto).getOrg_file_name();
 		String storedFileName = service.selectFileInfo(dto).getStored_file_name();
-		
-		/*
-		//파일을 저장했던 위치에서 첨부파일을 읽어 byte[]형식으로 변환한다. [나의 컴퓨터를 서버로 이용할 때]
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName));
-		*/
 			
 		// 호스팅받은 서버를 이용할 때
 		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName));
@@ -476,22 +424,14 @@ public class BoardController {
 	// 수정폼에서 서버에 있는 파일 삭제
 	@ResponseBody
 	@RequestMapping(value="/modifyDelete", method = RequestMethod.POST)
-	public void postModifyDelte(@RequestParam("tagid") int dno ) throws Exception {
+	public void postModifyDelte(@RequestParam("tagid") int file_no ) throws Exception {
 			
 		// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
-		String deleteServerFile = service.modifyDeleteServer(dno);
+		String deleteServerFile = service.modifyDeleteServer(file_no);
 		String storedFileName = deleteServerFile;	
-		
-		/*
-		//나의 컴퓨터를 서버로 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
-		File file = new File("C:\\Users\\han\\Documents\\workspace_01\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\han_Website\\resources\\mp_file\\"+storedFileName);   
-		*/
-		
-		
+					
 		// 호스팅받은 서버를 이용할 때 수정폼에서 저장공간에 있는 파일을 삭제
-		File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
-		
-		
+		File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);		
 		
 		// 파일이 존재한다면 삭제해라.
 		if(file.exists() == true){		
@@ -499,8 +439,7 @@ public class BoardController {
 		}
 		
 		// 수정폼에서 db에 있는 파일에 대한 정보를 삭제 
-		service.modifyDelete(dno);
-		
+		service.modifyDelete(file_no);
 	}
 	
 	
@@ -518,7 +457,7 @@ public class BoardController {
 		UserCheck usercheck = new UserCheck();
 		String result = usercheck.User_Check(loginInfo);	
 		
-		// 게시판 댓글 작성
+		// 댓글 작성 [게시글]
 		if ( dto2.getClub_name() == null ) {
 			if(result == "OK") {		
 				service.writeReply(dto);			
@@ -526,7 +465,7 @@ public class BoardController {
 			} else {
 				return "2";	
 			}	
-		// 축구 정보 댓글 작성
+		// 댓글 작성 [축구정보]
 		} else {
 			if(result == "OK") {		
 				service.soccer_writeReply(dto2);		
@@ -544,10 +483,10 @@ public class BoardController {
 	@RequestMapping(value="replyDelete", method = RequestMethod.POST)
 	public void replyDelete(ReplyDTO dto, Information_ReplyDTO dto2 ) throws Exception {
 		
-		// 게시글의 리플 삭제
+		// 리플 삭제 [게시글]
 		if (dto2.getClub_name() == null) {
 			service.deleteReply(dto);
-		// 축구 정보의 리플 삭제
+		// 리플 삭제 [축구정보]
 		} else {
 			service.soccer_deleteReply(dto2);
 		}
@@ -561,13 +500,14 @@ public class BoardController {
     public List rePlyList(@RequestParam(required=false) Integer dno, 
     					@RequestParam(required=false) String club_name, Model model) throws Exception{
         
-    	// 게시글 리플 리스트 가져오기
+    	// 리플 리스트 [게시글]
     	if( club_name == null) {
-    		// 가져온 리플 목록을 reply에 저장  		
+    		// 가져온 리플 리스트 reply에 저장  		
         	List<ReplyDTO> reply = service.commentList(dno);
             return service.commentList(dno);
-        // 축구 정보 리플 리스트 가져오기
+        //  리플 리스트 [축구정보]
     	} else {
+    		// 가져온 리플 리스트 reply에 저장  	
     		List<Information_ReplyDTO> reply = service.soccer_commentList(club_name);
     		return service.soccer_commentList(club_name);
     	}
@@ -580,10 +520,10 @@ public class BoardController {
     @RequestMapping(value="/replyUpdate",  method = RequestMethod.POST)
     private int replyUpdate( ReplyDTO dto, Information_ReplyDTO dto2  ) throws Exception{
     	
-    	// 게시글 리플 수정
+    	// 리플 수정 [게시글]
         if( dto2.getClub_name() == null) {
         	service.updateReply(dto);
-        // 축구 정보 리플 수정
+        // 리플 수정 [축구정보]
         } else {
         	service.soccer_updateReply(dto2);
         }       		
@@ -605,14 +545,11 @@ public class BoardController {
     		dice = 0;
     		return dice;
     	} else {   		            
-            // 보내는 사람의 이메일
-            String setfrom = "hcw0609@gamil.com";          
-            // 받는 사람의 이메일
-            String tomail = email;          
-            // 이메일 제목
-            String title = "회원가입 인증 이메일 입니다.";           
-            // 이메일 내용
-            String content = "인증 번호는 " + dice + " 입니다.";
+            
+            String setfrom = "hcw0609@gamil.com";            // 보내는 사람의 이메일               
+            String tomail = email;                           // 받는 사람의 이메일
+            String title = "회원가입 인증 이메일 입니다.";            // 이메일 제목
+            String content = "인증 번호는 " + dice + " 입니다.";   // 이메일 내용
             try {
                 MimeMessage message = mailSender.createMimeMessage();
                 MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -726,17 +663,7 @@ public class BoardController {
     	model.addAttribute("Champion", Champion);
     	model.addAttribute("Player_Info", Player_Info);
     	model.addAttribute("club_name", club_name);
-    	model.addAttribute("loginInfo",loginInfo);
-    	
-    	/*
-    	Soccer_Team_Info sti = new Soccer_Team_Info();	   	
-    	// 팀 정보
-    	JsonArray Team_Info =  sti.Team_Info(name);    	
-    	// 팀의 우승에 대한 정보 가져오기
-    	JsonArray Champion = sti.Champion(name);   	
-    	// 팀의 스쿼드에 대한 정보 
-    	JsonArray Player_Info = sti.Player_Info(name);
-    	*/   	
+    	model.addAttribute("loginInfo",loginInfo);	
     }
     
     // 축구 좋아요
@@ -877,10 +804,7 @@ public class BoardController {
     @ResponseBody
     @RequestMapping(value = "/admin_board_delete" , method=RequestMethod.POST)
     public void admin_delete( DbDTO dto) throws Exception{
-    	
-    	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제
-    	service.deleteReplyBoard(dto.getDno());
-    	
+    	  	
     	// 게시글 삭제
     	service.delete(dto.getDno());
     	   	  	
@@ -986,8 +910,7 @@ public class BoardController {
 		return all;
     }
     
-    
-    
+      
     // 구글 로그인 api
  	@RequestMapping(value="/redirect", method=RequestMethod.GET)
  	public void redirect(HttpServletRequest request, HttpServletResponse response ) throws Exception {
@@ -1000,10 +923,12 @@ public class BoardController {
  			System.out.println(e);
  		}
  		
+ 		// Email 값 가져오기
  		String email = Redirect.return_email;
  		
  		// 중복 이메일 확인
  		int i = service1.overLap_EMAIL(email);
+ 		
  		if(i != 0) {
  			PrintWriter out = response.getWriter();
  			response.setContentType("text/html; charset=UTF-8");
@@ -1024,13 +949,6 @@ public class BoardController {
  			out.close();
  		}				
  	}
-    
-    
-    @RequestMapping(value="/test", method=RequestMethod.GET)
-    public void test () {
-    	
-    }
- 
 }
 
 

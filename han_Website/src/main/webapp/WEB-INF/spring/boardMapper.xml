@@ -3,10 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Mapper">
 
-	<!-- 
-		#{변수명}  변수명은  jsp의 태그안에 있는 name에 맞추는게 아니다.
-	 -->
-
 	<!-- BOARD DTO -->
 	<!-- oracle db 게시물 목록
 	<select id="List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
@@ -36,7 +32,7 @@
 	
 	
 	
-	<!-- 마리아 db 게시물 목록 [카테고리]  -->
+	<!-- 마리아 db 게시물 목록 [카테고리별]  -->
 	<select id="Board_List" resultType="com.test.dto.DbDTO" parameterType="com.test.util.Search">		
 		SELECT * 		
 		FROM (	SELECT *  FROM han_board 
@@ -128,9 +124,7 @@
   		<if test="searchType=='ID' and keyword != null and keyword != '' ">where ID like CONCAT('%',#{keyword},'%')</if>
 	</sql>
 	<!-- BOARD DTO -->
-	
-	
-	
+		
 	
 	<!-- UserDTO -->
 	<!-- 회원가입	-->
@@ -246,15 +240,9 @@
 	</select>
 	
 	
-	<!-- db에 있는 파일에 대한 정보를 삭제 -->
-	<delete id="deleteFile" parameterType="int">
-		delete from mp_file where dno=#{dno}
-	</delete>	
-	
-	
 	<!-- 수정폼에서 db에 있는 파일에 대한 정보를 삭제 -->
 	<delete id="modifyDelete" parameterType="int">
-		delete from mp_file where file_no=#{dno}
+		delete from mp_file where file_no=#{file_no}
 	</delete>
 	
 	
@@ -262,20 +250,18 @@
 	<select id="modifyDeleteServer" resultType="String" parameterType="int">
 		select stored_file_name
 		from mp_file
-		where  file_no=#{dno}
+		where  file_no=#{file_no}
 	</select>
 	
 	
-	<!-- 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 -->
+	<!-- 글 삭제시 해당 글번호의 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 -->
 	<select id="deleteServer" resultType="String" parameterType="int">
 		select stored_file_name
 		from mp_file
 		where dno=#{dno}
 	</select>
 	<!-- File 관련 -->
-	
-	
-	
+		
 	
 	<!-- 리플 관련 -->
 	<!-- 리플 작성
@@ -286,56 +272,49 @@
 	 -->
 	 
 	
-	<!-- 마리아 db 리플 작성 -->
+	<!-- 마리아 db 리플 작성 [게시판] -->
 	<insert id="writeReply" parameterType="com.test.dto.ReplyDTO">
 		insert into board_reply( dno, content, writer, regdate)
 		values( #{dno}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
 	</insert>
 	
 	
-	<!-- 마리아 db 리플 작성 [축구정보 댓글]-->
+	<!-- 마리아 db 리플 작성 [축구정보]-->
 	<insert id="soccer_writeReply" parameterType="com.test.dto.Information_ReplyDTO">
 		insert into information_reply( club_name, content, writer, regdate)
 		values( #{club_name}, #{content} ,#{writer} ,DATE_FORMAT(CURRENT_TIMESTAMP, '%m.%d'))
 	</insert>
 	
 		
-	<!-- 리플 수정 -->
+	<!-- 리플 수정 [게시판] -->
 	<update id="updateReply" parameterType="com.test.dto.ReplyDTO">
 		update board_reply set content = #{content}
 		where rno = #{rno}
 	</update>
 	
 	
-	<!-- 축구 정보 리플 수정 -->
+	<!-- 리플 수정 [축구정보]-->
 	<update id="soccer_updateReply" parameterType="com.test.dto.Information_ReplyDTO">
 		update information_reply set content = #{content}
 		where rno = #{rno}
 	</update>
 
 
-	<!-- 리플 삭제 -->
+	<!-- 리플 삭제 [게시판] -->
 	<delete id="deleteReply" parameterType="com.test.dto.ReplyDTO">
 		delete from board_reply
 		where rno = #{rno}
 	</delete>
 	
 	
-	<!-- 축구 정보 리플 삭제 -->
+	<!-- 리플 삭제 [축구정보] -->
 	<delete id="soccer_deleteReply" parameterType="com.test.dto.Information_ReplyDTO">
 		delete from information_reply
 		where rno = #{rno}
 	</delete>
-	
-	
-	<!-- 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 -->
-	<delete id="deleteReplyBoard" parameterType="int">
-		delete from board_reply
-		where dno = #{dno}
-	</delete>
-	
-	
-	<!-- 리플 리스트  -->
+		
+		
+	<!-- 리플 리스트 [게시판]  -->
 	<select id="commentList" resultType="com.test.dto.ReplyDTO" parameterType="int">
         select *
         from board_reply
@@ -343,7 +322,7 @@
     </select>
     
     
-    <!-- 축구 정보 리플 리스트 -->
+    <!-- 리플 리스트 [축구정보] -->
     <select id="soccer_commentList" resultType="com.test.dto.Information_ReplyDTO" parameterType="String">
         select *
         from information_reply
@@ -351,14 +330,14 @@
     </select>
     
     
-    <!-- 전체 리플 카운트  -->
+    <!-- 전체 리플 카운트 [게시판] -->
    	<select id="reply_allcnt" resultType="int">
    		select count(*)
    		from board_reply
    	</select> 
     
     
-    <!-- 리플 카운트 -->
+    <!-- 리플 카운트 [게시판] -->
     <select id="reply_cnt" resultType="int" parameterType="int">
     	select count(*)
     	from board_reply
@@ -366,7 +345,7 @@
     </select>
     
     
-    <!-- 리플 카운트 -->
+    <!-- 리플 카운트 [축구정보]-->
     <select id="soccer_reply_cnt" resultType="int" parameterType="String">
     	select count(*)
     	from information_reply
@@ -374,19 +353,19 @@
     </select>
     
     
-    <!-- 리플 카운트한 결과를 게시글 테이블에 저장 -->
+    <!-- 리플 카운트한 결과를 저장 [게시판]-->
     <update id="reply_cnt_store" parameterType="com.test.dto.DbDTO">
     	update han_board set reply_cnt=#{reply_cnt} where dno=#{dno}
     </update>
     
     
-    <!-- 리플 카운트한 결과를 축구 정보 테이블에 저장 -->
+    <!-- 리플 카운트한 결과를 저장 [축구정보] -->
     <update id="soccer_reply_cnt_store" parameterType="com.test.dto.ClubDTO">
     	update club set club_reply_cnt=#{club_reply_cnt} where club_name=#{club_name}
     </update>
     
     
-    <!-- 날짜별 작성된 리플  -->
+    <!-- 날짜별 작성된 리플 [게시판] -->
     <select id="reply_count_day" resultType="int" parameterType="String">
     	select count(*) from board_reply where regdate =#{regdate}
     </select>
@@ -414,9 +393,7 @@
     	where dno = #{dno}
     </select>
        
-    
-    
-    
+        
     <!-- ClubDTO -->
     <!-- 클럽 리스트 가져오기  -->
     <select id="Club_list" resultType="com.test.dto.ClubDTO">

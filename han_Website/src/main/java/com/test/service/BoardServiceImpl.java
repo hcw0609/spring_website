@@ -15,7 +15,7 @@ import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
 import com.test.dto.Information_ReplyDTO;
 import com.test.dto.ReplyDTO;
-import com.test.util.FileUtils;
+import com.test.util.File_Upload;
 import com.test.util.Search;
 import com.test.util.Thumbnail;
 
@@ -25,14 +25,14 @@ public class BoardServiceImpl implements BoardService{
 	@Inject
 	private BoardDAO dao;
 		
-	// 글 목록
+	// 게시판 글 목록 [전체]
 	@Override
 	public List<DbDTO> list(Search search) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.list(search);
 	}
 	
-	// 글 목록2
+	// 게시판 글 목록 [카테고리별]
 	@Override
 	public List<DbDTO> Board_List(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -63,10 +63,9 @@ public class BoardServiceImpl implements BoardService{
 		
 		// 글 생성
 		dao.create(dto);				
-			
-		
+					
 		// 파일 업로드
-		FileUtils fileutils = new FileUtils();
+		File_Upload fileutils = new File_Upload();
 		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(dto, mpRequest);
 		int size = list.size();
 				
@@ -102,9 +101,6 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		// 글 삭제
 		dao.delete(dno);	
-		
-		// db에 있는 파일에 대한 정보를 삭제 
-		dao.deleteFile(dno);
 	}
 
 	
@@ -131,7 +127,7 @@ public class BoardServiceImpl implements BoardService{
 		dao.modify(dto);	
 		
 		// 파일 업로드
-		FileUtils fileutils = new FileUtils();
+		File_Upload fileutils = new File_Upload();
 		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(dto, mpRequest);
 		int size = list.size();
 		
@@ -156,14 +152,14 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 총 갯수 [전체]
+	// 게시글의 총 갯수 [전체]
 	@Override
 	public int getBoardListCnt(Search search) throws Exception {
 		// TODO Auto-generated method stub		
 		return dao.getBoardListCnt(search);
 	}
 	
-	// 총 갯수 [카테고리 별]
+	// 게시글의 총 갯수 [카테고리 별]
 	@Override
 	public int getBoardListCnt2(Search search) throws Exception {
 		// TODO Auto-generated method stub		
@@ -196,21 +192,21 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
 	@Override
-	public void modifyDelete(int dno) throws Exception {
+	public void modifyDelete(int file_no) throws Exception {
 		// TODO Auto-generated method stub
-		dao.modifyDelete(dno);
+		dao.modifyDelete(file_no);
 	}
 	
 	
 	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
 	@Override
-	public String modifyDeleteServer(int dno) throws Exception {
+	public String modifyDeleteServer(int file_no) throws Exception {
 		// TODO Auto-generated method stub
-		return dao.modifyDeleteServer(dno);
+		return dao.modifyDeleteServer(file_no);
 	}
 
 	
-	// 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
+	// 글 삭제시 해당 글번호의 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	@Override
 	public List<String> deleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -218,7 +214,7 @@ public class BoardServiceImpl implements BoardService{
 		return dao.deleteServer(dno);
 	}
 
-	// 리플 작성
+	// 리플 작성 [게시글]
 	@Override
 	public void writeReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -235,7 +231,7 @@ public class BoardServiceImpl implements BoardService{
 		dao.reply_cnt_store(dto2);
 	}
 	
-	// 축구 정보 리플 작성 
+	// 리플 작성  [축구정보]
 	@Override
 	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -253,14 +249,14 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	
-	// 리플 수정
+	// 리플 수정 [게시글]
 	@Override
 	public void updateReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		dao.updateReply(dto);
 	}
 	
-	// 축구 정보 리플 수정
+	// 리플 수정 [축구정보]
 	@Override
 	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -268,7 +264,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
-	// 리플 삭제
+	// 리플 삭제 [게시글]
 	@Override
 	public void deleteReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -285,7 +281,7 @@ public class BoardServiceImpl implements BoardService{
 		dao.reply_cnt_store(dto2);
 	}
 	
-	// 축구 정보 리플 삭제
+	// 리플 삭제 [축구정보]
 	@Override
 	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -301,13 +297,7 @@ public class BoardServiceImpl implements BoardService{
 		dao.soccer_reply_cnt_store(dto2);		
 	}
 
-	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
-	@Override
-	public void deleteReplyBoard(int dno) throws Exception {
-		dao.deleteReplyBoard(dno);
-	}
-
-	// 전체 리플 카운트 
+	// 전체 리플 카운트 [게시글]
 	@Override
 	public int reply_allcnt() throws Exception {
 		// TODO Auto-generated method stub
@@ -315,7 +305,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	
-	// 리플 리스트
+	// 리플 리스트 [게시글]
 	@Override
 	public List<ReplyDTO> commentList(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -323,7 +313,7 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	
-	// 축구 정보 리플 리스트
+	// 리플 리스트 [축구정보]
 	@Override
 	public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception {
 		// TODO Auto-generated method stub

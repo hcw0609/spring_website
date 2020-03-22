@@ -24,7 +24,7 @@ public class BoardDAOImpl implements BoardDAO {
 	private static String namespace = "Mapper";
 	
 	
-	// 게시물 목록
+	// 게시판 글 목록 [전체]
 	@Override
 	public List<DbDTO> list(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -33,7 +33,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 게시물 목록2
+	// 게시판 글 목록 [카테고리별]
 	@Override
 	public List<DbDTO> Board_List(Search search) throws Exception {
 		// TODO Auto-generated method stub
@@ -137,38 +137,30 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// db에 있는 파일에 대한 정보를 삭제 
-	@Override
-	public void deleteFile(int dno) throws Exception {
-		// TODO Auto-generated method stub
-		sql.update(namespace + ".deleteFile", dno);
-	}
-
-
 	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
 	@Override
-	public void modifyDelete(int dno) throws Exception {
+	public void modifyDelete(int file_no) throws Exception {
 		// TODO Auto-generated method stub
-		sql.update(namespace + ".modifyDelete", dno);
+		sql.update(namespace + ".modifyDelete", file_no);
 	}
 	
 	
 	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
 	@Override
-	public String modifyDeleteServer(int dno) throws Exception {
+	public String modifyDeleteServer(int file_no) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectOne(namespace + ".modifyDeleteServer", dno);
+		return sql.selectOne(namespace + ".modifyDeleteServer", file_no);
 	}
 	
 
-	// 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
+	// 글 삭제시 해당 글번호의 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	@Override
 	public List<String> deleteServer(int dno) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectList(namespace + ".deleteServer", dno);
 	}
 	
-	// 리플 작성
+	// 리플 작성 [게시글]
 	@Override
 	public void writeReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -176,7 +168,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 축구 정보 리플 작성
+	// 리플 작성 [축구정보]
 	@Override
 	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -184,7 +176,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 
-	// 리플 수정
+	// 리플 수정 [게시글]
 	@Override
 	public void updateReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -192,7 +184,7 @@ public class BoardDAOImpl implements BoardDAO {
 		
 	}
 	
-	// 축구 정보 리플 수정
+	// 리플 수정 [축구정보]
 	@Override
 	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -201,7 +193,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	
-	// 리플 삭제
+	// 리플 삭제 [게시글]
 	@Override
 	public void deleteReply(ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
@@ -209,23 +201,14 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 축구 정보 리플 삭제
+	// 리플 삭제 [축구정보]
 	@Override
 	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		sql.delete(namespace +".soccer_deleteReply", dto);
 	}
 	
-
-	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
-	@Override
-	public void deleteReplyBoard(int dno) throws Exception {
-		// TODO Auto-generated method stub
-		sql.delete(namespace + ".deleteReplyBoard", dno);
-	}
-
-
-	// 리플 리스트
+	// 리플 리스트 [게시글]
 	@Override
 	public List<ReplyDTO> commentList(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -233,7 +216,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
-	// 축구 정보 리플 리스트
+	// 리플 리스트 [축구정보]
 	@Override
 	public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception {
 		// TODO Auto-generated method stub
@@ -241,7 +224,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	
-	// 전체 리플 카운트
+	// 전체 리플 카운트 [게시글]
 	@Override
 	public int reply_allcnt() throws Exception {
 		// TODO Auto-generated method stub
@@ -249,7 +232,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 		
 	
-	// 리플 카운트
+	// 리플 카운트 [게시글]
 	@Override
 	public int reply_cnt(int dno) throws Exception {
 		// TODO Auto-generated method stub
@@ -257,7 +240,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	
-	// 축구 정보 리플 카운트
+	// 리플 카운트 [축구정보]
 	@Override
 	public int soccer_reply_cnt(String club_name) throws Exception {
 		// TODO Auto-generated method stub

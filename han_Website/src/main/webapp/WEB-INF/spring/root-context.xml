@@ -37,7 +37,7 @@
  		<property name="username" value="root" />
  		<property name="password" value="terror00" />
 	</bean>	
-	 -->
+	-->
 		
 	<!-- Oracle DB 연동 
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">

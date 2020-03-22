@@ -15,7 +15,7 @@ public interface BoardDAO {
 	// 게시판 글 목록 [전체]
 	public List<DbDTO> list(Search search) throws Exception;
 	
-	// 게시판 글 목록 [카테고리]
+	// 게시판 글 목록 [카테고리별]
 	public List<DbDTO> Board_List(Search search) throws Exception;
 	
 	// 글 생성
@@ -51,62 +51,56 @@ public interface BoardDAO {
 	// 파일 다운로드
 	public FileDTO selectFileInfo(FileDTO dto) throws Exception;
 	
-	// db에 있는 파일에 대한 정보를 삭제 
-	public void deleteFile (int dno) throws Exception;
-	
 	// 수정폼에서 db에 있는 파일에 대한 정보를 삭제
-	public void modifyDelete (int dno) throws Exception;
+	public void modifyDelete (int file_no) throws Exception;
 	
 	// 수정폼에서 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴
-	public String modifyDeleteServer(int dno) throws Exception;
+	public String modifyDeleteServer(int file_no) throws Exception;
 	
-	// 저저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
+	// 글 삭제시 해당 글번호의 저장공간에 있는 파일을 삭제하기 위해 저장된파일의 이름을 리턴 
 	public List<String> deleteServer(int dno) throws Exception;
 
-	// 리플 작성
+	// 리플 작성 [게시글]
 	public void writeReply(ReplyDTO dto) throws Exception;
 	
-	// 축구 정보 리플 작성 
+	// 리플 작성 [축구정보]
 	public void soccer_writeReply(Information_ReplyDTO dto) throws Exception;
 	
-	// 리플 수정
+	// 리플 수정 [게시글]
 	public void updateReply(ReplyDTO dto) throws Exception;
 	
-	// 축구 정보 리플 수정
+	// 리플 수정 [축구정보]
 	public void soccer_updateReply(Information_ReplyDTO dto) throws Exception;
 	
-	// 리플 삭제
+	// 리플 삭제 [게시글]
 	public void deleteReply(ReplyDTO dto) throws Exception;
 	
-	// 축구 정보 리플 삭제
+	// 리플 삭제 [축구정보]
 	public void soccer_deleteReply(Information_ReplyDTO dto) throws Exception;
-	
-	// 게시글 삭제시 해당 게시물에 작성된 리플도 같이 삭제 
-	public void deleteReplyBoard(int dno) throws Exception;
-	
-	// 리플 리스트
+		
+	// 리플 리스트 [게시글]
     public List<ReplyDTO> commentList(int dno) throws Exception;
     
-    // 축구 정보 리플 리스트
+    // 리플 리스트 [축구정보]
     public List<Information_ReplyDTO> soccer_commentList(String club_name) throws Exception;
     
-    // 전체 리플 카운트
+    // 전체 리플 카운트 [게시글]
     public int reply_allcnt() throws Exception;
     
-    // 리플 카운트
+    // 리플 카운트 [게시글]
     public int reply_cnt(int dno) throws Exception;
     
-    // 축구 정보 리플 카운트
+    // 리플 카운트 [축구정보]
     public int soccer_reply_cnt(String club_name) throws Exception;
-    
-    // 날짜별 작성된 리플
-    public int reply_count_day(String str) throws Exception;
-    
-    // 리플 카운트한 결과를 게시글 테이블에 저장
+     
+    // 리플 카운트한 결과를 저장 [게시판]
     public void reply_cnt_store(DbDTO dto2) throws Exception;
     
-    // 리플 카운트한 결과를 축구 정보 테이블에 저장
+    // 리플 카운트한 결과를 저장 [축구정보]
     public void soccer_reply_cnt_store(ClubDTO dto) throws Exception;
+    
+    // 날짜별 작성된 리플 [게시글]
+    public int reply_count_day(String str) throws Exception;
 
     // 작성중인 게시물의 첨부파일 존재 유무 [YES]
     public void file_yes(int dno) throws Exception;
@@ -116,7 +110,5 @@ public interface BoardDAO {
  
     // 이미 작성된 게시물의 첨부파일 존재 유무
     public int file_exist(int dno) throws Exception;
-    
-   
     
 }
