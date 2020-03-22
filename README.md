@@ -22,7 +22,7 @@ http://hcw0609.cafe24.com
     (1) 네이버 스포츠 : 리그 순위 가져오기  
     (2) 나무위키 : 팀정보 가져오기  
 14. Chart.js를 이용한 방문자, 날짜별 게시글, 리플 통계 
-15. 완벽하진 않지만 어느정도의 모바일호환  
+15. Google 로그인 api  
 
 ## 사용 기술 
 1. FrameWork  
@@ -53,9 +53,17 @@ Jquery:3.4 [항상 최신버전 유지]
 
 
 ## 전반적인 구조 
-![DataBase](https://user-images.githubusercontent.com/60380909/75510647-04e06900-5a2f-11ea-817e-24847937a1b9.png)  
-  
-![전반적인구조](https://user-images.githubusercontent.com/60380909/75451884-a2e31d80-59b4-11ea-8ed5-52243eff25bd.png)
+![DB](https://user-images.githubusercontent.com/60380909/76547862-3c402280-64d1-11ea-85a5-5f7223af30a8.png)
+
+
+[일반 사용자]  
+![사용자](https://user-images.githubusercontent.com/60380909/76547535-af956480-64d0-11ea-84a6-c79dcc919a55.jpg)  
+
+
+[관리자]  
+![관리자](https://user-images.githubusercontent.com/60380909/76547600-cd62c980-64d0-11ea-8a3f-fea0b874ccc5.jpg)
+
+
 
 
 
@@ -98,4 +106,5 @@ Jquery:3.4 [항상 최신버전 유지]
 2020-02-17 : Chart.js를 이용하여 방문자 수의 그래프화  + 최근 일주일 만 보여준다.  
 2020-02-19 : Chart.js를 이용하여 날짜별 게시글, 리플수 + 최근 일주일 만 보여준다.  
 2020-02-20 : 불필요한 코드, 전반적인 디자인 다듬기  
+2020-03-04 ~ 2020-03-06: 구글 아이디로 로그인하여 이메일인증없이 회원가입  
 
