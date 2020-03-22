@@ -1,10 +1,8 @@
 # Spring Website  
 http://hcw0609.cafe24.com  
 하나의 커뮤니티 사이트에서 파싱으로 가져온 데이터나 api를 이용하여 사이트의 이동 없이 축구정보를 파악할 수가 있다.  
-관리자 아이디: admin  
-관리자 패스워드: admin  
-일반유저 아이디: nonam1, noname2, noname3, noname4, noname5, noname6  
-일반유저 패스워드: 1,2,3,4,5,6  
+관리자 아이디: admin 관리자 패스워드: admin  
+일반유저 아이디: nonam1, noname2, noname3, noname4, noname5, noname6 일반유저 패스워드: 1,2,3,4,5,6    
 
 ## 주요기능
 1. 게시판[CURD] 
