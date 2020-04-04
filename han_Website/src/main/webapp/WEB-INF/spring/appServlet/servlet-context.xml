@@ -25,6 +25,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<!-- Controller 찾아라 -->
 	<context:component-scan base-package="com.test.controller" />
 	
 	<!-- ck에디터 파일 업로드 경로 -->
@@ -33,38 +35,13 @@
 	<!-- Image 파일 경로 -->
 	<resources mapping="/Image/**" location="/resources/Image/"/>
 	
-	<!-- Image 파일 경로 -->
+	<!-- 파일 경로 -->
 	<resources mapping="/mp_file/**" location="/resources/mp_file/"/>
 
 	<!-- 파일 업로드 MultipartResolver 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		  <beans:property name="maxUploadSize" value="10000000"/>
 	</beans:bean>
-	
-	 
-	<beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
-		<beans:constructor-arg value="1012262435218-7ic6deilo38eqne30sokathreprnis7v.apps.googleusercontent.com" />
-		<beans:constructor-arg value="S6nEGP_tj8JSJHdkxtYUbBnS" />
-	</beans:bean>
-	    
-	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
-		<beans:property name="scope" value="https://www.googleapis.com/auth/userinfo.email" />
-		<beans:property name="redirectUri" value="http://localhost:8080/board/callback" />
-	</beans:bean>
-	
-	
-	<!--  채팅   	    
-    <websocket:handlers>
-        <websocket:mapping handler="echoHandler" path="/board/echo-ws" />
-      
-        <websocket:handshake-interceptors>
-	       <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-		</websocket:handshake-interceptors>
-	
-    </websocket:handlers>
-    
-    <beans:bean id="echoHandler" class="com.test.util.EchoHandler"/>
-	-->
 	
 		
 </beans:beans>

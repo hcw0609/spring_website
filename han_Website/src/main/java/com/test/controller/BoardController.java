@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.test.dto.ClubDTO;
 import com.test.dto.DbDTO;
 import com.test.dto.FileDTO;
@@ -383,17 +383,14 @@ public class BoardController {
 	  File file = new File(ckUploadPath);
 	  upload.transferTo(file);
 	  
-	  // 자바에서 웹으로 데이터를 출력하기 위해
+	  // 자바에서 웹으로 텍스트로 응답하기 위해
 	  PrintWriter printWriter = null;
 	  printWriter = res.getWriter();
 	  String fileUrl = "/ckUpload/" + random + "_" + fileName;
 	  
+	  // 응답을 Json 형태로 리턴해주어야 한다.
       // {"uploaded" : 1, "fileName" : fileName , "url" : fileUrl}
-      JsonObject json = new JsonObject();
-      json.addProperty("uploaded", 1);
-      json.addProperty("fileName", fileName);
-      json.addProperty("url", fileUrl);	       
-      printWriter.println(json);
+	  printWriter.println("{\"filename\" : \""+fileName+"\", \"uploaded\" : 1, \"url\":\""+fileUrl+"\"}");
        
 	 } catch (IOException e) { e.printStackTrace(); }
 	 
@@ -410,8 +407,8 @@ public class BoardController {
 		String storedFileName = service.selectFileInfo(dto).getStored_file_name();
 			
 		// 호스팅받은 서버를 이용할 때
-		byte fileByte[] = org.apache.commons.io.FileUtils.readFileToByteArray(new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName));
-					
+		byte fileByte[] = FileUtils.readFileToByteArray(new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName));
+						
 		res.setContentType("application/octet-stream");
 		res.setContentLength(fileByte.length);
 		res.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(originalFileName, "UTF-8")+"\";");
@@ -618,13 +615,6 @@ public class BoardController {
 		} 	
     } 
     
-    /*
-    // chat
-    @RequestMapping(value = "/chat" , method=RequestMethod.GET)
-    public void Chat() throws Exception {
-    	
-    }
-    */
     
     // 축구 팀 리스트
     @RequestMapping(value = "/Club_Info" , method=RequestMethod.GET)
@@ -804,7 +794,17 @@ public class BoardController {
     @ResponseBody
     @RequestMapping(value = "/admin_board_delete" , method=RequestMethod.POST)
     public void admin_delete( DbDTO dto) throws Exception{
-    	  	
+    	
+    	// 호스팅받은 서버를 이용할 때 파일 삭제
+    	List<String> deleteServerFile = service.deleteServer(dto.getDno());
+    		for(int i = 0; i<deleteServerFile.size(); i++) {
+    			String storedFileName = (String) deleteServerFile.get(i);			
+    				File file = new File("/hcw0609/tomcat/webapps/ROOT/resources/mp_file/"+storedFileName);
+    				if(file.exists() == true){
+    					file.delete();
+    				}
+    		}
+    			
     	// 게시글 삭제
     	service.delete(dto.getDno());
     	   	  	
@@ -917,7 +917,7 @@ public class BoardController {
  		
  		try {
  			Redirect redirect = new Redirect();
- 			redirect.doPost(request, response);
+ 			redirect.google_login(request, response);
  		} catch (Exception e) {
  			// TODO: handle exception
  			System.out.println(e);

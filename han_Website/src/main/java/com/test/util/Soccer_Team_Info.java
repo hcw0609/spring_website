@@ -30,31 +30,31 @@ public class Soccer_Team_Info {
 		int i = 0;
 				
 		if (name.equals("레알마드리드")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 7;
 			i = 19;
 		} else if (name.equals("fc바르셀로나")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
 			i = 18;
 		} else if (name.equals("아틀레티코 마드리드")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
 			teamcode = 6;
 			i = 20;
 		} else if (name.equals("리버풀fc")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
 			i = 17;
 		} else if (name.equals("첼시FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 6;
 			i = 25;
 		} else if (name.equals("아스날 FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
 			teamcode = 6;
 			i = 21;
 		} else if (name.equals("맨시티")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 7;
 			i = 21;
 		}
@@ -120,41 +120,42 @@ public class Soccer_Team_Info {
 		int index_jsonstr = 0;
 		
 		if( name.equals("레알마드리드") ) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3) > div > div > div:nth-child(30) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(30) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
 		} else if( name.equals("fc바르셀로나")) {			
-			name= "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3) > div > div > div:nth-child(14) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
+			name= "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(14) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
 		} else if ( name.equals("아틀레티코 마드리드")) {
-			name="#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2) > div > div > div:nth-child(56) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name="#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(56) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 2;
 		} else if ( name.equals("리버풀fc")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3) > div > div > div:nth-child(84) > div.wiki-table-wrap.table-center > table > tbody > tr:nth-child(2) > td > div > div > dl > dd > div > div > table > tbody"; 
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(78) > div.wiki-table-wrap.table-center > table > tbody > tr:nth-child(2) > td > div > div > dl > dd > div > div > table > tbody"; 
 			start = 0;
 			play_num = start;
 			country = 3;
 		} else if (name.equals("첼시FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3) > div > div > div:nth-child(54) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(54) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 1;
 			play_num = start;
 			country = 5;
 		} else if (name.equals("아스날 FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2) > div > div > div:nth-child(50) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div > div > div:nth-child(48) > div.wiki-table-wrap > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div > table > tbody";
 			start = 0;
 			play_num = start;
 			country = 2;
 		} else if (name.equals("맨시티")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3) > div > div > div:nth-child(36) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3) > div > div > div:nth-child(36) > div > table > tbody > tr:nth-child(2) > td > div > dl > dd > div > div.wiki-table-wrap.table-center > table > tbody";
 			start = 1;
 			play_num = start;
-			country = 2;
+			country = 2;			
 		}
+		
 		
 		breakOut :
 		while (true) {
@@ -259,7 +260,9 @@ public class Soccer_Team_Info {
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(json_str);	
 		
 		System.out.println(jsonArray);
+		
 		return jsonArray;	
+		
 	}
 
 	
@@ -278,25 +281,25 @@ public class Soccer_Team_Info {
 		int i = 3;
 		
 		if (name.equals("레알마드리드")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 7;
 		} else if (name.equals("fc바르셀로나")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
 		} else if (name.equals("아틀레티코 마드리드")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
 			teamcode = 6;
 		} else if (name.equals("리버풀fc")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 5;
 		} else if (name.equals("첼시FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 6;
 		} else if (name.equals("아스날 FC")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(2)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2)";
 			teamcode = 6;
 		} else if (name.equals("맨시티")) {
-			name = "#app > div > div:nth-child(2) > article > div:nth-child(6) > div:nth-child(3)";
+			name = "#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(3)";
 			teamcode = 7;
 		}
 
@@ -358,9 +361,9 @@ public class Soccer_Team_Info {
 	public static void main(String[] args) throws Exception {
 
 		Soccer_Team_Info soccer_team_info = new Soccer_Team_Info();		
-		soccer_team_info.Team_Info("맨시티");
-		soccer_team_info.Player_Info("맨시티");
-		soccer_team_info.Champion("맨시티");
+		soccer_team_info.Team_Info("레알마드리드");
+		soccer_team_info.Player_Info("레알마드리드");
+		soccer_team_info.Champion("레알마드리드");
 		//soccer_team_info.aaa();
 	}
 	

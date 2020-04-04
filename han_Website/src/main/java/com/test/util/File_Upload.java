@@ -38,7 +38,7 @@ public class File_Upload {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		while(iterator.hasNext()) {
-			// iterator에 저장된 값은 하나씩 꺼내서 값에 해당하는 결과를 multipartFile에 저장한다.
+			// iterator.next()를 키값으로 하여 하나씩 꺼내서 키값에 해당하는 결과를 multipartFile에 저장한다.
 			multipartFile = mpRequest.getFile(iterator.next());
 			if(multipartFile.isEmpty() == false) {
 				

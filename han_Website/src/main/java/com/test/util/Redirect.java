@@ -8,22 +8,17 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.test.dto.Token;
 
-public class Redirect extends HttpServlet {
+public class Redirect{
 	
 	public static String return_email = "";
 	
-	public Redirect() {
-		super();
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void google_login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String code = request.getParameter("code");
 		String query = "code=" + code;
@@ -48,7 +43,7 @@ public class Redirect extends HttpServlet {
 		// 구한 Email을 변수에 저장
 		return_email = real_email;
 	}
-	
+		
 	// 나의 정보를 얻기위해	
 	private String getHttpConnection(String uri) throws ServletException, IOException {
 		
@@ -118,11 +113,5 @@ public class Redirect extends HttpServlet {
 		
 		return email;
 	}
-	
-	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	
 }
 
